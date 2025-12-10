@@ -255,10 +255,10 @@ header > h1 {
   max-width: 1300px;
   margin: 24px auto;
   padding: 22px 28px;
-  background-color: #ffffff;
+  background-color: #fdfefe;
   border-radius: 16px;
-  border: 1px solid var(--gris-borde);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e0e7ef;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 }
 
 /* Acordeón de Cargue de Archivos */
@@ -473,6 +473,12 @@ input[type="file"]::file-selector-button {
 .mensaje-archivo::before {
   content: "✔";
   font-size: 14px;
+}
+
+.nota-archivo {
+  margin: 6px 0 4px;
+  font-size: 12px;
+  color: var(--texto-secundario);
 }
 
 /* ================= TABS ================= */
@@ -1450,9 +1456,9 @@ tbody tr:nth-child(odd) {
 .ficha-card {
   background-color: #ffffff;
   border-radius: 14px;
-  border: 1px solid var(--gris-borde);
+  border: 1px solid #e4e9f2;
   padding: 14px 18px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
 }
 
 /* Etiqueta pequeña arriba de cada tarjeta */
@@ -1564,6 +1570,27 @@ tbody tr:nth-child(odd) {
 
 .ficha-fecha-icon {
   font-size: 15px;
+}
+
+.ficha-tiempo-restante {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--texto-secundario);
+}
+
+.ficha-tiempo-label {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ficha-tiempo-value {
+  font-weight: 700;
+  color: var(--texto-principal);
+  font-size: 13px;
 }
 
 /* ========= Overrides para #nombrePrograma y #codigoFicha
@@ -2368,7 +2395,8 @@ tr.no-programada td {
   <div id="accordionCargueBody" class="acordeon-body">
     <!-- ARCHIVO 1 -->
     <div id="sectionFile1">
-      <h2>1) Cargar Archivo de Instructores (XLS/XLSX)</h2>
+      <h2>Cargar Archivo de Instructores (XLS/XLSX)</h2>
+      <p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular) › Gestion de Ambientes › Instructores › Reporte de Instructores por Ficha.</em></p>
       <input type="file" id="excelFile1" accept=".xls,.xlsx" />
       <br /><br />
       <button id="btnProcesar1" class="btnEstilo">Procesar Archivo 1</button>
@@ -2377,7 +2405,8 @@ tr.no-programada td {
 
     <!-- ARCHIVO 2 -->
     <div id="sectionFile2" style="display: none;">
-      <h2>2) Cargar Archivo de Juicios Evaluativos (XLS/XLSX)</h2>
+      <h2>Cargar Archivo de Juicios Evaluativos (XLS/XLSX)</h2>
+      <p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular o Instructor) › Ejecucion de la formacion › Reportes › Reportes de Juicio de Evaluacion.</em></p>
       <input type="file" id="excelFile2" accept=".xls,.xlsx" />
       <br /><br />
       <button id="btnProcesar2" class="btnEstilo">Procesar Archivo 2</button>
@@ -2386,10 +2415,11 @@ tr.no-programada td {
 
     <!-- ARCHIVO 3 -->
     <div id="sectionFile3" style="display: none;">
-      <h2>3) Cargar Archivo de Horas Diseño (XLS/XLSX)</h2>
+      <h2>Cargar Archivo de Horas Diseño (XLS/XLSX)</h2>
       <input type="file" id="archivoDiseno" accept=".xls,.xlsx" />
       <br /><br />
       <button id="btnCargarDiseno" class="btnEstilo">Procesar Archivo 3</button>
+      <p class="nota-archivo"><em>Descargar desde: <a href="https://acortar.link/p1cWdD" target="_blank" rel="noopener noreferrer">https://acortar.link/p1cWdD</a></em></p>
       <div id="mensajeArchivo3" class="mensaje-archivo"></div>
     </div>
   </div>
@@ -2444,7 +2474,7 @@ tr.no-programada td {
           <div class="ficha-fecha">
             <span class="ficha-fecha-label">FECHA INICIO</span>
             <span class="ficha-fecha-value">
-              <span class="ficha-fecha-icon">📅</span>
+              <span class="ficha-fecha-icon" aria-hidden="true">📅</span>
               <span id="fechaInicioLectiva"></span>
             </span>
           </div>
@@ -2454,10 +2484,15 @@ tr.no-programada td {
           <div class="ficha-fecha">
             <span class="ficha-fecha-label">FECHA FIN</span>
             <span class="ficha-fecha-value">
-              <span class="ficha-fecha-icon">📅</span>
+              <span class="ficha-fecha-icon" aria-hidden="true">📅</span>
               <span id="fechaFinLectiva"></span>
             </span>
           </div>
+        </div>
+
+        <div class="ficha-tiempo-restante">
+          <span class="ficha-tiempo-label">Tiempo restante</span>
+          <span class="ficha-tiempo-value" id="tiempoRestanteLectiva">-</span>
         </div>
       </div>
 
@@ -2469,7 +2504,7 @@ tr.no-programada td {
           <div class="ficha-fecha">
             <span class="ficha-fecha-label">FECHA INICIO</span>
             <span class="ficha-fecha-value">
-              <span class="ficha-fecha-icon">👥</span>
+              <span class="ficha-fecha-icon" aria-hidden="true">👥</span>
               <span id="fechaInicioProductiva"></span>
             </span>
           </div>
@@ -2479,10 +2514,15 @@ tr.no-programada td {
           <div class="ficha-fecha">
             <span class="ficha-fecha-label">FECHA FIN</span>
             <span class="ficha-fecha-value">
-              <span class="ficha-fecha-icon">🚩</span>
+              <span class="ficha-fecha-icon" aria-hidden="true">🚩</span>
               <span id="fechaFinProductiva"></span>
             </span>
           </div>
+        </div>
+
+        <div class="ficha-tiempo-restante">
+          <span class="ficha-tiempo-label">Tiempo restante</span>
+          <span class="ficha-tiempo-value" id="tiempoRestanteProductiva">-</span>
         </div>
       </div>
     </div>
@@ -3971,13 +4011,13 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
   }
   th, td {
     border: 1px solid #000;
-    padding: 2px 4px;
+    padding: 12px 4px;
     text-align: center;
     vertical-align: middle;
   }
   th.col-firma,
   td.col-firma {
-    width: 850px; /* ajusta este valor a lo que necesites */
+    width: 250px; /* ajusta este valor a lo que necesites */
   }
 
   th {
@@ -3986,19 +4026,32 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
   /* Ancho de las columnas de competencias */
   .col-competencia {
     width: 10px;   /* ajusta este valor según lo que necesites */
+    writing-mode: vertical-rl; /* texto vertical */
+    text-orientation: mixed;
+    white-space: nowrap;
+    padding: 6px 2px;
   }
 
   .grupo-trans {
     background-color: #ddebf7;
+    min-width: 30px
   }
   .grupo-ingles {
     background-color: #e2efda;
+    min-width: 30px
   }
   .grupo-tec {
     background-color: #fce4d6;
+    min-width: 30px
   }
   .col-nombre {
     text-align: left;
+    font-size: 9pt;
+    min-width: 200px;
+  }
+  .col-documento {
+    font-size: 9pt;
+    min-width: 110px;
   }
   .firmas {
     margin-top: 30px;
@@ -4058,8 +4111,8 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
     <thead>
       <tr>
         <th rowspan="2">#</th>
-        <th rowspan="2">Nombre Completo del Aprendiz</th>
-        <th rowspan="2">Documento</th>
+        <th rowspan="2" class="col-nombre">Nombre Completo del Aprendiz</th>
+        <th rowspan="2" class="col-documento">Documento</th>
         ${trans.length ? `<th class="grupo-trans" colspan="${trans.length}">Transversales</th>` : ""}
         ${ingl.length ? `<th class="grupo-ingles" colspan="${ingl.length}">Inglés</th>` : ""}
         ${tec.length ? `<th class="grupo-tec" colspan="${tec.length}">Técnicas</th>` : ""}
@@ -4067,9 +4120,9 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
 
       </tr>
             <tr>
-        ${trans.map(c => `<th class="grupo-trans col-competencia">${c.length > 30 ? c.substring(0, 7) + "…" : c}</th>`).join("")}
-        ${ingl.map(c  => `<th class="grupo-ingles col-competencia">${c.length > 30 ? c.substring(0, 7) + "…" : c}</th>`).join("")}
-        ${tec.map(c   => `<th class="grupo-tec col-competencia">${c.length > 30 ? c.substring(0, 7) + "…" : c}</th>`).join("")}
+        ${trans.map(c => `<th class="grupo-trans col-competencia">${c.length > 30 ? c.substring(0, 20) + "…" : c}</th>`).join("")}
+        ${ingl.map(c  => `<th class="grupo-ingles col-competencia">${c.length > 30 ? c.substring(0, 20) + "…" : c}</th>`).join("")}
+        ${tec.map(c   => `<th class="grupo-tec col-competencia">${c.length > 30 ? c.substring(0, 20) + "…" : c}</th>`).join("")}
       </tr>
 
     </thead>
@@ -4161,6 +4214,37 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
         .replace(".", "");
     }
 
+    function formatearTiempoRestante(desde, hasta) {
+      const hoyBase = (desde instanceof Date && !isNaN(desde)) ? desde : new Date();
+      if (!(hasta instanceof Date) || isNaN(hasta)) return "-";
+
+      const inicio = new Date(hoyBase.getFullYear(), hoyBase.getMonth(), hoyBase.getDate());
+      const fin = new Date(hasta.getFullYear(), hasta.getMonth(), hasta.getDate());
+
+      if (inicio > fin) return "0 días";
+
+      let years = fin.getFullYear() - inicio.getFullYear();
+      let months = fin.getMonth() - inicio.getMonth();
+      let days = fin.getDate() - inicio.getDate();
+
+      if (days < 0) {
+        months -= 1;
+        const prevMonthDays = new Date(fin.getFullYear(), fin.getMonth(), 0).getDate();
+        days += prevMonthDays;
+      }
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      const partes = [];
+      if (years > 0) partes.push(`${years} año${years !== 1 ? "s" : ""}`);
+      if (months > 0) partes.push(`${months} mes${months !== 1 ? "es" : ""}`);
+      partes.push(`${days} día${days !== 1 ? "s" : ""}`);
+
+      return partes.join(" ");
+    }
+
     function renderLineaTiempoFicha() {
       const timelines = [];
 
@@ -4199,6 +4283,8 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
 
       const hoy = new Date();
       const hoyPlano = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+      const tiempoLectivaEl = document.getElementById("tiempoRestanteLectiva");
+      const tiempoProductivaEl = document.getElementById("tiempoRestanteProductiva");
 
       const inicioRango =
         fechas.inicioLectiva instanceof Date && !isNaN(fechas.inicioLectiva)
@@ -4213,6 +4299,8 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
         timelines.forEach((t) => {
           if (t.estado) t.estado.textContent = "-";
         });
+        if (tiempoLectivaEl) tiempoLectivaEl.textContent = "-";
+        if (tiempoProductivaEl) tiempoProductivaEl.textContent = "-";
         return;
       }
 
@@ -4228,6 +4316,14 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
         if (fechas.finProd && hoyMs <= fechas.finProd.getTime()) return "Etapa productiva en progreso";
         return "Programa finalizado";
       })();
+
+      const setTiempoRestante = (el, fechaObjetivo) => {
+        if (!el) return;
+        el.textContent = formatearTiempoRestante(hoyPlano, fechaObjetivo);
+      };
+
+      setTiempoRestante(tiempoLectivaEl, fechas.finLectiva);
+      setTiempoRestante(tiempoProductivaEl, fechas.finProd);
 
       timelines.forEach((t) => {
         if (t.estado) t.estado.textContent = estadoTexto;
@@ -4378,6 +4474,7 @@ let datosHorario      = [];   // Programación de instructores (horas, competenc
   // Lectura finalizada
   reader.onload = function(event) {
     const data = new Uint8Array(event.target.result);
+
     const workbook = XLSX.read(data, { type: 'array' });
     const sheetName = workbook.SheetNames[0];
     const ws = workbook.Sheets[sheetName];
