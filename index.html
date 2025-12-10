@@ -1611,7 +1611,7 @@ tbody tr:nth-child(odd) {
 
 .ficha-summary-top {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -2366,11 +2366,20 @@ tr.no-programada td {
   <!-- Fila 1: KPIs principales -->
   <div class="ficha-summary-top">
     <div class="ficha-kpi-card ficha-kpi-aprendices">
+      <div class="ficha-kpi-icon">📋</div>
+      <div class="ficha-kpi-info">
+        <span class="ficha-kpi-label">APRENDICES MATRICULADOS</span>
+        <span class="ficha-kpi-value" id="numMatriculadosHeader">0</span>
+        
+      </div>
+    </div>
+
+    <div class="ficha-kpi-card ficha-kpi-aprendices">
       <div class="ficha-kpi-icon">🎓</div>
       <div class="ficha-kpi-info">
-        <span class="ficha-kpi-label">APRENDICES</span>
+        <span class="ficha-kpi-label">APRENDICES EN FORMACION</span>
         <span class="ficha-kpi-value" id="numAprendicesHeader">0</span>
-      </div>
+              </div>
     </div>
 
     <div class="ficha-kpi-card ficha-kpi-instructores">
@@ -2488,7 +2497,7 @@ tr.no-programada td {
         <span>Detalle de Aprendices</span>
       </div>
       <div class="detalle-aprendices-total">
-        <span>Total Aprendices que iniciaron:</span>
+        <span>Total Aprendices Matriculados:</span>
         <span id="totalAprendicesEstado">0</span>
       </div>
     </div>
@@ -4035,6 +4044,7 @@ function getColorEstado(estado) {
     // NUEVO: Variable para guardar el nivel de formación
     let nivelFormacionGlobal = "";
     let codigoProgramaGlobal = "";
+    let totalCompetenciasPrograma = 0; // total de competencias del programa (archivo 3)
     let modalidadFormacionGlobal = "";   // NUEVO: Modalidad de Formación desde C10
     let competenciasMap = {};
     let competenciasSet = new Set();
@@ -5091,6 +5101,14 @@ const totalSpan = document.getElementById("totalAprendicesEstado");
 if (totalSpan) {
   totalSpan.textContent = totalAprendices;
 }
+const totalMatricHeader = document.getElementById("numMatriculadosHeader");
+if (totalMatricHeader) {
+  totalMatricHeader.textContent = totalAprendices;
+}
+const totalInlineSpan = document.getElementById("numAprendicesTotalInline");
+if (totalInlineSpan) {
+  totalInlineSpan.textContent = `/ ${totalAprendices}`;
+}
 
 // ORDEN DESEADO DE LOS ESTADOS
 const ordenPreferido = [
@@ -5528,6 +5546,9 @@ function procesarTercerArchivo(ws) {
 
     fila++;
   }
+
+  // Guardar total de competencias del programa (archivo 3)
+  totalCompetenciasPrograma = Object.keys(horasDisenoMap).length;
 
   // Actualizar tabla en Reporte 2
   const tbody = document.getElementById("tbodyReporte2");
@@ -6883,7 +6904,7 @@ const numResultados        = getText("numResultadosHeader"); // NUEVO
     <!-- Detalle de aprendices -->
     <div style="font-size:10pt; margin-bottom:8px;">
       <strong>DETALLE DE APRENDICES</strong>
-      <div style="margin-top:2px;">Total Aprendices que iniciaron: ${totalAprendicesEstado}</div>
+      <div style="margin-top:2px; font-size:12pt;">Total Aprendices Matriculados: ${totalAprendicesEstado}</div>
       ${tablaEstadoHTML}
     </div>
 
@@ -8204,7 +8225,7 @@ tablaInstructoresCompetenciasHTML = `
  <strong>2.1 Detalle de Aprendices</strong><br>
         <span style="font-size:9pt;">
           Se presenta el consolidado de aprendices por estado académico de la ficha.
-          Total aprendices que iniciaron:
+          Total aprendices Matriculados:
           <span style="font-weight:bold; color:#c00000;">${totalAprendicesEstado}</span>.
         </span>
         <div style="margin-top:4px;">
@@ -9127,18 +9148,26 @@ if (spanInstructorTop) {
 
 // 3) Nº competencias
 let totalCompetencias = 0;
-if (Array.isArray(datosHorario)) {
- const competenciasSet = new Set();
- datosHorario.forEach(fila => {
-   const comp = (fila["Nombre Competencia"] || "").toString().trim();
-   if (comp) {
-     competenciasSet.add(comp);
-   }
- });
- totalCompetencias = competenciasSet.size;
+
+// Preferir el total de competencias del programa (archivo 3)
+if (typeof totalCompetenciasPrograma === "number" && totalCompetenciasPrograma > 0) {
+  totalCompetencias = totalCompetenciasPrograma;
+} else if (typeof arrComp2 !== "undefined" && Array.isArray(arrComp2) && arrComp2.length) {
+  totalCompetencias = arrComp2.length;
+} else if (Array.isArray(datosHorario)) {
+  // Fallback: contar únicas en el horario
+  const competenciasSet = new Set();
+  datosHorario.forEach(fila => {
+    const comp = (fila["Nombre Competencia"] || "").toString().trim();
+    if (comp) {
+      competenciasSet.add(comp);
+    }
+  });
+  totalCompetencias = competenciasSet.size;
 }
+
 if (spanCompetencias) {
- spanCompetencias.textContent = totalCompetencias;
+  spanCompetencias.textContent = totalCompetencias;
 }
 }
 // Actualiza el nombre mostrado en "Instructor con más horas cargadas"
