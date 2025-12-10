@@ -1621,24 +1621,24 @@ tbody tr:nth-child(odd) {
   gap: 10px;
   padding: 14px 16px;
   border-radius: 16px;
-  border: 1px solid #bbf7d0;
-  background: linear-gradient(135deg, #ecfdf3, #dcfce7);
-  box-shadow: 0 10px 22px rgba(22, 163, 74, 0.18);
+  border: 1px solid var(--gris-borde);
+  background-color: #ffffff;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+  transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
 }
 
-.ficha-kpi-aprendices {
-  background: linear-gradient(135deg, #ecfdf3, #bbf7d0);
-}
-
-.ficha-kpi-instructores {
-  background: linear-gradient(135deg, #ecfdf3, #a7f3d0);
+.ficha-kpi-card:hover {
+  border-color: var(--verde-sena);
+  background-color: #f9fafb;
+  box-shadow: 0 10px 22px rgba(40, 167, 69, 0.25);
+  transform: translateY(-1px);
 }
 
 .ficha-kpi-competencias {
-  background: linear-gradient(135deg, #ecfdf3, #6ee7b7);
+  background: #ffffff;
 }
 .ficha-kpi-resultados {
-  background: linear-gradient(135deg, #ecfdf3, #4ade80);
+  background: #ffffff;
 }
 
 
@@ -2094,6 +2094,135 @@ tr.no-programada td {
   background-color: #fee2e2 !important; /* rojo claro */
 }
 
+/* Linea de tiempo para fechas de la ficha */
+.timeline-card {
+  margin: 14px auto 18px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--texto-principal);
+}
+
+.timeline-title .icon {
+  font-size: 15px;
+}
+
+.timeline-status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #ecfdf3;
+  color: #15803d;
+  border: 1px solid #86efac;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.timeline-track {
+  position: relative;
+  height: 90px;
+  margin-top: 8px;
+}
+
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 6px;
+  transform: translateY(-50%);
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+
+.timeline-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 6px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, var(--verde-sena), #22c55e);
+  border-radius: 999px;
+  width: 0%;
+}
+
+.timeline-point {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  background: #d1d5db;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+}
+
+.timeline-point.past {
+  background: #22c55e;
+}
+
+.timeline-point.future {
+  background: #d1d5db;
+}
+
+.timeline-point.today {
+  background: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+}
+
+.timeline-point-label {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--texto-principal);
+  white-space: nowrap;
+}
+
+.timeline-point.alt .timeline-point-label {
+  top: auto;
+  bottom: 26px;
+}
+
+.timeline-track.compact {
+  height: 72px;
+}
+
+.timeline-compact .timeline-header {
+  margin-bottom: 6px;
+}
+
+.timeline-compact .timeline-point {
+  width: 14px;
+  height: 14px;
+}
+
+.timeline-compact .timeline-point-label {
+  font-size: 10px;
+}
+
 
   </style>
 </head>
@@ -2356,6 +2485,22 @@ tr.no-programada td {
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Línea de tiempo compacta (debajo de fechas) -->
+  <div class="timeline-card timeline-compact">
+    <div class="timeline-header">
+      <div class="timeline-title"><span class="icon">🕒</span>Cronograma de Formación</div>
+      <div class="timeline-status" id="estadoEtapaMini">-</div>
+    </div>
+    <div class="timeline-track compact" id="timelineTrackMini">
+      <div class="timeline-fill" id="timelineFillMini"></div>
+      <div class="timeline-point" id="pMiniInicioLectiva"><span class="timeline-point-label">Inicio Lectiva<br><small id="dMiniInicioLectiva"></small></span></div>
+      <div class="timeline-point alt" id="pMiniFinLectiva"><span class="timeline-point-label">Fin Lectiva<br><small id="dMiniFinLectiva"></small></span></div>
+      <div class="timeline-point" id="pMiniInicioProd"><span class="timeline-point-label">Inicia Productiva<br><small id="dMiniInicioProd"></small></span></div>
+      <div class="timeline-point alt" id="pMiniFinProd"><span class="timeline-point-label">Fin Programa<br><small id="dMiniFinProd"></small></span></div>
+      <div class="timeline-point today" id="pMiniHoy"><span class="timeline-point-label">HOY<br><small id="dMiniHoy"></small></span></div>
     </div>
   </div>
 
@@ -4009,6 +4154,120 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
       return parseFecha(fechaFinLectivaStr);
     }
 
+    function formatearFechaCorta(fecha) {
+      if (!(fecha instanceof Date) || isNaN(fecha)) return "";
+      return fecha
+        .toLocaleDateString("es-CO", { day: "2-digit", month: "short", year: "numeric" })
+        .replace(".", "");
+    }
+
+    function renderLineaTiempoFicha() {
+      const timelines = [];
+
+      const mini = {
+        track: document.getElementById("timelineTrackMini"),
+        fill: document.getElementById("timelineFillMini"),
+        puntos: {
+          inicioLectiva: document.getElementById("pMiniInicioLectiva"),
+          finLectiva: document.getElementById("pMiniFinLectiva"),
+          inicioProd: document.getElementById("pMiniInicioProd"),
+          finProd: document.getElementById("pMiniFinProd"),
+          hoy: document.getElementById("pMiniHoy"),
+        },
+        labels: {
+          inicioLectiva: document.getElementById("dMiniInicioLectiva"),
+          finLectiva: document.getElementById("dMiniFinLectiva"),
+          inicioProd: document.getElementById("dMiniInicioProd"),
+          finProd: document.getElementById("dMiniFinProd"),
+          hoy: document.getElementById("dMiniHoy"),
+        },
+        estado: document.getElementById("estadoEtapaMini"),
+      };
+
+      if (mini.track) timelines.push(mini);
+      if (!timelines.length) return;
+
+      const fechas = {
+        inicioLectiva: fechaInicioLectivaGlobal,
+        finLectiva: fechaFinLectivaGlobal,
+        inicioProd: fechaInicioProductivaGlobal,
+        finProd: fechaFinProductivaGlobal,
+      };
+
+      const faltaFecha =
+        !fechas.inicioLectiva || !fechas.finLectiva || !fechas.inicioProd || !fechas.finProd;
+
+      const hoy = new Date();
+      const hoyPlano = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+
+      const inicioRango =
+        fechas.inicioLectiva instanceof Date && !isNaN(fechas.inicioLectiva)
+          ? fechas.inicioLectiva.getTime()
+          : NaN;
+      const finRango =
+        fechas.finProd instanceof Date && !isNaN(fechas.finProd)
+          ? fechas.finProd.getTime()
+          : NaN;
+
+      if (isNaN(inicioRango) || isNaN(finRango) || finRango <= inicioRango || faltaFecha) {
+        timelines.forEach((t) => {
+          if (t.estado) t.estado.textContent = "-";
+        });
+        return;
+      }
+
+      const rango = finRango - inicioRango;
+      const clamp = (val) => Math.min(100, Math.max(0, val));
+      const posicion = (fecha) => clamp(((fecha.getTime() - inicioRango) / rango) * 100);
+
+      const estadoTexto = (() => {
+        const hoyMs = hoyPlano.getTime();
+        if (hoyMs < inicioRango) return "Sin iniciar";
+        if (fechas.finLectiva && hoyMs <= fechas.finLectiva.getTime()) return "Etapa lectiva en progreso";
+        if (fechas.inicioProd && hoyMs < fechas.inicioProd.getTime()) return "Transicion";
+        if (fechas.finProd && hoyMs <= fechas.finProd.getTime()) return "Etapa productiva en progreso";
+        return "Programa finalizado";
+      })();
+
+      timelines.forEach((t) => {
+        if (t.estado) t.estado.textContent = estadoTexto;
+
+        const aplicarPunto = (clave, fecha) => {
+          const punto = t.puntos[clave];
+          const label = t.labels[clave];
+          if (!punto || !(fecha instanceof Date) || isNaN(fecha)) return;
+
+          const pos = posicion(fecha);
+          punto.style.left = `${pos}%`;
+          punto.classList.remove("past", "future", "today");
+
+          if (clave === "hoy") {
+            punto.classList.add("today");
+          } else if (fecha.getTime() <= hoyPlano.getTime()) {
+            punto.classList.add("past");
+          } else {
+            punto.classList.add("future");
+          }
+
+          if (label) label.textContent = formatearFechaCorta(fecha);
+        };
+
+        aplicarPunto("inicioLectiva", fechas.inicioLectiva);
+        aplicarPunto("finLectiva", fechas.finLectiva);
+        aplicarPunto("inicioProd", fechas.inicioProd);
+        aplicarPunto("finProd", fechas.finProd);
+        aplicarPunto("hoy", hoyPlano);
+
+        const posHoy = posicion(hoyPlano);
+        if (t.puntos.hoy) {
+          t.puntos.hoy.style.left = `${posHoy}%`;
+        }
+        if (t.fill) {
+          t.fill.style.width = `${posHoy}%`;
+        }
+      });
+    }
+
 
     // Normaliza un documento/identificación dejando solo dígitos
     function normalizarDocumento(valor) {
@@ -4078,7 +4337,8 @@ let datosHorario      = [];   // Programación de instructores (horas, competenc
     let mapaFallasPorDocumento = {};
 
     // Variables globales para fechas
-    let fechaFinLectivaGlobal = "";
+    let fechaInicioLectivaGlobal = null;
+    let fechaFinLectivaGlobal = null;
     let fechaInicioProductivaGlobal = null;
     let fechaFinProductivaGlobal = null;
 
@@ -4443,21 +4703,23 @@ function procesarArchivoFallas(ws) {
       if(fechaInicioLectivaStr){
         const fInicio = parseFecha(fechaInicioLectivaStr);
         document.getElementById("fechaInicioLectiva").textContent = formatearFechaLarga(fInicio);
+        fechaInicioLectivaGlobal = fInicio;
       } else {
         document.getElementById("fechaInicioLectiva").textContent = "";
+        fechaInicioLectivaGlobal = null;
       }
 
       if (fechaFinLectivaStr) {
         // Fin lectiva calculado a partir de la fecha fin global del programa
         const fFinLectiva = calcularFechaFinLectiva(fechaFinLectivaStr);
         document.getElementById("fechaFinLectiva").textContent = formatearFechaLarga(fFinLectiva);
+        fechaFinLectivaGlobal = fFinLectiva;
       } else {
         document.getElementById("fechaFinLectiva").textContent = "";
+        fechaFinLectivaGlobal = null;
       }
 
       codigoFichaPrimero = codigoFicha;
-      // Guardar la fecha fin del programa (original de F2) globalmente
-      fechaFinLectivaGlobal = fechaFinLectivaStr;
 
       if (fechaFinLectivaStr) {
         const fechaInicioProd = calcularFechaInicioProductiva(fechaFinLectivaStr);
@@ -4470,7 +4732,11 @@ function procesarArchivoFallas(ws) {
       } else {
         document.getElementById("fechaInicioProductiva").textContent = "";
         document.getElementById("fechaFinProductiva").textContent = "";
+        fechaInicioProductivaGlobal = null;
+        fechaFinProductivaGlobal = null;
       }
+
+      renderLineaTiempoFicha();
 
       let fila = 12;
       const registros = [];
