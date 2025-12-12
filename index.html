@@ -476,6 +476,58 @@ input[type="file"]::file-selector-button {
   box-shadow: 0 14px 30px rgba(40, 167, 69, 0.5);
 }
 
+.filtros-colores-dias {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 0 0;
+}
+
+.btn-filtro-dias {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto-principal);
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease, color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.btn-filtro-dias.btn-verde {
+  border-color: #1e8a37;
+  color: #1e8a37;
+}
+
+.btn-filtro-dias.btn-rojo {
+  border-color: #b91c1c;
+  color: #b91c1c;
+}
+
+.btn-filtro-dias:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.btn-filtro-dias.active {
+  color: #fff;
+}
+
+.btn-filtro-dias.btn-verde.active {
+  background: linear-gradient(to right, #28a745, #1e8a37);
+  border-color: #1e8a37;
+}
+
+.btn-filtro-dias.btn-rojo.active {
+  background: linear-gradient(to right, #dc2626, #b91c1c);
+  border-color: #b91c1c;
+}
+
 /* ================= MENSAJE DE ARCHIVO CARGADO ================= */
 
 .mensaje-archivo {
@@ -3181,12 +3233,19 @@ tr.no-programada td {
       </div>
     </div>
 
+    <div class="filtros-colores-dias" data-table="tablaPendientesInstructorReporte8">
+      <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formación</button>
+      <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
+    </div>
+
     <table id="tablaPendientesInstructorReporte8">
       <thead>
         <tr>
           <th>#</th>
           <th>Nombre instructor o instructores programados</th>
           <th>Competencia</th>
+          <th>Fecha Terminacion</th>
+          <th>Dias</th>
           <th>Nombre aprendices</th>
           <th>Cantidad de Aprendices</th>
         </tr>
@@ -3372,11 +3431,18 @@ En caso que la competencia APLICAR PRÁCTICAS  DE PROTECCIÓN AMBIENTAL, SEGURID
   </div>
 </div>
 
+<div class="filtros-colores-dias" data-table="tablaProgramadas">
+  <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formación</button>
+  <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
+</div>
+
 <table id="tablaProgramadas">
   <thead>
     <tr>
       <th>#</th>
       <th>Competencia</th>
+      <th>Fecha Terminacion</th>
+      <th>Dias</th>
       <th>RAP</th>
       <th>Aprendices</th>
       <th>Cantidad de Aprendices</th>
@@ -3455,11 +3521,15 @@ En caso que la competencia APLICAR PRÁCTICAS  DE PROTECCIÓN AMBIENTAL, SEGURID
   </div>
 </div>
 
+
+
 <table id="tablaPendientes">
   <thead>
     <tr>
       <th>#</th>
       <th>Competencia</th>
+      <th>Fecha Terminacion</th>
+      <th>Dias</th>
       <th>RAP</th>
       <th>Aprendices</th>
       <th>Cantidad de Aprendices</th>
@@ -3668,6 +3738,10 @@ En caso de que la fila se resalte de amarillo es debido a que la evaluo un instr
         />
       </div>
     </div>
+    <div class="filtros-colores-dias" data-table="tablaReporte8Visible">
+      <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formación</button>
+      <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
+    </div>
 <!-- Contenedor de las tablas visibles (una por aprendiz) -->
     <div id="contenedorTablasReporte8"></div>
 
@@ -3684,6 +3758,8 @@ En caso de que la fila se resalte de amarillo es debido a que la evaluo un instr
       <th>Documento</th>
       <th>Nombre del Aprendiz</th>
       <th>Competencias Pendientes por Evaluar</th>
+      <th>Fecha Terminacion</th>
+      <th>Dias</th>
       <th>Instructor que impartió la competencia</th>
     </tr>
   </thead>
@@ -4433,6 +4509,41 @@ function generarPazYSalvoPDF(aprendicesSeleccionados) {
       return partes.join(" ");
     }
 
+    // Obtiene fecha fin y d�as restantes/pasados para una competencia
+    function obtenerDatosFechaCompetencia(competenciaTexto) {
+      const compKey = normalizeCompetencia(competenciaTexto || "");
+      if (!compKey || !mapaFechasFinPorComp[compKey]) {
+        return { fechaTexto: "-", diasTexto: "-", diasHtml: "-", diasValor: null };
+      }
+
+      const info = mapaFechasFinPorComp[compKey];
+      const fecha = info.fecha;
+      if (!(fecha instanceof Date) || isNaN(fecha)) {
+        return { fechaTexto: info.texto || "-", diasTexto: "-", diasHtml: "-", diasValor: null };
+      }
+
+      const hoy = new Date();
+      const hoyPlano = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+      const objetivo = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+      const diffMs = objetivo.getTime() - hoyPlano.getTime();
+      const diasValor = Math.round(diffMs / (1000 * 60 * 60 * 24));
+      const diasNumero = Math.abs(diasValor);
+      const fechaTexto = info.texto || formatearFechaCorta(fecha);
+      const color = diasValor >= 0 ? "#1e8a37" : "#b91c1c";
+      const diasColor = diasValor >= 0 ? "verde" : "rojo";
+      const diasHtml = (diasNumero || diasNumero === 0)
+        ? `<span class="dias-color" data-color="${diasColor}" style="color:${color}; font-weight:600;">${diasNumero}</span>`
+        : "-";
+
+      return {
+        fechaTexto: fechaTexto || "-",
+        diasTexto: (diasNumero || diasNumero === 0) ? diasNumero.toString() : "-",
+        diasHtml,
+        diasValor,
+        diasColor
+      };
+    }
+
     function renderLineaTiempoFicha() {
       const timelines = [];
 
@@ -4620,6 +4731,17 @@ let datosHorario      = [];   // Programación de instructores (horas, competenc
 
     // Mapa: documento del aprendiz (solo dígitos) -> número de fallas (inasistencias)
     let mapaFallasPorDocumento = {};
+
+    // Mapa: competencia normalizada -> fecha de terminaci¢n programada
+    let mapaFechasFinPorComp = {};
+
+    // Filtro por color de d�as (verde/rojo) por tabla
+    const filtroColorTabla = {
+      tablaProgramadas: "",
+      tablaPendientes: "",
+      tablaPendientesInstructorReporte8: "",
+      tablaReporte8Visible: ""
+    };
 
     // Variables globales para fechas
     let fechaInicioLectivaGlobal = null;
@@ -5031,6 +5153,7 @@ function procesarArchivoFallas(ws) {
 
       let fila = 12;
       const registros = [];
+      mapaFechasFinPorComp = {};
       while(true) {
         let celdaA = ws["A" + fila];
         if(!celdaA) break;
@@ -5041,6 +5164,19 @@ function procesarArchivoFallas(ws) {
         let fechaInicioProg = (ws["E" + fila] && ws["E" + fila].v) || "";
         let fechaFinProg = (ws["F" + fila] && ws["F" + fila].v) || "";
         let horasProg = parseFloat((ws["G" + fila] && ws["G" + fila].v) || 0);
+
+        const compKeyFecha = normalizeCompetencia(competencia);
+        const fechaFinTexto = fechaFinProg ? fechaFinProg.toString() : "";
+        if (compKeyFecha && fechaFinTexto) {
+          const fechaObj = parseFecha(fechaFinTexto);
+          if (fechaObj instanceof Date && !isNaN(fechaObj)) {
+            const registroGuardado = mapaFechasFinPorComp[compKeyFecha];
+            const textoMostrar = fechaFinTexto.includes("/") ? fechaFinTexto : formatearFechaCorta(fechaObj);
+            if (!registroGuardado || fechaObj > registroGuardado.fecha) {
+              mapaFechasFinPorComp[compKeyFecha] = { fecha: fechaObj, texto: textoMostrar };
+            }
+          }
+        }
 
         registros.push({
           nombreInstructor,
@@ -6385,16 +6521,20 @@ function procesarTercerArchivo(ws) {
       ordenCategorias.forEach(cat => {
         if(categoriasProg[cat].length > 0) {
           let headerRow = document.createElement("tr");
-          headerRow.innerHTML = `<td colspan="5" style="background-color:#ccc; font-weight:bold;">${cat}</td>`;
+          headerRow.innerHTML = `<td colspan="7" style="background-color:#ccc; font-weight:bold;">${cat}</td>`;
           tbodyProg.appendChild(headerRow);
 
           categoriasProg[cat].forEach(grupo => {
             let nombresArray = Array.from(grupo.nombres).sort();
             let cantidad = nombresArray.length;
             const tr = document.createElement("tr");
+            const infoFecha = obtenerDatosFechaCompetencia(grupo.competencia);
+            const diasHtml = infoFecha.diasHtml || "-";
             tr.innerHTML = `
               <td>${contProg++}</td>
               <td>${grupo.competencia}</td>
+              <td>${infoFecha.fechaTexto}</td>
+              <td class="col-dias" data-color="${infoFecha.diasColor || ""}">${diasHtml}</td>
               <td>${grupo.rap}</td>
               <td>${nombresArray.join(", ")}</td>
               <td>${cantidad}</td>
@@ -6416,16 +6556,20 @@ function procesarTercerArchivo(ws) {
       ordenCategorias.forEach(cat => {
         if(categoriasPend[cat].length > 0) {
           let headerRow = document.createElement("tr");
-          headerRow.innerHTML = `<td colspan="5" style="background-color:#ccc; font-weight:bold;">${cat}</td>`;
+          headerRow.innerHTML = `<td colspan="7" style="background-color:#ccc; font-weight:bold;">${cat}</td>`;
           tbodyPend.appendChild(headerRow);
 
           categoriasPend[cat].forEach(grupo => {
             let nombresArray = Array.from(grupo.nombres).sort();
             let cantidad = nombresArray.length;
             const tr = document.createElement("tr");
+            const infoFecha = obtenerDatosFechaCompetencia(grupo.competencia);
+            const diasHtml = infoFecha.diasHtml || "-";
             tr.innerHTML = `
               <td>${contPend++}</td>
               <td>${grupo.competencia}</td>
+              <td>${infoFecha.fechaTexto}</td>
+              <td class="col-dias" data-color="${infoFecha.diasColor || ""}">${diasHtml}</td>
               <td>${grupo.rap}</td>
               <td>${nombresArray.join(", ")}</td>
               <td>${cantidad}</td>
@@ -6810,6 +6954,7 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
       // Crear una sola tabla visible
       const tablaUnica = document.createElement("table");
       tablaUnica.className = "tabla-aprendiz-reporte8";
+      tablaUnica.id = "tablaReporte8Visible";
 
       const theadUnico = document.createElement("thead");
       theadUnico.innerHTML = `
@@ -6818,6 +6963,8 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
           <th>Documento</th>
           <th>Nombre del Aprendiz</th>
           <th>Competencias Pendientes por Evaluar</th>
+          <th>Fecha Terminacion</th>
+          <th>Dias</th>
           <th>Instructor que impartió la competencia</th>
         </tr>
       `;
@@ -6832,7 +6979,8 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
 
         competenciasArray.forEach(([compKey, compObj]) => {
           const instSet = mapaInstructoresPorComp[compKey];
-          const instructoresStr = instSet ? Array.from(instSet).join(", ") : "";
+        const instructoresStr = instSet ? Array.from(instSet).join(", ") : "";
+        const infoFecha = obtenerDatosFechaCompetencia(compObj.texto);
 
           // --------- Fila VISIBLE en la tabla única ---------
           const tr = document.createElement("tr");
@@ -6849,6 +6997,16 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
           const tdComp = document.createElement("td");
           tdComp.textContent = compObj.texto;
 
+          const tdFecha = document.createElement("td");
+          tdFecha.textContent = infoFecha.fechaTexto;
+
+          const tdDias = document.createElement("td");
+          tdDias.innerHTML = infoFecha.diasHtml || "-";
+          tdDias.classList.add("col-dias");
+          if (infoFecha.diasColor) {
+            tdDias.dataset.color = infoFecha.diasColor;
+          }
+
           const tdInst = document.createElement("td");
           tdInst.textContent = instructoresStr;
 
@@ -6856,6 +7014,8 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
           tr.appendChild(tdDoc);
           tr.appendChild(tdNom);
           tr.appendChild(tdComp);
+          tr.appendChild(tdFecha);
+          tr.appendChild(tdDias);
           tr.appendChild(tdInst);
 
           tbodyUnico.appendChild(tr);
@@ -6867,6 +7027,8 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
             <td>${aprendiz.numDoc}</td>
             <td>${aprendiz.nombreCompleto}</td>
             <td>${compObj.texto}</td>
+            <td>${infoFecha.fechaTexto}</td>
+            <td>${infoFecha.diasTexto || "-"}</td>
             <td>${instructoresStr}</td>
           `;
           tbodyExport.appendChild(trExp);
@@ -6966,7 +7128,7 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
 
           // Fila de encabezado de categoría
           const headerRow = document.createElement("tr");
-          headerRow.innerHTML = `<td colspan="5" style="background-color:#ccc; font-weight:bold;">${cat}</td>`;
+          headerRow.innerHTML = `<td colspan="7" style="background-color:#ccc; font-weight:bold;">${cat}</td>`;
           tbodyPendInstr.appendChild(headerRow);
 
           // Ordenamos dentro de la categoría por instructor y competencia
@@ -6991,10 +7153,14 @@ if (tituloPendInstr) tituloPendInstr.style.display = "none";
 
             // Si hubo evaluación de un instructor no programado, resaltar fila
          
+            const infoFecha = obtenerDatosFechaCompetencia(item.competencia);
+            const diasHtml = infoFecha.diasHtml || "-";
             tr.innerHTML = `
               <td>${contadorInstr}</td>
               <td>${item.instructores}</td>
               <td>${item.competencia}</td>
+              <td>${infoFecha.fechaTexto}</td>
+              <td class="col-dias" data-color="${infoFecha.diasColor || ""}">${diasHtml}</td>
               <td>${listaAprendices}</td>
               <td>${item.aprendices.size}</td>
             `;
@@ -7605,6 +7771,13 @@ const nivelFormacionActa = nivelFormacionGlobal ? `${nivelFormacionGlobal} - ` :
 const avancePromedioGrupo = getText("avancePromedioGrupoHeader") || "0 %";
 const numCompetencias     = getText("numCompetenciasHeader")     || "0";
 const numResultados        = getText("numResultadosHeader")       || "0";
+const fechaInicioLectiva   = getText("fechaInicioLectiva")        || "N/A";
+const fechaFinLectiva      = getText("fechaFinLectiva")           || "N/A";
+const fechaInicioProd      = getText("fechaInicioProductiva")     || "N/A";
+const fechaFinProd         = getText("fechaFinProductiva")        || "N/A";
+const tiempoRestanteLectiva   = getText("tiempoRestanteLectiva")   || "-";
+const tiempoRestanteProductiva = getText("tiempoRestanteProductiva") || "-";
+const etapaEnProceso = getText("estadoEtapaMini") || "-";
     // 3. Datos de aprendices para el acta
   const totalAprendicesEstado = getText("totalAprendicesEstado") || "0";
   const datosFallasAprendices = [];
@@ -8962,6 +9135,11 @@ tablaInstructoresCompetenciasHTML = `
                 <li class="titulo-2">
                   Detalle de aprendices
                   <div class="contenido-item">
+                    <div style="margin-bottom:6px;">
+                      <div><strong>Etapa lectiva:</strong> ${fechaInicioLectiva} - ${fechaFinLectiva} (Tiempo restante: <span style="color:#1e8a37; font-weight:600;">${tiempoRestanteLectiva}</span>)</div>
+                      <div><strong>Etapa productiva:</strong> ${fechaInicioProd} - ${fechaFinProd} (Tiempo restante: <span style="color:#1e8a37; font-weight:600;">${tiempoRestanteProductiva}</span>)</div>
+                      <div><strong>Etapa en proceso:</strong> ${etapaEnProceso}</div>
+                    </div>
                     Avance promedio del grupo:
                     <span style="font-weight:bold; color:#c00000;">${avancePromedioGrupo}</span>
                     <span style="font-size:9pt;">
@@ -10477,6 +10655,28 @@ function aplicarFiltrosReporte5Programadas() {
       }
     }
 
+    // Filtro por color de dνas (verde/rojo)
+    if (visible) {
+      const filtroColor = filtroColorTabla["tablaPendientes"] || "";
+      if (filtroColor) {
+        const diasColor = (celdas[3]?.getAttribute("data-color") || "").toLowerCase();
+        if (diasColor !== filtroColor) {
+          visible = false;
+        }
+      }
+    }
+
+    // Filtro por color de dνas (verde/rojo)
+    if (visible) {
+      const filtroColor = filtroColorTabla["tablaProgramadas"] || "";
+      if (filtroColor) {
+        const diasColor = (celdas[3]?.getAttribute("data-color") || "").toLowerCase();
+        if (diasColor !== filtroColor) {
+          visible = false;
+        }
+      }
+    }
+
     if (visible && categoria) {
       visiblePorCategoria[categoria] = true;
     }
@@ -11033,6 +11233,8 @@ function filtrarTablaSimplePorTexto(idTbody, textoBusqueda) {
   if (!tbody) return;
 
   const texto = (textoBusqueda || "").trim().toLowerCase();
+  const tabla = tbody.closest("table");
+  const filtroColor = tabla && tabla.id ? (filtroColorTabla[tabla.id] || "") : "";
   const filas = Array.from(tbody.querySelectorAll("tr"));
   if (!filas.length) return;
 
@@ -11042,22 +11244,30 @@ function filtrarTablaSimplePorTexto(idTbody, textoBusqueda) {
     const celdas = tr.getElementsByTagName("td");
     if (!celdas.length) return;
 
-    // Si no hay texto, mostrar todo y renumerar
-    if (!texto) {
-      tr.style.display = "";
-      celdas[0].textContent = contadorVisible++;
-      return;
+    let visible = true;
+
+    if (texto) {
+      const textoFila = Array.from(celdas)
+        .map(td => (td.textContent || "").toLowerCase())
+        .join(" ");
+      if (!textoFila.includes(texto)) {
+        visible = false;
+      }
     }
 
-    const textoFila = Array.from(celdas)
-      .map(td => (td.textContent || "").toLowerCase())
-      .join(" ");
+    if (visible && filtroColor) {
+      const tdDias =
+        tr.querySelector("td.col-dias") ||
+        (celdas.length > 4 ? celdas[4] : null);
+      const diasColor = (tdDias?.getAttribute("data-color") || "").toLowerCase();
+      if (diasColor !== filtroColor) {
+        visible = false;
+      }
+    }
 
-    if (textoFila.includes(texto)) {
-      tr.style.display = "";
+    tr.style.display = visible ? "" : "none";
+    if (visible) {
       celdas[0].textContent = contadorVisible++;
-    } else {
-      tr.style.display = "none";
     }
   });
 }
@@ -11080,29 +11290,38 @@ function filtrarTablasReporte8PorTexto(textoBusqueda) {
   tablas.forEach(tabla => {
     const filas = Array.from(tabla.querySelectorAll("tbody tr"));
     let hayFilasVisibles = false;
+    const filtroColor = tabla.id ? (filtroColorTabla[tabla.id] || "") : "";
 
     filas.forEach(tr => {
       const celdas = tr.getElementsByTagName("td");
       if (!celdas.length) return;
 
       // Sin texto: mostrar todo y renumerar
-      if (!texto) {
-        tr.style.display = "";
-        celdas[0].textContent = contadorVisible++;
-        hayFilasVisibles = true;
-        return;
+      let visible = true;
+
+      if (texto) {
+        const textoFila = Array.from(celdas)
+          .map(td => (td.textContent || "").toLowerCase())
+          .join(" ");
+        if (!textoFila.includes(texto)) {
+          visible = false;
+        }
       }
 
-      const textoFila = Array.from(celdas)
-        .map(td => (td.textContent || "").toLowerCase())
-        .join(" ");
+      if (visible && filtroColor) {
+        const tdDias =
+          tr.querySelector("td.col-dias") ||
+          (celdas.length > 5 ? celdas[5] : null);
+        const diasColor = (tdDias?.getAttribute("data-color") || "").toLowerCase();
+        if (diasColor !== filtroColor) {
+          visible = false;
+        }
+      }
 
-      if (textoFila.includes(texto)) {
-        tr.style.display = "";
+      tr.style.display = visible ? "" : "none";
+      if (visible) {
         celdas[0].textContent = contadorVisible++;
         hayFilasVisibles = true;
-      } else {
-        tr.style.display = "none";
       }
     });
 
@@ -11128,6 +11347,42 @@ function filtrarTablasReporte8PorTexto(textoBusqueda) {
       if (!cat) return;
           filtrosReporte5Pendientes.categorias[cat] = this.checked;
     aplicarFiltrosReporte5Pendientes();
+  });
+});
+
+// =========================
+// Botones de filtro por color (dνas en verde/rojo)
+// =========================
+document.addEventListener("DOMContentLoaded", function () {
+  const contenedores = document.querySelectorAll(".filtros-colores-dias");
+  contenedores.forEach(cont => {
+    const tableId = cont.getAttribute("data-table") || "";
+    cont.querySelectorAll(".btn-filtro-dias").forEach(btn => {
+      btn.addEventListener("click", function () {
+        const color = (this.getAttribute("data-color") || "").toLowerCase();
+        if (!tableId) return;
+
+        const activo = filtroColorTabla[tableId] === color ? "" : color;
+        filtroColorTabla[tableId] = activo;
+
+        cont.querySelectorAll(".btn-filtro-dias").forEach(b => {
+          const c = (b.getAttribute("data-color") || "").toLowerCase();
+          b.classList.toggle("active", activo && c === activo);
+        });
+
+        if (tableId === "tablaProgramadas") {
+          aplicarFiltrosReporte5Programadas();
+        } else if (tableId === "tablaPendientes") {
+          aplicarFiltrosReporte5Pendientes();
+        } else if (tableId === "tablaPendientesInstructorReporte8") {
+          const texto = document.getElementById("busquedaPendientesJuicio")?.value || "";
+          filtrarTablaSimplePorTexto("tbodyPendientesInstructorReporte8", texto);
+        } else if (tableId === "tablaReporte8Visible") {
+          const texto = document.getElementById("busquedaPendientesAprendiz")?.value || "";
+          filtrarTablasReporte8PorTexto(texto);
+        }
+      });
+    });
   });
 });
 
