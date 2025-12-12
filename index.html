@@ -101,6 +101,7 @@ background: radial-gradient(circle at top,
   border-radius: 18px;
   padding: 32px 40px;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  position: relative;
   max-width: 520px;
   width: 90%;
   text-align: center;
@@ -196,6 +197,27 @@ background: radial-gradient(circle at top,
   border: 1px solid #fecaca;
   color: #b91c1c;
   font-size: 13px;
+}
+.login-toggle-roles {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.55;
+}
+.login-toggle-roles input[type="checkbox"] {
+  accent-color: #ffffff;
+  width: 14px;
+  height: 14px;
+  margin: 0;
 }
 
 /* ================= HEADER ================= */
@@ -2284,6 +2306,10 @@ tr.no-programada td {
         </select>
       </div>
 
+      <div class="login-toggle-roles">
+        <input type="checkbox" id="chkValidarRoles" checked aria-label="Validar roles" title="Validar roles" />
+      </div>
+
       <button id="btnIngresar" class="btnEstilo login-button">Ingresar</button>
       <div id="loginMensajeError" class="login-error" style="display:none;">
         Por favor seleccione un coordinador para continuar.
@@ -3609,6 +3635,9 @@ En caso de que la fila se resalte de amarillo es debido a que la evaluo un instr
 
       <tbody id="pivotAvanceContainer"></tbody>
     </table>
+
+    <!-- Gráfica de fallas para el reporte 7 (se llena al cargar fallas) -->
+    <div id="graficoFallasReporte7Container" class="tabla-acta-wrap" style="display:none; text-align:center; margin-top:12px; height:320px;"></div>
   </div>
 </div>
 <!-- TAB 8 -->
@@ -3787,6 +3816,7 @@ En caso de que la fila se resalte de amarillo es debido a que la evaluo un instr
   <script>
     // Variable global para guardar el coordinador seleccionado
     let coordinadorAcademicoSeleccionado = "";
+    let validarRolesActivos = true;
 // =========================
     // Funciones de Utilidad y Normalización
     // =========================
@@ -3804,6 +3834,163 @@ En caso de que la fila se resalte de amarillo es debido a que la evaluo un instr
         .replace(/\s+/g, " "); // un solo espacio entre palabras
 
       return comp;
+    }
+
+    // Captura un gráfico CanvasJS (varios canvas) como imagen base64
+    function capturarGraficoComoImg(selector) {
+      const wrapper = document.querySelector(selector);
+      if (!wrapper) return null;
+
+      const canvases = wrapper.querySelectorAll("canvas");
+      if (!canvases.length) return null;
+
+      const output = document.createElement("canvas");
+      output.width = canvases[0].width;
+      output.height = canvases[0].height;
+      const ctx = output.getContext("2d");
+
+      canvases.forEach((canvas) => {
+        try {
+          ctx.drawImage(canvas, 0, 0, output.width, output.height);
+        } catch (err) {
+          console.warn("No se pudo capturar el canvas del grafico", err);
+        }
+      });
+
+      return output.toDataURL("image/png");
+    }
+
+    // Genera el bloque HTML de un gráfico con tamaño estándar para el acta (12x10 cm y centrado)
+    function construirGraficoActaHTML(dataURL, alt, fallbackMsg) {
+      if (!dataURL) return fallbackMsg || "<em>(No se pudo capturar el grafico al momento de generar el acta.)</em>";
+      const altText = alt || "Gráfico";
+      return `<div class="tabla-acta-wrap" style="text-align:center; margin:8px auto 10px;">
+        <img src="${dataURL}" alt="${altText}" style="width:12cm; height:15cm; display:block; margin:0 auto; border:1px solid #d1d5db; padding:4px; box-sizing:border-box; object-fit:contain;">
+      </div>`;
+    }
+
+    // Genera un gráfico de barras horizontal con aprendices que tengan fallas (>0)
+    function generarGraficoFallasAprendices(datos) {
+      if (!Array.isArray(datos) || !datos.length) return null;
+
+      const width = 1000;
+      const filas = datos.map((d) => {
+        const nombre = (d.nombre || "").trim() || "Aprendiz";
+        const doc = (d.doc || "").trim();
+        const etiqueta = doc ? `${nombre} (${doc})` : nombre;
+        return { ...d, etiqueta };
+      });
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      const ctx = canvas.getContext("2d");
+
+      ctx.font = "13px Arial";
+      const maxEtiqueta = Math.max(...filas.map(f => ctx.measureText(f.etiqueta).width), 0);
+      const marginLeft = Math.min(620, Math.max(260, Math.ceil(maxEtiqueta + 40)));
+      const margin = { top: 36, right: 80, bottom: 40, left: marginLeft };
+
+      const height = Math.max(260, filas.length * 60 + margin.top + margin.bottom);
+      canvas.height = height;
+
+      // Fondo blanco
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, width, height);
+
+      const chartWidth = width - margin.left - margin.right;
+      const barHeight = 28;
+      const gap = 20;
+      const maxFallas = Math.max(...filas.map(d => d.fallas), 1);
+
+      // Título
+      ctx.fillStyle = "#111827";
+      ctx.font = "bold 20px Arial";
+      ctx.textAlign = "left";
+      ctx.fillText("Aprendices con fallas", margin.left, 24);
+
+      ctx.font = "13px Arial";
+      ctx.fillStyle = "#374151";
+      ctx.fillText("Fallas registradas (solo se muestran aprendices con al menos 1 falla)", margin.left, 44);
+
+      filas.forEach((item, idx) => {
+        const y = margin.top + idx * (barHeight + gap);
+        const x = margin.left;
+        const barW = (item.fallas / maxFallas) * chartWidth;
+
+        // Banda de fondo
+        ctx.fillStyle = "#e5e7eb";
+        ctx.fillRect(x, y, chartWidth, barHeight);
+
+        // Barra principal
+        ctx.fillStyle = "#16a34a";
+        ctx.fillRect(x, y, barW, barHeight);
+
+        // Etiqueta de nombre (izquierda)
+        ctx.fillStyle = "#111827";
+        ctx.font = "13px Arial";
+        ctx.textAlign = "right";
+        ctx.textBaseline = "middle";
+        ctx.fillText(item.etiqueta, x - 12, y + barHeight / 2);
+
+        // Valor de fallas al final de la barra
+        ctx.textAlign = "left";
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "bold 13px Arial";
+        ctx.fillText(`${item.fallas}`, x + barW + 8, y + barHeight / 2);
+      });
+
+    return canvas.toDataURL("image/png");
+  }
+
+    // Renderiza gráfico de fallas (CanvasJS) en el contenedor del reporte 7
+    function renderGraficoFallasReporte7(data) {
+      const cont = document.getElementById("graficoFallasReporte7Container");
+      if (!cont) return;
+
+      if (!Array.isArray(data) || data.length === 0) {
+        cont.style.display = "none";
+        cont.innerHTML = "";
+        chartFallasReporte7 = null;
+        return;
+      }
+
+      // Ajustar dimensiones del contenedor para un embudo pequeño y centrado
+      cont.style.display = "block";
+      cont.style.maxWidth = "400px";
+      cont.style.margin = "12px auto";
+      cont.style.height = "260px";
+
+      const datosOrdenados = data
+        .slice()
+        .sort((a, b) => (b.fallas || 0) - (a.fallas || 0))
+        .map((item) => ({
+          label: item.label,
+          y: item.fallas
+        }));
+
+      chartFallasReporte7 = new CanvasJS.Chart("graficoFallasReporte7Container", {
+        theme: "light2",
+        animationEnabled: true,
+        exportEnabled: true,
+        height: 260,
+        title: {
+          text: "Aprendices con fallas",
+          fontSize: 14,
+          fontWeight: "bold",
+          horizontalAlign: "left"
+        },
+        data: [{
+          type: "funnel",
+          indexLabel: "{label}: {y}",
+          indexLabelPlacement: "inside",
+          indexLabelFontColor: "#ffffff",
+          indexLabelFontSize: 11,
+          toolTipContent: "<b>{label}</b>: {y} fallas",
+          dataPoints: datosOrdenados
+        }]
+      });
+
+      chartFallasReporte7.render();
     }
 
    // Clasificación de competencias por categoría
@@ -4413,6 +4600,7 @@ let gruposProgramadas = {};
 let gruposPendientes = {};
 let chartHorasInstructores = null;   // Gráfico de horas por instructor
 let chartCompetenciasHoras = null;   // Gráfico 100% Total vs Diseño
+let chartFallasReporte7 = null;      // Gráfico de fallas por aprendiz (reporte 7)
 let estadoChart = null;              // Gráfico Distribución de Estados
 
 
@@ -4590,7 +4778,12 @@ document.getElementById('btnCargarDiseno').addEventListener('click', function() 
     // 1. Procesar el diseño (Archivo 3)
       const cantidad3 = procesarTercerArchivo(ws);
   actualizarResumenFicha();
-  mostrarModalGerenteProyecto();
+  if (validarRolesActivos) {
+    mostrarModalGerenteProyecto();
+  } else {
+    actualizarGerenteEnHeader("-");
+    actualizarAprendizVoceroHeader("-");
+  }
 
 
 
@@ -7031,6 +7224,7 @@ function generarPivotTableAvancePorAprendiz() {
   let sumaAvance = 0;
   let cantidadConAvance = 0;
   let aprendicesRiesgo = 0;
+  const datosFallasUI = [];
 
   pivotRows.forEach(row => {
     const total = row.aprobado + row.porEvaluar;
@@ -7119,6 +7313,20 @@ const spanAprendicesRiesgo = document.getElementById("numAprendicesRiesgoHeader"
 if (spanAprendicesRiesgo) {
   spanAprendicesRiesgo.textContent = aprendicesRiesgo.toString();
 }
+
+// Renderizar gráfica de fallas en el reporte (CanvasJS, solo si hay fallas)
+const contGraficoFallas = document.getElementById("graficoFallasReporte7Container");
+const datosGraf = pivotRows
+  .map(r => {
+    const doc = (r.numDoc || "").toString();
+    const fallas = mapaFallasPorDocumento[normalizarDocumento(doc)] || 0;
+    return {
+      label: (r.nombreCompleto || "").trim(),
+      fallas
+    };
+  })
+  .filter(r => r.fallas > 0);
+renderGraficoFallasReporte7(datosGraf);
 
 }
 
@@ -7399,6 +7607,52 @@ const numCompetencias     = getText("numCompetenciasHeader")     || "0";
 const numResultados        = getText("numResultadosHeader")       || "0";
     // 3. Datos de aprendices para el acta
   const totalAprendicesEstado = getText("totalAprendicesEstado") || "0";
+  const datosFallasAprendices = [];
+
+  // Gráfico circular de estados (CanvasJS) para incrustar en el acta
+  if (estadoChart && typeof estadoChart.render === "function") {
+    try {
+      estadoChart.render();
+    } catch (err) {
+      console.warn("No se pudo renderizar el grafico de estados antes de exportar el acta", err);
+    }
+  }
+  const graficoEstadosDataURL = capturarGraficoComoImg(".estado-chart-wrapper");
+  const graficoEstadoActaHTML = construirGraficoActaHTML(
+    graficoEstadosDataURL,
+    "Distribución de estados de aprendices",
+    "<em>(No se pudo capturar el grafico de estados al momento de generar el acta.)</em>"
+  );
+
+  // Gráfico de competencias vs diseño (CanvasJS) para la sección 2.4.1
+  if (chartCompetenciasHoras && typeof chartCompetenciasHoras.render === "function") {
+    try {
+      chartCompetenciasHoras.render();
+    } catch (err) {
+      console.warn("No se pudo renderizar el grafico de competencias antes de exportar el acta", err);
+    }
+  }
+  const graficoCompetenciasDataURL = capturarGraficoComoImg("#chartCompetenciasHorasContainer");
+  const graficoCompetenciasActaHTML = construirGraficoActaHTML(
+    graficoCompetenciasDataURL,
+    "Avance por competencia (horas vs diseño)",
+    "<em>(No se pudo capturar el grafico de competencias al momento de generar el acta.)</em>"
+  );
+
+  // Gráfico de Total de Horas Programadas por Instructor (CanvasJS) para el acta
+  if (chartHorasInstructores && typeof chartHorasInstructores.render === "function") {
+    try {
+      chartHorasInstructores.render();
+    } catch (err) {
+      console.warn("No se pudo renderizar el grafico de horas por instructor antes de exportar el acta", err);
+    }
+  }
+  const graficoHorasInstructoresDataURL = capturarGraficoComoImg("#chartInstructoresHorasContainer");
+  const graficoHorasInstructoresActaHTML = construirGraficoActaHTML(
+    graficoHorasInstructoresDataURL,
+    "Total de horas programadas por instructor",
+    "<em>(No se pudo capturar el grafico de horas por instructor al momento de generar el acta.)</em>"
+  );
 
   // 3.1 – Detalle de Aprendices (tabla de estados)
   let tablaDetalleAprendicesHTML = "";
@@ -7440,6 +7694,26 @@ const numResultados        = getText("numResultadosHeader")       || "0";
   const pivotBody = document.getElementById("pivotAvanceContainer");
   if (pivotBody && typeof pivotBody.closest === "function") {
     const tablaAvanceElem = pivotBody.closest("table");
+
+    // Recolectar datos de fallas para la gráfica (solo aprendices con fallas > 0)
+    const datosFallasParaGrafico = [];
+    pivotBody.querySelectorAll("tr").forEach((tr) => {
+      const celdas = tr.querySelectorAll("td");
+      if (celdas.length >= 4) {
+        const fallas = parseFloat((celdas[3].textContent || "").replace(",", ".") || "0");
+        if (fallas > 0) {
+          datosFallasParaGrafico.push({
+            label: (celdas[2].textContent || "").trim(),
+            fallas
+          });
+          datosFallasAprendices.push({
+            doc: (celdas[1].textContent || "").trim(),
+            nombre: (celdas[2].textContent || "").trim(),
+            fallas: fallas
+          });
+        }
+      }
+    });
     if (tablaAvanceElem) {
       const cloneAvance = tablaAvanceElem.cloneNode(true);
 
@@ -7473,10 +7747,22 @@ const numResultados        = getText("numResultadosHeader")       || "0";
 
       tablaAvanceAprendicesHTML = cloneAvance.outerHTML;
     }
+
+    // Renderizar gráfica de fallas en el reporte (CanvasJS)
+    renderGraficoFallasReporte7(datosFallasParaGrafico);
   }
 
- 
-
+  const graficoFallasAprendicesHTML = (() => {
+    // Capturar el CanvasJS del reporte (si existe) para el acta
+    if (chartFallasReporte7 && typeof chartFallasReporte7.render === "function") {
+      try { chartFallasReporte7.render(); } catch (err) {}
+    }
+    const dataURL = capturarGraficoComoImg("#graficoFallasReporte7Container");
+    if (!dataURL) return "";
+    return `<div style="width:100%; text-align:center; margin:8px auto 10px;">
+      <img src="${dataURL}" alt="Aprendices con fallas" style="width:8cm; height:4cm; display:block; margin:0 auto; border:1px solid #d1d5db; padding:2px; box-sizing:border-box; object-fit:contain;">
+    </div>`;
+  })();
 
   // 3.3 – Competencias pendientes por evaluar por cada aprendiz
   // 3.4 – Aprendices listos para ir a etapa productiva
@@ -8238,6 +8524,79 @@ tablaInstructoresCompetenciasHTML = `
         font-size: 9pt;
         vertical-align: top;
       }
+
+      /* Centrado global de tablas del acta (incluyendo las que van dentro de listas) */
+      .Section1 table {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .Section1 ol table,
+      .Section1 ul table,
+      .Section1 ol div table,
+      .Section1 ul div table {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: table;
+        width: 90%;
+        max-width: 100%;
+      }
+      .tabla-acta-wrap {
+        margin: 6px auto;
+        text-align: center;
+      }
+      .tabla-acta-wrap table {
+        margin-left: auto;
+        margin-right: auto;
+        display: table;
+        width: 90%;
+        max-width: 100%;
+      }
+      /* Estilos de listas tipo Word */
+      .lista-acta {
+        margin: 0;
+        list-style-position: outside;
+        padding-left: 18px;
+      }
+      .lista-acta.nivel-1 { padding-left: 20px; }
+      .lista-acta.nivel-2 { padding-left: 18px; }
+      .lista-acta.nivel-3 { padding-left: 16px; }
+      .lista-acta.nivel-4 { padding-left: 14px; }
+
+      .titulo-1 {
+        display: block;
+        font-weight: bold;
+        font-size: 12pt;
+        margin: 8px 0 4px;
+      }
+      .titulo-2 {
+        display: block;
+        font-weight: bold;
+        font-size: 11pt;
+        margin: 7px 0 4px;
+        
+      }
+      .titulo-3 {
+        display: block;
+        font-weight: bold;
+        font-size: 10pt;
+        font-style: italic;
+        margin: 7px 0 4px;
+        
+      }
+      .titulo-4 {
+        display: block;
+        font-weight: bold;
+        font-size: 9pt;
+        font-style: italic;
+        
+      }
+      .contenido-item {
+        font-size: 10pt;
+        font-weight: normal;
+        font-style: normal;
+        margin: 4px 0 8px;
+        padding-left: 12pt;
+      }
       .acta-titulo {
         text-align: center;
         font-weight: bold;
@@ -8261,7 +8620,11 @@ tablaInstructoresCompetenciasHTML = `
       .tabla-competencias-horas,
       .tabla-competencias-sobre-ejecutadas,
       .tabla-raps-otro-instructor,
-      .tabla-cronograma-gantt {
+      .tabla-cronograma-gantt,
+      .tabla-cursos-preparatorios,
+      .tabla-cursos-habilidades,
+      .tabla-cursos-emprendimiento,
+      .tabla-alternativas-productiva {
 
         width: 100%;
         border-collapse: collapse;
@@ -8296,7 +8659,15 @@ tablaInstructoresCompetenciasHTML = `
       .tabla-raps-otro-instructor th,
       .tabla-raps-otro-instructor td,
       .tabla-cronograma-gantt th,
-      .tabla-cronograma-gantt td {
+      .tabla-cronograma-gantt td,
+      .tabla-cursos-preparatorios th,
+      .tabla-cursos-preparatorios td,
+      .tabla-cursos-habilidades th,
+      .tabla-cursos-habilidades td,
+      .tabla-cursos-emprendimiento th,
+      .tabla-cursos-emprendimiento td,
+      .tabla-alternativas-productiva th,
+      .tabla-alternativas-productiva td {
 
         border: 1px solid #000000;
         padding: 4px 6px;
@@ -8314,7 +8685,11 @@ tablaInstructoresCompetenciasHTML = `
       .tabla-competencias-horas th,
       .tabla-competencias-sobre-ejecutadas th,
       .tabla-raps-otro-instructor th,
-      .tabla-cronograma-gantt th {
+      .tabla-cronograma-gantt th,
+      .tabla-cursos-preparatorios th,
+      .tabla-cursos-habilidades th,
+      .tabla-cursos-emprendimiento th,
+      .tabla-alternativas-productiva th {
         background-color: #e5e7eb;
         font-weight: bold;
         text-align: center;
@@ -8498,41 +8873,52 @@ tablaInstructoresCompetenciasHTML = `
         <td colspan="4">
                     <strong>AGENDA O PUNTOS PARA DESARROLLAR:</strong>
           <ol style="margin:0; padding-left:20px; list-style-position:outside;">
-            <li>Verificación de asistencia</li>
-            <li>Informe actualizado ficha
-              <ol>
-                <li>Detalle de aprendices</li>
-                <li>Instructores</li>
-                <li>Listado de instructores aprendices pendientes por emitir juicio</li>
-                <li>Informe actualizado competencias y resultados de aprendizaje por desarrollar y evaluar
-                  <ol>
-                    <li>Competencias y % de avance</li>
-                    <li>Cronograma programación de competencias</li>
-                    <li>Competencias sobre ejecutadas</li>
-                    <li>Competencias programadas y pendientes</li>
-                    <li>Competencias y raps evaluados por un instructor no programado</li>
+            <li>Verificación del quorum</li>
+            <li>Compromisos del acta anterior (opcional)</li>
+            <li>Análisis de Grupo (cuantitativa: reportes de aprendices, concepto general del grupo)
+              <ol type="a" style="padding-left:18px;">
+                <li>Detalle de aprendices
+                  <ol type="i" style="padding-left:16px;">
+                    <li>Porcentaje de avance de aprendices y fallas</li>
+                    <li>Competencias pendientes por evaluar por cada aprendiz.</li>
+                    <li>Alternativa de etapa productiva.</li>
+                    <li>Aprendices listos para ir a etapa productiva.</li>
+                    <li>Cursos Complementarios
+                      <ol type="1" style="padding-left:14px;">
+                        <li>Cursos Preparatorios para pruebas saber TYT</li>
+                        <li>Cursos Habilidades Digitales</li>
+                        <li>Cursos Emprendimiento y Derechos Fundamentales</li>
+                      </ol>
+                    </li>
+                    <li>Calificación cualitativa
+                      <ol type="1" style="padding-left:14px;">
+                        <li>Aspectos comportamentales.</li>
+                        <li>Aspectos académicos.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li>Instructores
+                  <ol type="i" style="padding-left:16px;">
+                    <li>Listado de instructores con aprendices pendientes por emitir juicio.</li>
+                  </ol>
+                </li>
+                <li>Análisis de competencias y resultados de aprendizaje
+                  <ol type="i" style="padding-left:16px;">
+                    <li>Competencias y % de avance vs diseño.</li>
+                    <li>Cronograma de programación de competencias (Gantt).</li>
+                    <li>Competencias sobre ejecutadas.</li>
+                    <li>Competencias pendientes</li>
+                    <li>Competencias y RAPs evaluados por instructor no programado.</li>
                   </ol>
                 </li>
               </ol>
             </li>
-            <li>Informe actualizado de aprendices
-              <ol>
-                <li>Porcentaje de avance de los aprendices y fallas</li>
-                <li>Competencias pendientes por evaluar por cada aprendiz</li>
-                <li>Aprendices listos para ir a etapa productiva</li>
-                <li>Alternativa de etapa productiva</li>
-              </ol>
-            </li>
-            <li>Actos administrativos, de condicionamiento y/o cancelación de matrícula.</li>
-            <li>Seguimiento a aprendices (llamados de atención, casos especiales).</li>
-            <li>Cursos
-              <ol>
-                <li>Cursos de habilidades digitales</li>
-                <li>Cursos de emprendimiento y derechos fundamentales</li>
-                <li>Cursos de pruebas saber tyt</li>
-              </ol>
-            </li>
+            <li>Análisis de casos especiales</li>
+            <li>Recomendaciones del comité</li>
             <li>Conclusiones</li>
+            <li>Compromisos</li>
+            <li>Anexos</li>
           </ol>
         </td>
       </tr>
@@ -8546,378 +8932,442 @@ tablaInstructoresCompetenciasHTML = `
           <span style="font-weight:bold; color:#c00000;">${nombrePrograma}</span>
         </td>
       </tr>
-      <!-- Fila 7: Título DESARROLLO DE LA REUNIÓN -->
+            <!-- Fila 7: Título DESARROLLO DE LA REUNIÓN -->
       <tr>
         <td colspan="4" style="text-align:center; font-weight:bold;">
           DESARROLLO DE LA REUNIÓN
         </td>
       </tr>
 
-      <!-- Fila 8: Fila vacía para escribir el desarrollo -->
+      <!-- Fila 8: Desarrollo de la reunión -->
       <tr>
-        <td colspan="4">     <ol style="margin:0; padding-left:0; list-style-position:inside;">
-
-  <!-- 1. Verificación de asistencia -->
-         
-  <strong>1. Verificación de asistencia</strong><br>
-        Coordinador Académico:
-        <span style="font-weight:bold; color:#c00000;">${coordinadorAcademico}</span><br>
-        Instructor Gerente de Proyecto:
-        <span style="font-weight:bold; color:#c00000;">${instructorGerente}</span><br>
-        Aprendiz Vocero:
-        <span style="font-weight:bold; color:#c00000;">${aprendizVocero}</span><br>
-        Psicologa de Bienestar:
-     
-        <br><br>
-        <br>
-      <!-- 2. Informe actualizado de la ficha -->
-      
-        <strong>2. Informe actualizado de la ficha</strong><br>
-       Avance promedio del grupo:
-        <span style="font-weight:bold; color:#c00000;">${avancePromedioGrupo}</span>
-
-        <span style="font-size:9pt;">
-          Este porcentaje se calcula sobre el total de competencias del programa,
-          que son
-          <span style="font-weight:bold; color:#c00000;">${numCompetencias}</span>,
-          y sobre el total de Resultados de aprendizaje del Diseño Curricular,
-          que son
-          <span style="font-weight:bold; color:#c00000;">${numResultados}</span>.
-        </span>
-
-        <br><br>
- <strong>2.1 Detalle de Aprendices</strong><br>
-        <span style="font-size:9pt;">
-          Se presenta el consolidado de aprendices por estado académico de la ficha.
-          Total aprendices Matriculados:
-          <span style="font-weight:bold; color:#c00000;">${totalAprendicesEstado}</span>.
-        </span>
-        <div style="margin-top:4px;">
-          ${
-            tablaDetalleAprendicesHTML
-              ? tablaDetalleAprendicesHTML
-              : "<em>(No se encontró información del detalle de aprendices al momento de generar el acta.)</em>"
-          }
-        </div><br><br>
-        <strong>2.2. Instructores</strong><br>
-        <span style="font-size:9pt;">
-          A continuación se presenta el listado de instructores con el total de horas programadas para la ficha:
-        </span>
-        ${tablaInstructoresHorasHTML}
-       <br><br> <span style="font-size:9pt;">Así mismo, se relacionan los instructores con las competencias que tienen asignadas y las horas programadas:</span>
-      ${tablaInstructoresCompetenciasHTML}
-      <br>
-      
-        <!--  2.3. Listado de Instructores con aprendices pendientes por emitir Juicio -->
-         <strong>2.3 Listado de Instructores Aprendices pendientes por emitir Juicio</strong><br>
-        <span style="font-size:9pt;">
-          Se listan los instructores que tienen aprendices con juicios evaluativos pendientes,
-          indicando la competencia, los aprendices asociados y la cantidad de aprendices por competencia.
-        </span>
-        <div style="margin-top:4px;">
-          ${
-            tablaPendientesJuicioHTML
-              ? tablaPendientesJuicioHTML
-              : "<em>(No se encontraron instructores con aprendices pendientes por emitir juicio en los reportes cargados.)</em>"
-          }
-        </div>
-<br>
-     <!-- 2.4 Informe actualizado Competencias y resultados de aprendizaje por desarrollar y evaluar -->
-          <p style="margin:10px 0 2px 0;">
-            <strong>2.4. Informe actualizado Competencias y resultados de aprendizaje por desarrollar y evaluar</strong>
-          </p>
-<br>
-       <!-- 2.4.1 Competencias y % de avance -->
-          <p style="margin:0 0 2px 0;">
-            <strong>2.4.1. Competencias y % de avance</strong>
-          </p>
-          <p style="margin:0 0 4px 0; font-size:9pt;">
-            Se presenta el porcentaje de avance por competencia, comparando el total de horas
-            programadas frente a las horas definidas en el diseño curricular.
-          </p>
-
-          <div style="margin-top:4px;">
-            ${
-              tablaCompetenciasHorasHTML
-                ? tablaCompetenciasHorasHTML
-                : "<em>(No se encontró información del reporte % Competencias con Horas al momento de generar el acta.)</em>"
-            }
-          </div>
-
-          <br>
-          <!-- 2.4.2 Cronograma Programación de Competencias -->
-          <p style="margin:8px 0 2px 0;">
-            <strong>2.4.2. Cronograma Programación de Competencias</strong>
-          </p>
-          <p style="margin:0 0 4px 0; font-size:9pt;">
-            Se presenta el cronograma de programación de competencias con los meses en que cada competencia ha sido programada.
-          </p>
-
-          <div style="margin-top:4px; overflow-x:auto;">
-            ${
-              tablaCronogramaGanttHTML
-                ? tablaCronogramaGanttHTML
-                : "<em>(No se encontró información del cronograma Gantt al momento de generar el acta.)</em>"
-            }
-          </div>
-
-<br>   
-                    <!-- 2.4.3 Competencias sobre ejecutadas -->
-          <p style="margin:8px 0 2px 0;">
-            <strong>2.4.3. Competencias sobre ejecutadas</strong>
-          </p>
-          <p style="margin:0 0 4px 0; font-size:9pt;">
-            Se listan únicamente las competencias cuyo porcentaje de ejecución supera el
-            <strong>100&nbsp;%</strong> frente a las horas definidas en el diseño curricular
-            (filas resaltadas en rojo en el reporte % Competencias con Horas).
-          </p>
-
-          <div style="margin-top:4px;">
-            ${
-              tablaCompetenciasSobreEjecutadasHTML
-                ? tablaCompetenciasSobreEjecutadasHTML
-                : "<em>(No se encontraron competencias que superen el 100% en el reporte % Competencias con Horas.)</em>"
-            }
-          </div>
-
-          <br>
-          <!-- 2.4.4 Competencias programadas y pendientes -->
-          <p style="margin:8px 0 2px 0;">
-            <strong>2.4.4. Competencias programadas y pendientes</strong>
-          </p>
-          <p style="margin:0 0 4px 0; font-size:9pt;">
-            De acuerdo con el reporte &quot;Competencias del Programa (Programada: Sí/No)&quot;,
-            se relacionan las competencias sin programación (<strong>No</strong>) o parcialmente programadas (<strong>1/2</strong>).
-            Las competencias se resaltan en rojo.
-          </p>
-
-          <div style="margin-top:4px;">
-            ${
-              tablaCompetenciasProgramadasPendientesHTML
-                ? tablaCompetenciasProgramadasPendientesHTML
-                : "<em>(No se encontró información del reporte &quot;Competencias del Programa (Programada: Sí/No)&quot; al momento de generar el acta.)</em>"
-            }
-          </div>
-
-          <br>
-          <!-- 2.4.5 Competencias y RAPs evaluados por instructor no programado -->
-          <p style="margin:8px 0 2px 0;">
-            <strong>2.4.5. Competencias y RAPs evaluados por un instructor no programado</strong>
-          </p>
-          <p style="margin:0 0 4px 0; font-size:9pt;">
-            De acuerdo con el reporte &quot;RAPs Aprobados - Por evaluar y No aprobados&quot;,
-            se relacionan los resultados de aprendizaje que fueron evaluados por un instructor
-            diferente al programado para esa competencia.
-          </p>
-
-          <div style="margin-top:4px;">
-            ${
-              tablaRapsOtroInstructorHTML
-                ? tablaRapsOtroInstructorHTML
-                : "<em>(No se encontraron RAPs evaluados por instructores diferentes al programado.)</em>"
-            }
-          </div>
-
-          <!-- 3. Informe actualizado de aprendices -->
-
-      
-        <strong>3. Informe actualizado de aprendices:</strong><br>
-
-       
-        <br>
-        <strong>3.1 Porcentaje de Avance de los Aprendices y Fallas</strong><br>
-        <span style="font-size:9pt;">
-          Se relaciona el porcentaje de avance por aprendiz, las fallas registradas,
-          los resultados de aprendizaje aprobados y los que están por evaluar.
-        </span>
-        <div style="margin-top:4px;">
-          ${
-            tablaAvanceAprendicesHTML
-              ? tablaAvanceAprendicesHTML
-              : "<em>(No se encontró información de avance por aprendiz en el panel al momento de generar el acta.)</em>"
-          }
-        </div>
-      
-        <br>
-        <strong>3.2 Competencias pendientes por evaluar por cada aprendiz</strong><br>
-        <span style="font-size:9pt;">
-          De acuerdo con el reporte "Competencias Pendientes por Aprendiz e Instructor", se relacionan las competencias que los aprendices tienen pendientes por evaluar y el instructor que
-          impartió la competencia.
-        </span>
-        <div style="margin-top:4px;">
-          ${
-            tablaPendientesAprendizHTML
-              ? tablaPendientesAprendizHTML
-              : "<em>(De acuerdo con el reporte &quot;Competencias Pendientes por Aprendiz e Instructor&quot;, a la fecha no se registran competencias pendientes por evaluar para los aprendices de la ficha.)</em>"
-          }
-        </div>
-     <br>
-          <!--  3.3 Aprendices listos para ir a etapa productiva -->
-
-<strong>3.3 Aprendices listos para ir a etapa productiva</strong><br>
-        <span style="font-size:9pt;">
-          Se listan los aprendices que, de acuerdo con el mismo reporte, ya finalizaron todas las competencias lectivas
-          y solo tienen pendiente la competencia &quot;RESULTADOS DE APRENDIZAJE ETAPA PRÁCTICA&quot;.
-        </span>
-        <div style="margin-top:4px;">
-          ${
-            tablaListosProductivaHTML
-              ? tablaListosProductivaHTML
-              : "<em>Por el momento no hay ningún aprendiz.</em>"
-          }
-        </div>
-        
-<br>
-                    <!-- 3.4 Alternativa de Etapa Productiva -->
-          <p class="titulo-seccion">
-            <strong>3.4 Alternativa de Etapa Productiva</strong>
-          </p>
-          <p class="subtitulo-seccion">
-            Relación de alternativas definidas para el desarrollo de la etapa productiva,
-            indicando la cantidad de aprendices y sus nombres por cada alternativa.
-          </p>
-
-          <ol style="margin:0 0 12px 18px; padding-left:14px;">
-            <li>CONTRATO DE APRENDIZAJE
-              <ul style="margin:4px 0 8px 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
+        <td colspan="4">
+          <ol class="lista-acta nivel-1">
+            <li class="titulo-1">
+              Verificación del quorum
+              <div class="contenido-item">
+                Coordinador Académico:
+                <span style="font-weight:bold; color:#c00000;">${coordinadorAcademico}</span><br>
+                Instructor Gerente de Proyecto:
+                <span style="font-weight:bold; color:#c00000;">${instructorGerente}</span><br>
+                Aprendiz Vocero:
+                <span style="font-weight:bold; color:#c00000;">${aprendizVocero}</span><br>
+                Psicóloga de Bienestar:
+              </div>
             </li>
-            <li>CONTRATO DE VINCULO FORMATIVO
-              <ul style="margin:4px 0 8px 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
+            <li class="titulo-1">Compromisos del acta anterior (opcional)</li>
+            <li class="titulo-1">
+              Análisis de Grupo (cuantitativa: reportes de aprendices, concepto general del grupo)
+              <ol class="lista-acta nivel-2" type="a">
+                <li class="titulo-2">
+                  Detalle de aprendices
+                  <div class="contenido-item">
+                    Avance promedio del grupo:
+                    <span style="font-weight:bold; color:#c00000;">${avancePromedioGrupo}</span>
+                    <span style="font-size:9pt;">
+                      Este porcentaje se calcula sobre el total de competencias del programa,
+                      que son
+                      <span style="font-weight:bold; color:#c00000;">${numCompetencias}</span>,
+                      y sobre el total de Resultados de aprendizaje del Diseño Curricular,
+                      que son
+                      <span style="font-weight:bold; color:#c00000;">${numResultados}</span>.
+                    </span><br><br>
+                    <span style="font-size:9pt;">
+                      Se presenta el consolidado de aprendices por estado académico de la ficha.
+                      Total aprendices Matriculados:
+                      <span style="font-weight:bold; color:#c00000;">${totalAprendicesEstado}</span>.
+                    </span>
+                    ${graficoEstadoActaHTML}
+                    <div class="tabla-acta-wrap" style="margin-top:4px;">
+                      ${
+                        tablaDetalleAprendicesHTML
+                          ? tablaDetalleAprendicesHTML
+                          : "<em>(No se encontró información del detalle de aprendices al momento de generar el acta.)</em>"
+                      }
+                    </div>
+                  </div>
+                  <ol class="lista-acta nivel-3" type="i">
+                    <li class="titulo-3">
+                      Porcentaje de avance de aprendices y fallas
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          Se relaciona el porcentaje de avance por aprendiz, las fallas registradas,
+                          los resultados de aprendizaje aprobados y los que están por evaluar.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaAvanceAprendicesHTML
+                              ? tablaAvanceAprendicesHTML
+                              : "<em>(No se encontró información de avance por aprendiz en el panel al momento de generar el acta.)</em>"
+                          }
+                        </div>
+                        <div class="titulo-1">
+                        ${
+                          graficoFallasAprendicesHTML
+                            ? `<div class="tabla-acta-wrap" style="margin:6px auto; text-align:center; width:100%;">
+                                 <div style="width:10cm; margin:0 auto;">${graficoFallasAprendicesHTML}</div>
+                               </div>`
+                            : ""
+                        }
+                      </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Competencias pendientes por evaluar por cada aprendiz.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          De acuerdo con el reporte "Competencias Pendientes por Aprendiz e Instructor", se relacionan las competencias que los aprendices tienen pendientes por evaluar y el instructor que impartió la competencia.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaPendientesAprendizHTML
+                              ? tablaPendientesAprendizHTML
+                              : "<em>(De acuerdo con el reporte &quot;Competencias Pendientes por Aprendiz e Instructor&quot;, a la fecha no se registran competencias pendientes por evaluar para los aprendices de la ficha.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Alternativa de etapa productiva.
+                      <div class="contenido-item">
+                        <p class="subtitulo-seccion">
+                          Relación de alternativas definidas para el desarrollo de la etapa productiva,
+                          indicando la cantidad de aprendices y sus nombres por cada alternativa.
+                        </p>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          <table class="tabla-alternativas-productiva">
+                            <thead>
+                              <tr>
+                                <th>Alternativa</th>
+                                <th>Cantidad</th>
+                                <th>Nombres</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>CONTRATO DE APRENDIZAJE</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>CONTRATO DE VINCULO FORMATIVO</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>CONTRATO VINCULO LABORAL</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>PROYECTO PRODUCTIVO</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>MONITORIA</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>PRACTICAS EN LA ECONOMIA POPULAR Y/O CAMPESINA</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>NO_REGISTRA</td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Aprendices listos para ir a etapa productiva.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          Se listan los aprendices que, de acuerdo con el mismo reporte, ya finalizaron todas las competencias lectivas
+                          y solo tienen pendiente la competencia &quot;RESULTADOS DE APRENDIZAJE ETAPA PRACTICA&quot;.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaListosProductivaHTML
+                              ? tablaListosProductivaHTML
+                              : "<em>Por el momento no hay ningún aprendiz.</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Cursos Complementarios
+                      <ol class="lista-acta nivel-4" type="1">
+                        <li class="titulo-4">
+                          Cursos Preparatorios para pruebas saber TYT
+                          <div class="contenido-item" style="padding-left:0;">
+                            <div class="tabla-acta-wrap" style="margin-top:4px;">
+                              <table class="tabla-cursos-preparatorios">
+                                <thead>
+                                  <tr>
+                                    <th>Curso</th>
+                                    <th>Cantidad</th>
+                                    <th>Nombres</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Lectura Critica</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Competencias Ciudadanas</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                     * Razonamiento Cuantitativo<br>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                            </div>
+                            
+                          </div>
+                           
+                        </li>
+                
+                        <li class="titulo-4">
+                          Cursos Habilidades Digitales
+                          <div class="contenido-item" style="padding-left:0;">
+                            <div class="tabla-acta-wrap" style="margin-top:4px;">
+                              <table class="tabla-cursos-habilidades">
+                                <thead>
+                                  <tr>
+                                    <th>Curso</th>
+                                    <th>Cantidad</th>
+                                    <th>Nombres</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Experiencias Seguras en Línea</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Comunicacion y Colaboracion</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Contenido Digital</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Gestion del Conocimiento</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="titulo-4">
+                          Cursos Emprendimiento y Derechos Fundamentales
+                          <div class="contenido-item" style="padding-left:0;">
+                            <div class="tabla-acta-wrap" style="margin-top:4px;">
+                              <table class="tabla-cursos-emprendimiento">
+                                <thead>
+                                  <tr>
+                                    <th>Curso</th>
+                                    <th>Cantidad</th>
+                                    <th>Nombres</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Comportamiento Emprendedor</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Emprendimiento Digital</td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      * Derechos Fundamentales para el Trabajo<br>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                                                                    
+
+                            </div>
+                          </div>
+                        </li>
+                      </ol>
+                    </li>
+                   <p> <span style="font-size:9pt;">Razonamiento Cuantitativo y Derechos Fundamentales para el Trabajo [*Solo aplica para los tecnologos antiguos que no lo tengan en el Diseño Curricular]</span>
+                   </p>
+                   <li class="titulo-3">
+                      Calificación cualitativa
+                      <ol class="lista-acta nivel-4" type="1">
+                        <li class="titulo-4">Aspectos comportamentales.</li>
+                        <li class="titulo-4">Aspectos académicos.</li>
+                      </ol>
+                    </li>
+                  </ol>
+                </li>
+                <li class="titulo-2">
+                  Instructores
+                  <div class="contenido-item" style="padding-left:0;">
+                    <span style="font-size:9pt;">
+                      A continuación se presenta el listado de instructores con el total de horas programadas para la ficha:
+                    </span>
+                    <div class="titulo-1">
+                    ${graficoHorasInstructoresActaHTML}
+                    </div>
+                    <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaInstructoresHorasHTML}</div>
+                    <span style="font-size:9pt;">Así mismo, se relacionan los instructores con las competencias que tienen asignadas y las horas programadas:</span>
+                    <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaInstructoresCompetenciasHTML}</div>
+                  </div>
+                  <ol class="lista-acta nivel-3" type="i">
+                    <li class="titulo-3">
+                      Listado de instructores con aprendices pendientes por emitir juicio.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          Se listan los instructores que tienen aprendices con juicios evaluativos pendientes,
+                          indicando la competencia, los aprendices asociados y la cantidad de aprendices por competencia.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaPendientesJuicioHTML
+                              ? tablaPendientesJuicioHTML
+                              : "<em>(No se encontraron instructores con aprendices pendientes por emitir juicio en los reportes cargados.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                </li>
+                <li class="titulo-2">
+                  Análisis de competencias y resultados de aprendizaje
+                  <ol class="lista-acta nivel-3" type="i">
+                    <li class="titulo-3">
+                      Competencias y % de avance vs diseño.
+                      <div class="contenido-item">
+                        <p style="margin:0 0 2px 0;">
+                          
+                        </p>
+                      <!--   <p style="margin:0 0 4px 0; font-size:9pt;">
+                          Se presenta el porcentaje de avance por competencia, comparando el total de horas
+                          programadas frente a las horas definidas en el diseño curricular.
+                        </p> -->
+
+                        ${graficoCompetenciasActaHTML}
+
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaCompetenciasHorasHTML
+                              ? tablaCompetenciasHorasHTML
+                              : "<em>(No se encontró información del reporte % Competencias con Horas al momento de generar el acta.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Cronograma de programación de competencias (Gantt).
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          Se presenta el cronograma de programación de competencias con los meses en que cada competencia ha sido programada.
+                        </p>
+
+                        <div class="tabla-acta-wrap" style="margin-top:4px; overflow-x:auto;">
+                          ${
+                            tablaCronogramaGanttHTML
+                              ? tablaCronogramaGanttHTML
+                              : "<em>(No se encontró información del cronograma Gantt al momento de generar el acta.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Competencias sobre ejecutadas.
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          Se listan únicamente las competencias cuyo porcentaje de ejecución supera el
+                          <strong>100&nbsp;%</strong> frente a las horas definidas en el diseño curricular
+                          (filas resaltadas en rojo en el reporte % Competencias con Horas).
+                        </p>
+
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaCompetenciasSobreEjecutadasHTML
+                              ? tablaCompetenciasSobreEjecutadasHTML
+                              : "<em>(No se encontraron competencias que superen el 100% en el reporte % Competencias con Horas.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Competencias pendientes
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          De acuerdo con el reporte &quot;Competencias del Programa (Programada: Sí/No)&quot;,
+                          se relacionan las competencias sin programación (<strong>No</strong>) o parcialmente programadas (<strong>1/2</strong>).
+                          Las competencias se resaltan en rojo.
+                        </p>
+
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaCompetenciasProgramadasPendientesHTML
+                              ? tablaCompetenciasProgramadasPendientesHTML
+                              : "<em>(No se encontró información del reporte &quot;Competencias del Programa (Programada: Sí/No)&quot; al momento de generar el acta.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                    <li class="titulo-3">
+                      Competencias y RAPs evaluados por instructor no programado.
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          De acuerdo con el reporte &quot;RAPs Aprobados - Por evaluar y No aprobados&quot;,
+                          se relacionan los resultados de aprendizaje que fueron evaluados por un instructor
+                          diferente al programado para esa competencia.
+                        </p>
+
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${
+                            tablaRapsOtroInstructorHTML
+                              ? tablaRapsOtroInstructorHTML
+                              : "<em>(No se encontraron RAPs evaluados por instructores diferentes al programado.)</em>"
+                          }
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
             </li>
-            <li>CONTRATO VÍNCULO LABORAL
-              <ul style="margin:4px 0 8px 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
-            </li>
-            <li>PROYECTO PRODUCTIVO
-              <ul style="margin:4px 0 8px 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
-            </li>
-            <li>MONITORIA
-              <ul style="margin:4px 0 8px 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
-            </li>
-            <li>PRÁCTICAS EN LA ECONOMÍA POPULAR Y/O CAMPESINA
-              <ul style="margin:4px 0 8px 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
-            </li>
-            <li>NO_REGISTRA
-              <ul style="margin:4px 0 0 14px; padding-left:12px; list-style: disc;">
-                <li><strong>Cantidad:</strong></li>
-                <li><strong>Nombres:</strong></li>
-              </ul>
-            </li>
+            <li class="titulo-1">Análisis de casos especiales</li>
+            <li class="titulo-1">Recomendaciones del comité</li>
           </ol>
+        </td>
+      </tr>
 
-<!-- Inserted sections 4..7 -->
-          <div class="seccion-acta">
-
-            <p class="titulo-seccion"><strong>4. Actos administrativos, de condicionamiento y/o cancelación de matrícula.</strong></p>
-            <p class="nota">[Incluir aquí los actos administrativos, fechas y soportes correspondientes si aplica.]</p>
-
-            <p class="titulo-seccion espaciado-superior"><strong>5. Seguimiento a aprendices (llamados de atención, casos especiales).</strong></p>
-            <p class="nota">[Describir acciones realizadas, responsables y estado actual de los casos. Ejemplo: llamadas realizadas, observaciones y compromisos.]</p>
-
-            <p class="titulo-seccion espaciado-superior"><strong>6. Cursos</strong></p>
-
-            <div class="indent-1">
-              <p class="subtitulo-seccion espaciado-superior"><strong>6.1. Cursos de habilidades digitales</strong></p>
-              <ul class="cursos-list" style="list-style: disc;">
-                <li>Experiencias Seguras en Linea
-                  <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-                <li>Comunicación y Colaboracion
-                  <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-                <li>Contenido Digital
-                  <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-                <li>Gestion del Conocimiento
-                  <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-              </ul>
-
-              <p class="subtitulo-seccion espaciado-superior"><strong>6.2. Cursos de emprendimiento y derechos fundamentales</strong></p>
-              <ul class="cursos-list" style="list-style: disc;">
-                <li>Comportamiento Emprendedor
-                  <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-                <li>Emprendimiento Digital
-                  <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-                <li>Derechos Fundamentales para el Trabajo
-                  <div style="margin-left:10px; font-size:9pt;">[Solo aplica para los tecnologos antiguos que no lo tengan en el Diseño Curricular]</div>
-                     <ul>
-                    <li><strong>Cantidad:</strong></li>
-                    <li><strong>Nombres:</strong></li>
-                  </ul>
-                </li>
-              </ul>
-
-              <p class="subtitulo-seccion espaciado-superior"><strong>6.3. Cursos de pruebas saber tyt</strong></p>
-              <p class="nota-secundaria indent-1">[Lista de cursos, cantidad de participantes y observaciones, solo aplica para programas de nivel Tecnologo]</p>
-              <div id="contenedorCursosTYT" class="indent-1"></div>
-            </div>
-                         
-                  <ul class="cursos-list" style="list-style: disc;">
-                    <li>Lectura Critica
-                      <ul>
-                        <li><strong>Cantidad:</strong></li>
-                        <li><strong>Nombres:</strong></li>
-                      </ul>
-                    </li>
-                    <li>Competencias Ciudadanas
-                      <ul>
-                        <li><strong>Cantidad:</strong></li>
-                        <li><strong>Nombres:</strong></li>
-                      </ul>
-                    </li>
-                    <li>Razonamiento Cuantitativo
-                      <div style="margin-left:10px; font-size:9pt;">[Solo aplica para los tecnologos antiguos que no lo tengan en el Diseño Curricular]</div>
-                      <ul>
-                        <li><strong>Cantidad:</strong></li>
-                        <li><strong>Nombres:</strong></li>
-                      </ul>
-                    </li>
-                  </ul>
-          </div>
-          <!-- End inserted sections -->
-        </ol>
-</td>
-     </tr>
-</tr>
-      <!-- Continuación dentro de la misma tabla acta-encabezado: CONCLUSIONES -->
+<!-- Continuación dentro de la misma tabla acta-encabezado: CONCLUSIONES -->
       <tr>
         <td colspan="4" class="acta-titulo" style="text-align:center; font-weight:700; padding:8px; border:1px solid #000;">
           CONCLUSIONES
@@ -8933,80 +9383,70 @@ tablaInstructoresCompetenciasHTML = `
           ESTABLECIMIENTO Y ACEPTACIÓN DE COMPROMISOS
         </td>
       </tr>
-
-      <!-- Tabla de compromisos (usa las 4 columnas existentes) -->
       <tr>
         <td style="width:38%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">ACTIVIDAD / DECISIÓN</td>
         <td style="width:15%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FECHA</td>
         <td style="width:22%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">RESPONSABLE</td>
         <td style="width:25%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
       </tr>
-
       <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
       <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
       <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
       <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
 
-      <!-- Separador: asistentes y aprobación decisiones -->
+      </table>
+
+      <table class="acta-encabezado" style="width:100%; border-collapse:collapse; margin-top:-1px;">
       <tr>
-        <td colspan="4" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
+        <td colspan="5" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
           DE: ASISTENTES Y APROBACIÓN DECISIONES
         </td>
       </tr>
-
-      <!-- Encabezado asistentes: dentro de una celda (nested table de 5 columnas) -->
       <tr>
-        <td colspan="4" style="padding:6px; border:1px solid #000;">
-          <table style="width:100%; border-collapse:collapse;">
-            <thead>
-              <tr>
-                <th style="padding:6px; border:1px solid #000; width:24%; font-weight:700; text-align:center;">NOMBRE</th>
-                <th style="padding:6px; border:1px solid #000; width:22%; font-weight:700; text-align:center;">DEPENDENCIA/EMPRESA</th>
-                <th style="padding:6px; border:1px solid #000; width:12%; font-weight:700; text-align:center;">APRUEBA (SI/NO)</th>
-                <th style="padding:6px; border:1px solid #000; width:24%; font-weight:700; text-align:center;">OBSERVACIÓN</th>
-                <th style="padding:6px; border:1px solid #000; width:18%; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${coordinadorAcademico}</td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-              </tr>
-
-              <tr>
-                <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${instructorGerente}</td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-              </tr>
-
-              <tr>
-                <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${aprendizVocero}</td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-              </tr>
-
-              <tr>
-                <td style="padding:8px; border:1px solid #000;">Psicologa de Bienestar:</td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-                <td style="padding:8px; border:1px solid #000;"></td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
+        <td style="padding:6px; border:1px solid #000; width:24%; font-weight:700; text-align:center;">NOMBRE</td>
+        <td style="padding:6px; border:1px solid #000; width:22%; font-weight:700; text-align:center;">DEPENDENCIA/ EMPRESA</td>
+        <td style="padding:6px; border:1px solid #000; width:12%; font-weight:700; text-align:center;">APRUEBA (SI/NO)</td>
+        <td style="padding:6px; border:1px solid #000; width:24%; font-weight:700; text-align:center;">OBSERVACIÓN</td>
+        <td style="padding:6px; border:1px solid #000; width:18%; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
+      </tr>
+      <tr>
+        <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${coordinadorAcademico}</td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+      </tr>
+      <tr>
+        <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${instructorGerente}</td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+      </tr>
+      <tr>
+        <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${aprendizVocero}</td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+      </tr>
+      <tr>
+        <td style="padding:8px; border:1px solid #000;">Psicologa de Bienestar:</td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+      </tr>
+      <tr>
+        <td style="height:28px; border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
+        <td style="border:1px solid #000;"></td>
       </tr>
 
-      <!-- Leyenda de protección de datos y ANEXOS como filas finales dentro de la misma tabla -->
       <tr>
-        <td colspan="4" style="border:1px solid #000; padding:8px; text-align:justify;">
+        <td colspan="5" style="border:1px solid #000; padding:8px; text-align:justify;">
           De acuerdo con La Ley 1581 de 2012, Protección de Datos Personales, el Servicio Nacional de
           Aprendizaje SENA, se compromete a garantizar la seguridad y protección de los datos personales
           que se encuentran almacenados en este documento, y les dará el tratamiento correspondiente en
@@ -9014,12 +9454,13 @@ tablaInstructoresCompetenciasHTML = `
         </td>
       </tr>
       <tr>
-        <td colspan="4" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
+        <td colspan="5" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
           ANEXOS
         </td>
       </tr>
-
       </table>
+
+      
     </div>
   </body>
 </html>
@@ -10855,7 +11296,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // =========================
-// Pantalla inicial / Login Coordinador Académico
+// Pantalla inicial / Login Coordinador Acad?mico
 // =========================
 document.addEventListener("DOMContentLoaded", function () {
   // -------- Login Coordinador --------
@@ -10864,27 +11305,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnIngresar  = document.getElementById("btnIngresar");
   const msgError     = document.getElementById("loginMensajeError");
   const loginCard    = loginOverlay ? loginOverlay.querySelector(".login-card") : null;
+  const chkRoles     = document.getElementById("chkValidarRoles");
 
+  if (chkRoles) {
+    validarRolesActivos = chkRoles.checked;
+    chkRoles.addEventListener("change", function () {
+      validarRolesActivos = this.checked;
+      if (!validarRolesActivos && msgError) {
+        msgError.style.display = "none";
+      }
+    });
+  }
  
   if (btnIngresar && selectCoord && loginOverlay) {
     btnIngresar.addEventListener("click", function () {
+      const debeValidar = validarRolesActivos !== false;
       const valor = (selectCoord.value || "").trim();
-      if (!valor) {
+      if (debeValidar && !valor) {
         if (msgError) msgError.style.display = "block";
         return;
       }
 
-      coordinadorAcademicoSeleccionado = valor;
+      coordinadorAcademicoSeleccionado = debeValidar ? valor : "";
 
       if (msgError) msgError.style.display = "none";
 
       // Actualizar el encabezado con el Coordinador seleccionado
       const coordHeader = document.getElementById("coordinadorAcademicoHeader");
       if (coordHeader) {
-        coordHeader.textContent = coordinadorAcademicoSeleccionado;
+        coordHeader.textContent = debeValidar
+          ? (coordinadorAcademicoSeleccionado || "-")
+          : "-";
       }
 
-      // Animación de salida del login
+      // Animaci?n de salida del login
       if (loginCard) {
         loginCard.classList.add("login-exit");
 
@@ -10901,7 +11355,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // -------- Modal Gerente de Proyecto --------
+// -------- Modal Gerente de Proyecto --------
   const gerenteOverlay      = document.getElementById("gerenteOverlay");
   const btnGerenteSi        = document.getElementById("btnGerenteSi");
   const btnGerenteNo        = document.getElementById("btnGerenteNo");
@@ -10984,8 +11438,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
-
-
   </script>
 </body>
 </html>
