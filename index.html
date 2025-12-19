@@ -36,6 +36,46 @@
       color: var(--texto-principal);
     }
 
+    .mes-selector-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 16px 0;
+    }
+
+    .mes-selector-panel {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+      box-shadow: 0 12px 24px rgba(16, 185, 129, 0.2);
+      border: 1px solid #34d399;
+      font-weight: 600;
+      color: #065f46;
+    }
+
+    .mes-selector-panel select {
+      border: none;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-size: 0.95rem;
+      outline: none;
+      color: #065f46;
+      min-width: 220px;
+      box-shadow: inset 0 0 0 1px rgba(6, 95, 70, 0.2);
+    }
+
+    .mes-selector-panel select:focus {
+      box-shadow: inset 0 0 0 2px rgba(6, 95, 70, 0.4);
+    }
+
+    .mes-selector-icon {
+      font-size: 1.2rem;
+    }
+
     /* ================= LOGIN INICIAL (COORDINADOR) ================= */
     #loginOverlay {
       position: fixed;
@@ -466,7 +506,6 @@
     #btnImprimir,
     .btnExportarPDF,
     .btnExportarExcel,
-    .btnExportarWord,
     .btn-menu-reporte {
       display: inline-flex;
       align-items: center;
@@ -488,7 +527,6 @@
     #btnImprimir:hover,
     .btnExportarPDF:hover,
     .btnExportarExcel:hover,
-    .btnExportarWord:hover,
     .btn-menu-reporte:hover {
       background-color: var(--verde-sena-oscuro);
       transform: translateY(-1px);
@@ -625,6 +663,17 @@
     .btn-filtro-dias.btn-morado.active {
       background: linear-gradient(to right, #a855f7, #7c3aed);
       border-color: #7c3aed;
+    }
+
+    .btn-filtro-dias.btn-negro {
+      border-color: #0f172a;
+      color: #0f172a;
+    }
+
+    .btn-filtro-dias.btn-negro.active {
+      background: linear-gradient(to right, #111827, #0f172a);
+      border-color: #0f172a;
+      color: #ffffff;
     }
 
 
@@ -1725,6 +1774,27 @@
       background-color: #f9fafb;
       color: var(--texto-principal);
       box-shadow: none;
+      border: 1px solid transparent;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .export-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .btnExportarPDF {
+      background-color: #ffe9e7;
+      border-color: #f8c2c1;
+    }
+
+    .btnExportarExcel {
+      background-color: #e6f8e6;
+      border-color: #c8eac6;
+    }
+
+    .btnActaComite {
+      background-color: #f3f3ff;
+      border-color: #d9d9f5;
     }
 
     .export-card-icon {
@@ -1739,15 +1809,23 @@
     }
 
     .export-card-icon.pdf {
-      background-color: #ffe4e6;
+      background-color: #fdcdd5;
+      color: #a5071e;
     }
 
     .export-card-icon.excel {
-      background-color: #dcfce7;
+      background-color: #cceaeb;
+      color: #0b6a3a;
     }
 
     .export-card-icon.word {
-      background-color: #e0f2fe;
+      background-color: #cde2ff;
+      color: #0c4aac;
+    }
+
+    .export-card-icon.acta {
+      background-color: #e0e2ff;
+      color: #2d2ac1;
     }
 
     .export-card-text {
@@ -1769,6 +1847,141 @@
       margin-left: auto;
       font-size: 18px;
       color: #9ca3af;
+    }
+
+    .reportes-main {
+      background-color: #ffffff;
+      border-radius: 28px;
+      border: 1px solid #e6ebf1;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .reportes-header h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .reportes-header p {
+      margin: 6px 0 0;
+      color: var(--texto-secundario);
+      font-size: 14px;
+    }
+
+    .reportes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .report-card {
+      border-radius: 18px;
+      padding: 16px;
+      background-color: #f5f6fb;
+      border: 1px solid transparent;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .report-card header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 12px;
+      justify-content: space-between;
+    }
+
+    .report-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f0f5ff;
+      font-size: 20px;
+    }
+
+    .report-card h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .report-card-todos {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #0e4bf1;
+      letter-spacing: 0.6px;
+    }
+
+    .report-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .report-card-list label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .report-card-list label {
+      justify-content: flex-start;
+    }
+
+    .report-card-list input[type="checkbox"] {
+      accent-color: #2563eb;
+    }
+
+    .report-card-todos {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #0e4bf1;
+    }
+
+    .report-card-todos input {
+      width: 16px;
+      height: 16px;
+    }
+
+    .report-card.card-aprendices .report-card-icon {
+      background-color: #dcedf7;
+    }
+
+    .report-card.card-instructores .report-card-icon {
+      background-color: #dde9ff;
+    }
+
+    .report-card.card-competencias .report-card-icon {
+      background-color: #f4e5ff;
+    }
+
+    .reportes-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .reportes-actions-header h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .reportes-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
     /* Responsive */
@@ -2248,22 +2461,151 @@
       color: var(--texto-secundario);
     }
 
-    /* Métricas de competencias y aprendices en riesgo */
-
-    .ficha-analisis-metricas {
+    .ficha-analisis-main {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      gap: 16px;
+      align-items: stretch;
     }
 
-    .ficha-analisis-metrica {
-      padding: 10px 12px;
-      border-radius: 12px;
+    .ficha-analisis-circular-wrap {
+      flex: 0 0 240px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+      justify-content: center;
     }
+
+    .ficha-analisis-circular {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: conic-gradient(var(--verde-sena) calc(var(--avance, 0) * 1%), #e5e7eb 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: var(--texto-principal);
+    }
+
+    .ficha-analisis-circular::after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background-color: #ffffff;
+    }
+
+    .ficha-analisis-circular-inner {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .ficha-analisis-circular-title {
+      font-size: 14px;
+      color: var(--texto-secundario);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .ficha-analisis-circular-value {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .ficha-analisis-circular-sub {
+      font-size: 12px;
+      color: var(--texto-secundario);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .ficha-analisis-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ficha-analisis-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .ficha-analisis-summary-card {
+      border-radius: 16px;
+      padding: 16px;
+      background: #ffffff;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .ficha-analisis-summary-card strong,
+    .ficha-analisis-summary-card .summary-value {
+      font-size: 32px;
+      font-weight: 700;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .ficha-analisis-summary-card .summary-note {
+      font-size: 12px;
+      color: var(--texto-secundario);
+      margin-top: 6px;
+    }
+
+    .ficha-analisis-summary-card.card-verde {
+      border: 1px solid #22c55e;
+    }
+
+    .ficha-analisis-summary-card.card-rojo {
+      border: 1px solid #dc2626;
+    }
+
+    .ficha-analisis-metricas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+      justify-items: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .ficha-analisis-metricas-grid .ficha-analisis-metrica,
+    .ficha-analisis-metrica {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+      border: 1px solid #dc2626;
+      min-height: 120px;
+      min-width: 70px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ficha-analisis-metrica-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--texto-secundario);
+    }
+
+    .ficha-analisis-metrica-valor {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--texto-principal);
+    }
+
+    .ficha-analisis-metrica-note {
+      font-size: 11px;
+      color: var(--texto-secundario);
+    }
+
 
     .ficha-analisis-metrica-ok {
       background-color: #ecfdf3;
@@ -2824,6 +3166,75 @@
       border: 1px solid #e5e7eb;
     }
 
+    .tabla-total {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin: 1rem 0;
+      justify-content: flex-start;
+    }
+
+    .tabla-total-card {
+      flex: 1 1 160px;
+      min-width: 150px;
+      border-radius: 14px;
+      padding: 0.9rem 1.1rem;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border-left: 4px solid var(--tabla-total-accent, #16a34a);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .tabla-total-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    .tabla-total-label {
+      font-size: 0.85rem;
+      color: #6b7280;
+      text-transform: capitalize;
+    }
+
+    .tabla-total-value {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .tabla-total-value.valor-animado {
+      animation: pulseTotal 0.35s ease;
+    }
+
+    @keyframes pulseTotal {
+      0% {
+        transform: translateY(6px);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .tabla-total {
+        flex-direction: column;
+      }
+      .tabla-total-card {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 
@@ -3212,50 +3623,99 @@
 
         </div>
 
-        <!-- Fila 3: Análisis de rendimiento -->
-        <div class="ficha-analisis-card">
-          <div class="ficha-analisis-header">
-            <span class="ficha-analisis-icon">📊</span>
-            <span>ANÁLISIS DE RENDIMIENTO</span>
-          </div>
+      <!-- Fila 3: Análisis de rendimiento -->
+      <div class="ficha-analisis-card">
+        <div class="ficha-analisis-header">
+          <span class="ficha-analisis-icon">📊</span>
+          <span>ANÁLISIS DE RENDIMIENTO</span>
+        </div>
 
-          <div class="ficha-analisis-main">
-            <!-- Bloque de avance promedio -->
-            <div class="ficha-analisis-avance">
-              <div class="ficha-analisis-avance-label">
-                Avance promedio del grupo
-              </div>
-              <div class="ficha-analisis-avance-valor" id="avancePromedioGrupoHeader">0 %</div>
-
-              <div class="ficha-analisis-barra">
-                <div class="ficha-analisis-barra-fill" id="avancePromedioGrupoBar"></div>
-              </div>
-
-              <div class="ficha-analisis-avance-nota">
-                Calculado sobre el total de competencias
+        <div class="ficha-analisis-main">
+          <div class="ficha-analisis-circular-wrap">
+            <div class="ficha-analisis-circular" id="avancePromedioCircular">
+              <div class="ficha-analisis-circular-inner">
+                <span class="ficha-analisis-circular-title">Avance Promedio del Grupo</span>
+                <span class="ficha-analisis-circular-value" id="avancePromedioGrupoHeader">0 %</span>
+                <span class="ficha-analisis-circular-sub">Total competencias</span>
               </div>
             </div>
-
-            <!-- Métricas de riesgo -->
-            <div class="ficha-analisis-metricas">
-              <div class="ficha-analisis-metrica ficha-analisis-metrica-ok">
-                <div class="ficha-analisis-metrica-header">
-                  <span class="ficha-analisis-metrica-badge">✓</span>
-                  <span class="ficha-analisis-metrica-titulo">Competencias sobrecargadas</span>
-                </div>
-                <div class="ficha-analisis-metrica-valor" id="numCompetenciasSobrecargadasHeader">0</div>
+          </div>
+          <div class="ficha-analisis-right">
+            <div class="ficha-analisis-summary-grid">
+              <div class="ficha-analisis-summary-card card-verde">
+                <span class="summary-title">Listos etapa productiva</span>
+                <span class="summary-value" id="numAprendicesListosProductivaHeader">0</span>
+                <span class="summary-note">Aprobados</span>
               </div>
-
-              <div class="ficha-analisis-metrica ficha-analisis-metrica-alerta">
+              <div class="ficha-analisis-summary-card card-rojo">
+                <span class="summary-title">No listos etapa productiva</span>
+                <span class="summary-value" id="numAprendicesNoListosProductivaHeader">0</span>
+                <span class="summary-note">Requieren atención</span>
+              </div>
+            </div>
+            <div class="ficha-analisis-metricas-grid">
+            <div class="ficha-analisis-metrica">
+              <div class="ficha-analisis-metrica-header">
+                <span class="ficha-analisis-metrica-badge">🧠</span>
+                <span>Competencias sobrecargadas</span>
+              </div>
+              <div class="ficha-analisis-metrica-valor" id="numCompetenciasSobrecargadasHeader">0</div>
+              <div class="ficha-analisis-metrica-note">Competencias</div>
+            </div>
+            <div class="ficha-analisis-metrica">
+              <div class="ficha-analisis-metrica-header">
+                <span class="ficha-analisis-metrica-badge">🚫</span>
+                <span>Competencias NO aprobados</span>
+              </div>
+              <div class="ficha-analisis-metrica-valor" id="numCompetenciasNoAprobadasHeader">0</div>
+              <div class="ficha-analisis-metrica-note">Competencias</div>
+            </div>
+            <div class="ficha-analisis-metrica">
+              <div class="ficha-analisis-metrica-header">
+                <span class="ficha-analisis-metrica-badge">📉</span>
+                <span>Raps NO aprobados</span>
+              </div>
+                <div class="ficha-analisis-metrica-valor" id="numResultadosNoAprobadosHeader">0</div>
+                <div class="ficha-analisis-metrica-note">RAPs</div>
+              </div>
+              <div class="ficha-analisis-metrica">
                 <div class="ficha-analisis-metrica-header">
-                  <span class="ficha-analisis-metrica-badge">!</span>
-                  <span class="ficha-analisis-metrica-titulo">Aprendices con avance &lt; 75%</span>
+                  <span class="ficha-analisis-metrica-badge">⚠️</span>
+                  <span>Total RAPs pendientes por evaluar(visto)</span>
                 </div>
+                <div class="ficha-analisis-metrica-valor" id="numRapsPendientesVistoHeader">0</div>
+                <div class="ficha-analisis-metrica-note">RAPs</div>
+              </div>
+            <div class="ficha-analisis-metrica">
+              <div class="ficha-analisis-metrica-header">
+                <span class="ficha-analisis-metrica-badge">👩‍🎓🚫</span>
+                <span>Aprendices con competencias NO aprobadas</span>
+              </div>
+              <div class="ficha-analisis-metrica-valor" id="numAprendicesConCompetenciasNoAprobadasHeader">0</div>
+              <div class="ficha-analisis-metrica-note">Aprendices</div>
+            </div>
+            <div class="ficha-analisis-metrica">
+                <div class="ficha-analisis-metrica-header">
+                  <span class="ficha-analisis-metrica-badge">🧾</span>
+                  <span>Aprendices con competencias por evaluar</span>
+                </div>
+                <div class="ficha-analisis-metrica-valor" id="numAprendicesConCompetenciasPorEvaluarHeader">0</div>
+              <div class="ficha-analisis-metrica-note">Aprendices</div>
+            </div>
+            <div class="ficha-analisis-metrica">
+              <div class="ficha-analisis-metrica-header">
+                <span class="ficha-analisis-metrica-badge">🚩</span>
+                <span>Aprendices con avance &lt; 75%</span>
+              </div>
                 <div class="ficha-analisis-metrica-valor" id="numAprendicesRiesgoHeader">0</div>
+                <div class="ficha-analisis-metrica-note">Aprendices</div>
               </div>
+             
+            
             </div>
           </div>
         </div>
+      </div>
       </div>
 
 
@@ -3303,6 +3763,7 @@
 
 
 
+  </div>
     <!-- REPORTES EN PESTAÑAS -->
     <div id="reportes" class="contenedor" style="display: none;">
       <!-- Cabecera del acordeón -->
@@ -3451,13 +3912,23 @@
                 </label>
               </div>
 
-              <div class="filtros-colores-dias" data-table="tablaReporte1">
-                <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-                <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
+            <div class="filtros-colores-dias" data-table="tablaReporte1">
+              <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
+              <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
+            </div>
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#14b8a6;">
+                <span class="tabla-total-label">Total Horas programada</span>
+                <strong id="totalHorasProgramadasReporte1" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosReporte1" class="tabla-total-value">0</strong>
               </div>
             </div>
+          </div>
 
-            <table id="tablaReporte1">
+          <table id="tablaReporte1">
               <thead>
                 <tr>
                   <th>#</th>
@@ -3531,6 +4002,34 @@
               <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
               <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
               <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
+            </div>
+
+            <div class="mes-selector-wrap">
+            <div class="mes-selector-panel">
+              <span class="mes-selector-icon">Mes</span>
+                <span>Filtrar por mes de formación</span>
+                <select id="mesSelectReporte2">
+                  <option value="ALL">Periodo completo</option>
+                </select>
+              </div>
+            </div>
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
+                <span class="tabla-total-label">Total Horas</span>
+                <strong id="totalHorasReporte2" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
+                <span class="tabla-total-label">Total Horas diseño</span>
+                <strong id="totalHorasDisenoReporte2" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#2563eb;">
+                <span class="tabla-total-label">Total %</span>
+                <strong id="totalPorcentajeReporte2" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#6366f1;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosReporte2" class="tabla-total-value">0</strong>
+              </div>
             </div>
 
             <table id="tablaReporte2">
@@ -3641,10 +4140,31 @@
             <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
           </div>
 
-          <table id="tablaInstructoresHoras">
-            <thead>
-              <tr>
-                <th>#</th>
+          <div class="mes-selector-wrap">
+          <div class="mes-selector-panel">
+            <span class="mes-selector-icon">Mes</span>
+            <span>Filtrar por mes de formación</span>
+            <select id="mesSelectReporte3">
+              <option value="ALL">Periodo completo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="tabla-total">
+          <div class="tabla-total-card" style="--tabla-total-accent:#0ea5e9;">
+            <span class="tabla-total-label">Total Horas programadas</span>
+            <strong id="totalHorasReporte3" class="tabla-total-value">0</strong>
+          </div>
+          <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+            <span class="tabla-total-label">Cantidad registros</span>
+            <strong id="totalRegistrosReporte3" class="tabla-total-value">0</strong>
+          </div>
+        </div>
+
+        <table id="tablaInstructoresHoras">
+          <thead>
+            <tr>
+              <th>#</th>
                 <th>Nombre Instructor</th>
                 <th>Apellido Instructor</th>
                 <th>Tipo</th>
@@ -3670,6 +4190,7 @@
 
 
           <!-- Listado de Instructores con aprendices pendientes por emitir Juicio -->
+          <div id="listado-instructores-pendientes-juicio" class="reporte-exportable">
           <h3 id="tituloListadoPendientesR8" style="margin-top: 8px;">
             Listado de Instructores Aprendices pendientes por emitir Juicio
           </h3>
@@ -3718,6 +4239,13 @@
             <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
           </div>
 
+          <div class="tabla-total">
+            <div class="tabla-total-card" style="--tabla-total-accent:#14b8a6;">
+              <span class="tabla-total-label">Total cantidad de aprendices</span>
+              <strong id="totalAprendicesPendientesReporte8" class="tabla-total-value">0</strong>
+            </div>
+          </div>
+
           <table id="tablaPendientesInstructorReporte8">
             <thead>
             <tr>
@@ -3726,7 +4254,7 @@
               <th>Competencia</th>
               <th>Tipo</th>
               <th>Fecha de inicio</th>
-              <th>Fecha Terminacion</th>
+              <th>Fecha Terminación</th>
               <th>Dias</th>
               <th>Nombre aprendices</th>
               <th>Cantidad de Aprendices</th>
@@ -3734,6 +4262,7 @@
           </thead>
             <tbody id="tbodyPendientesInstructorReporte8"></tbody>
           </table>
+          </div>
         </div>
         <!-- TAB 4 -->
         <div id="tab4" class="tab-content">
@@ -3859,9 +4388,7 @@
               Cuenta con barra de búsqueda y filtros por tipo de competencia transversal, Tecnicas, Ingles para ubicar
               rápidamente la información.
             </p>
-            <h3>Competencias ya programadas</h3>
-
-            <!-- Filtros para Competencias ya programadas (mismo diseño verde) -->
+                        <!-- Filtros para Competencias ya programadas (mismo diseño verde) -->
           <div class="filtros-reporte1 filtros-reporte5-programadas">
             <!-- Caja de texto para buscar -->
             <div class="filtro-busqueda-reporte1">
@@ -3910,6 +4437,16 @@
               <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
               <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
             </div>
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#a855f7;">
+                <span class="tabla-total-label">Total Cantidad de aprendices</span>
+                <strong id="totalCantAprendicesProgramadas" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosProgramadas" class="tabla-total-value">0</strong>
+              </div>
+            </div>
 
               <table id="tablaProgramadas">
                 <thead>
@@ -3918,7 +4455,7 @@
                     <th>Competencia</th>
                     <th>Tipo</th>
                     <th>Fecha de inicio</th>
-                    <th>Fecha Terminacion</th>
+                    <th>Fecha Terminación</th>
                     <th>Dias</th>
                     <th>RAP</th>
                     <th>Aprendices</th>
@@ -3994,6 +4531,7 @@
               <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
               <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
               <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
+              <button type="button" class="btn-filtro-dias btn-negro" data-color="no-aprobado">No aprobado</button>
               <div class="filtros-raps-botones">
                 <label class="chip-reporte1 chip-raps-btn chip-amarillo">
                   <input type="checkbox" id="chkSoloRapsOtro" />
@@ -4006,6 +4544,25 @@
                  <span class="chip-text">Raps Aprobados y no programados</span>
 
                 </label>
+              </div>
+            </div>
+
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
+                <span class="tabla-total-label">Total Aprobado</span>
+                <strong id="totalAprobadoReporte6" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
+                <span class="tabla-total-label">Total Por evaluar</span>
+                <strong id="totalPorEvaluarReporte6" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#ef4444;">
+                <span class="tabla-total-label">Total No aprobado</span>
+                <strong id="totalNoAprobadoReporte6" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosReporte6" class="tabla-total-value">0</strong>
               </div>
             </div>
 
@@ -4067,6 +4624,24 @@
                 <input type="text" id="busquedaAvanceAprendiz" placeholder="Buscar por documento, nombre o estado." />
               </div>
             </div>
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
+                <span class="tabla-total-label">Total Aprobado</span>
+                <strong id="totalAprobadoAvanceAprendiz" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
+                <span class="tabla-total-label">Total Por evaluar</span>
+                <strong id="totalPorEvaluarAvanceAprendiz" class="tabla-total-value">0</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#2563eb;">
+                <span class="tabla-total-label">Promedio % Avance</span>
+                <strong id="promedioPorcentajeAvanceAprendiz" class="tabla-total-value">0%</strong>
+              </div>
+              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosAvanceAprendiz" class="tabla-total-value">0</strong>
+              </div>
+            </div>
 
             <table>
               <thead>
@@ -4105,9 +4680,6 @@
               Agrupa por aprendiz las competencias pendientes y los instructores involucrados, y cuenta con barra de
               búsqueda y filtros por aprendiz, competencia, estado y elegibilidad para Paz y Salvo.
             </p>
-
-
-
             <!-- Barra de búsqueda para Competencias Pendientes por Aprendiz e Instructor -->
             <div class="filtros-reporte1">
               <div class="filtro-busqueda-reporte1">
@@ -4171,7 +4743,7 @@
                 <th>Nombre del Aprendiz</th>
                 <th>Tipo</th>
                 <th>Competencias Pendientes por Evaluar</th>
-                <th>Fecha Terminacion</th>
+                <th>Fecha Terminación</th>
                 <th>Dias</th>
                 <th>Instructor que impartió la competencia</th>
               </tr>
@@ -4182,20 +4754,11 @@
           <!-- Tabla RESUMEN (visible) la llenamos por JS dentro de este contenedor -->
           <div id="contenedorResumenPracticaReporte8"></div>
 
-
-
-
-
-
-
         </div>
-
 
       </div>
 
-
     </div>
-
 
     <div id="export-section" class="contenedor export-section" style="display: none;">
       <!-- Cabecera del acordeón Centro de Reportes -->
@@ -4206,91 +4769,106 @@
 
       <!-- Cuerpo del acordeón Centro de Reportes -->
       <div id="accordionCentroBody" class="acordeon-body">
-        <!-- Encabezado del centro de reportes -->
-        <div class="export-header">
-          <div class="export-header-icon">📊</div>
-          <div>
-            <h2>Centro de Reportes</h2>
-            <p>Gestión Académica e Instructores</p>
-          </div>
-        </div>
-
-        <div class="export-body">
-          <!-- Columna izquierda: selección de reportes -->
-          <div class="export-left">
-            <div class="export-left-header">
-              <div>
-                <h3>Selecciona reportes para exportar</h3>
-                <p>Elige los datos que necesitas descargar hoy.</p>
-              </div>
-            </div>
-
-            <div id="seleccionReportes" class="lista-reportes">
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte1" checked> Reporte 1: Instructores y
-                Competencias</label>
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte2" checked> Reporte 2: Resumen de
-                Competencias con Horas</label>
-
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte4" checked> Reporte 3: Competencias
-                Programadas</label>
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte5" checked> Reporte 4: Raps por
-                evaluar de Competencias programadas y no</label>
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte6" checked> Reporte 5: Raps Aprobados
-                - Por evaluar y No aprobados</label>
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte7" checked> Reporte 6: Avance por
-                Aprendiz y fallas</label>
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte8" checked> Reporte 7: Competencias
-                Pendientes por Aprendiz e Instructor</label>
-              <label><input type="checkbox" class="reporte-checkbox" value="reporte3" checked> Reporte 8: Instructores
-                por Horas</label>
+        <div class="reportes-main">
+          <div class="reportes-header">
+            <div>
+              <h2>Generación de Reportes</h2>
+              <p>Seleccione los datos que desea incluir y el formato de exportación.</p>
             </div>
           </div>
 
-          <!-- Columna derecha: acciones de exportación -->
-          <div class="export-right">
-            <h3>Acciones de Exportación</h3>
+          <div class="reportes-grid">
+            <section class="report-card card-aprendices">
+              <header>
+                <span class="report-card-icon">🎓</span>
+                <div>
+                  <h3>Detalle de Aprendices</h3>
+                </div>
+                <label class="report-card-todos">
+                  <span>TODOS</span>
+                  <input type="checkbox" class="report-card-toggle" data-group="aprendices">
+                </label>
+              </header>
+              <div class="report-card-list">
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="avance-fallas" data-reporte-key="avance-fallas"> Porcentaje de avance de aprendices y fallas</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="competencias-pendientes-aprendiz" data-reporte-key="competencias-pendientes-aprendiz"> Competencias pendientes por evaluar por cada aprendiz</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="aprendices-listos-productiva" data-reporte-key="aprendices-listos-productiva"> Aprendices listos para ir a etapa productiva</label>
+                </div>
+            </section>
 
-            <button id="btnExportarPDF" class="btnExportarPDF export-card">
-              <div class="export-card-icon pdf">📄</div>
-              <div class="export-card-text">
-                <strong>Exportar a PDF</strong>
-                <span>Formato listo para imprimir</span>
+            <section class="report-card card-instructores">
+              <header>
+                <span class="report-card-icon">👩‍🏫</span>
+                <div>
+                  <h3>Instructores</h3>
+                </div>
+              </header>
+              <div class="report-card-list">
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="instructores" value="listado-instructores-pendientes-juicio" data-reporte-key="listado-instructores-pendientes-juicio"> Instructores con aprendices pendientes por emitir juicio</label>
               </div>
-              <span class="export-card-arrow">›</span>
-            </button>
+            </section>
 
-            <button id="btnExportarExcel" class="btnExportarExcel export-card">
-              <div class="export-card-icon excel">📊</div>
-              <div class="export-card-text">
-                <strong>Exportar a Excel</strong>
-                <span>Datos listos para análisis</span>
+            <section class="report-card card-competencias">
+              <header>
+                <span class="report-card-icon">📊</span>
+                <div>
+                  <h3>Análisis y Competencias</h3>
+                </div>
+                <label class="report-card-todos">
+                  <span>TODOS</span>
+                  <input type="checkbox" class="report-card-toggle" data-group="competencias">
+                </label>
+              </header>
+              <div class="report-card-list">
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-avance-diseno" data-reporte-key="competencias-avance-diseno"> Competencias y % de avance vs diseño</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="cronograma-gantt" data-reporte-key="cronograma-gantt"> Cronograma de programación de competencias (Gantt)</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-sobre-ejecutadas" data-reporte-key="competencias-sobre-ejecutadas"> Competencias sobre ejecutadas</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-pendientes" data-reporte-key="competencias-pendientes"> Competencias pendientes</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-evaluadas-sin-programar" data-reporte-key="competencias-evaluadas-sin-programar"> Competencias Evaluadas sin estar programadas</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-raps-instructor-no-programado" data-reporte-key="competencias-raps-instructor-no-programado"> Competencias y RAPs evaluados por instructor no programado</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="raps-por-evaluar" data-reporte-key="raps-por-evaluar"> Raps por evaluar</label>
               </div>
-              <span class="export-card-arrow">›</span>
-            </button>
+            </section>
+          </div>
 
-            <button id="btnExportarWord" class="btnExportarWord export-card">
-              <div class="export-card-icon word">📝</div>
-              <div class="export-card-text">
-                <strong>Exportar a Word</strong>
-                <span>Formato editable para informes</span>
-              </div>
-              <span class="export-card-arrow">›</span>
-            </button>
-            <!-- NUEVO botón: Acta Comité -->
-            <button id="btnActaComite" class="btnExportarWord export-card">
-              <div class="export-card-icon word">📑</div>
-              <div class="export-card-text">
-                <strong>Acta Comité</strong>
-                <span>Plantilla en Word del comité</span>
-              </div>
-              <span class="export-card-arrow">›</span>
-            </button>
+          <div class="reportes-actions">
+            <div class="reportes-actions-header">
+              <h3>Acciones de Exportación</h3>
+            </div>
+            <div class="reportes-actions-grid">
+              <button id="btnExportarPDF" class="btnExportarPDF export-card">
+                <div class="export-card-icon pdf">PDF</div>
+                <div class="export-card-text">
+                  <strong>Exportar a PDF</strong>
+                  <span>Formato listo para imprimir</span>
+                </div>
+                <span class="export-card-arrow">></span>
+              </button>
+
+              <button id="btnExportarExcel" class="btnExportarExcel export-card">
+                <div class="export-card-icon excel">XLS</div>
+                <div class="export-card-text">
+                  <strong>Exportar a Excel</strong>
+                  <span>Datos listos para análisis</span>
+                </div>
+                <span class="export-card-arrow">></span>
+              </button>
+
+              <button id="btnActaComite" class="btnActaComite export-card">
+                <div class="export-card-icon acta">ACT</div>
+                <div class="export-card-text">
+                  <strong>Acta Comité</strong>
+                  <span>Plantilla en Word del comité</span>
+                </div>
+                 </button>
+            </div>
           </div>
         </div>
       </div>
+
+
     </div>
-
-
+    
     <footer class="footer-disenador">
       <div class="footer-disenador-title">
         DISEÑO Y DESARROLLO
@@ -5060,6 +5638,131 @@
         };
       }
 
+      function formatearMesCompleto(fecha) {
+        if (!(fecha instanceof Date) || isNaN(fecha.getTime())) return "";
+        const mesesNombres = [
+          "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+        ];
+        return `${mesesNombres[fecha.getMonth()]} ${fecha.getFullYear()}`;
+      }
+
+      function obtenerMesesFormacion() {
+        if (!Array.isArray(registrosGlobal) || registrosGlobal.length === 0) {
+          return [];
+        }
+        let inicio = null;
+        let fin = null;
+        registrosGlobal.forEach(reg => {
+          const fechaInicio = normalizarFechaRegistro(reg.fechaInicioProg);
+          const fechaFin = normalizarFechaRegistro(reg.fechaFinProg);
+          if (fechaInicio && (!inicio || fechaInicio < inicio)) {
+            inicio = fechaInicio;
+          }
+          if (fechaFin && (!fin || fechaFin > fin)) {
+            fin = fechaFin;
+          }
+        });
+        if (!inicio || !fin) return [];
+        const meses = [];
+        const limite = new Date(fin.getFullYear(), fin.getMonth(), 1);
+        for (let cursor = new Date(inicio.getFullYear(), inicio.getMonth(), 1); cursor <= limite; cursor.setMonth(cursor.getMonth() + 1)) {
+          meses.push(new Date(cursor.getFullYear(), cursor.getMonth(), 1));
+        }
+        return meses;
+      }
+
+      function obtenerRangoMes(valorMes) {
+        if (!valorMes || valorMes === "ALL") return null;
+        const partes = valorMes.split("-");
+        if (partes.length !== 2) return null;
+        const anio = Number(partes[0]);
+        const mes = Number(partes[1]) - 1;
+        if (!Number.isFinite(anio) || isNaN(mes)) return null;
+        const inicio = new Date(anio, mes, 1);
+        const fin = new Date(anio, mes + 1, 0, 23, 59, 59, 999);
+        return { inicio, fin };
+      }
+
+      function solapaMes(inicio, fin, rango) {
+        if (!inicio || !fin || !rango) return false;
+        return inicio <= rango.fin && fin >= rango.inicio;
+      }
+
+      function ocultarValorCampoMes(celda) {
+        if (!celda) return;
+        const textoActual = (celda.textContent || "").trim();
+        if (textoActual) {
+          celda.dataset.valorOriginalMes = textoActual;
+        }
+        celda.textContent = "";
+      }
+
+      function restaurarValorCampoMes(celda) {
+        if (!celda) return;
+        if (celda.dataset.valorOriginalMes !== undefined) {
+          celda.textContent = celda.dataset.valorOriginalMes;
+        }
+      }
+
+      function aplicarFiltroMesTabla(tbodyId, valorMes, columnasOcultar = []) {
+        const tbody = document.getElementById(tbodyId);
+        if (!tbody) return;
+        let mostrarTodos = !valorMes || valorMes === "ALL";
+        const rango = mostrarTodos ? null : obtenerRangoMes(valorMes);
+        if (!rango && !mostrarTodos) {
+          mostrarTodos = true;
+        }
+        const filas = Array.from(tbody.rows);
+        filas.forEach(tr => {
+          if (!tr || tr.cells.length === 0) return;
+          const inicio = tr.dataset.fechaInicio ? new Date(tr.dataset.fechaInicio) : null;
+          const fin = tr.dataset.fechaFin ? new Date(tr.dataset.fechaFin) : null;
+          const visible = mostrarTodos ? true : solapaMes(inicio, fin, rango);
+          tr.style.display = visible ? "" : "none";
+          columnasOcultar.forEach(idx => {
+            const celda = tr.cells[idx];
+            if (!celda) return;
+            if (mostrarTodos) {
+              restaurarValorCampoMes(celda);
+            } else {
+              ocultarValorCampoMes(celda);
+            }
+          });
+        });
+        renumerarFilasTabla(tbody);
+        actualizarTotalHorasReporte3();
+      }
+
+      function poblarSelectMeses(selectId, filtroActual) {
+        const select = document.getElementById(selectId);
+        if (!select) return filtroActual;
+        const previo = select.value || filtroActual;
+        select.innerHTML = "";
+        const optionAll = document.createElement("option");
+        optionAll.value = "ALL";
+        optionAll.textContent = "Periodo completo";
+        select.appendChild(optionAll);
+        mesesFormacionDisponibles.forEach(mes => {
+          const option = document.createElement("option");
+          option.value = `${mes.getFullYear()}-${String(mes.getMonth() + 1).padStart(2, "0")}`;
+          option.textContent = formatearMesCompleto(mes);
+          select.appendChild(option);
+        });
+        const tienePrevio = Array.from(select.options).some(opt => opt.value === previo);
+        select.value = tienePrevio ? previo : "ALL";
+        return select.value;
+      }
+
+      function actualizarMesesFormacion() {
+        mesesFormacionDisponibles = obtenerMesesFormacion();
+        filtroMesReporte2 = poblarSelectMeses("mesSelectReporte2", filtroMesReporte2);
+        filtroMesReporte3 = poblarSelectMeses("mesSelectReporte3", filtroMesReporte3);
+        aplicarFiltrosReporte2();
+        setTimeout(actualizarTotalesReporte2, 0);
+        aplicarFiltrosReporte3();
+      }
+
       function renderLineaTiempoFicha() {
         const timelines = [];
 
@@ -5219,6 +5922,15 @@
       let competenciasMap = {};
       let competenciasSet = new Set();
       let competenciasSetNormalizado = new Set();
+      function normalizeTexto(texto) {
+        return (texto || "")
+          .toString()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toUpperCase()
+          .trim()
+          .replace(/\s+/g, " ");
+      }
 
 
       let registrosGlobal = [];
@@ -5229,6 +5941,9 @@
       let chartCompetenciasHoras = null;   // Gráfico 100% Total vs Diseño
       let chartFallasReporte7 = null;      // Gráfico de fallas por aprendiz (reporte 7)
       let estadoChart = null;              // Gráfico Distribución de Estados
+      let mesesFormacionDisponibles = [];
+      let filtroMesReporte2 = "ALL";
+      let filtroMesReporte3 = "ALL";
 
 
       // Gerente de Proyecto / Instructor con más horas
@@ -5238,6 +5953,13 @@
       let listaInstructoresGlobal = [];
       // Aprendiz vocero del grupo
       let aprendizVoceroSeleccionado = "";
+      let pazSalvoMap = {};
+      let aprendicesListosProductivaParaExportar = [];
+      let aprendicesPorEvaluarMayor1ParaExportar = [];
+      let aprendicesNovedadesProductivaParaExportar = [];
+      // Total de RAPs cargados (para validaciones como Paz y Salvo)
+  let totalRapsGlobal = 0;
+  let totalRapsPendientesVistoGlobal = 0;
 
       // Datos usados para el resumen de la ficha
       let datosGeneralFicha = [];   // Información general de aprendices (estado)
@@ -5255,7 +5977,7 @@
       const filtroColorTabla = {
         tablaProgramadas: { verde: false, rojo: false, pendiente: false },
           tablaReporte1: { verde: false, rojo: false },
-        tablaReporte6: { verde: false, rojo: false, pendiente: false },
+        tablaReporte6: { verde: false, rojo: false, pendiente: false, "no-aprobado": false },
         tablaPendientesInstructorReporte8: { verde: false, rojo: false },
         tablaInstructoresHoras: { verde: false, rojo: false },
         tablaReporte2: { verde: false, rojo: false, pendiente: false },
@@ -5919,6 +6641,12 @@
             }
             const tipo = obtenerEtiquetaTipoCompetencia(comp);
             const infoFecha = obtenerDatosFechaCompetencia(comp);
+            if (infoFecha.fechaInicio instanceof Date) {
+              tr.dataset.fechaInicio = infoFecha.fechaInicio.toISOString();
+            }
+            if (infoFecha.fecha instanceof Date) {
+              tr.dataset.fechaFin = infoFecha.fecha.toISOString();
+            }
             const fechaInicioTexto = infoFecha.fechaInicioTexto || "-";
             const fechaFinTexto = infoFecha.fechaTexto || "-";
             const fechaInicioSort = infoFecha.fechaInicio ? infoFecha.fechaInicio.getTime() : "";
@@ -5940,17 +6668,14 @@
           });
         });
 
+        actualizarTotalesReporte2();
+
         // El tfoot2 que ya tienes se mantiene como está
-        const tfoot2 = document.getElementById("tfootReporte2");
-        tfoot2.innerHTML = `<tr>
-          <td colspan="6" style="text-align:right; font-weight:bold;">Total Horas Programadas:</td>
-          <td>${arrComp.reduce((acc, [, total]) => acc + total, 0).toFixed(2)}</td>
-          <td></td>
-          <td></td>
-        </tr>`;
+        aplicarFiltrosReporte2();
 
         generarGanttChart();
         generarReporte3Instructores();
+        actualizarMesesFormacion();
         // NUEVO: devolver cantidad de registros cargados
         return registros.length;
       }
@@ -6293,13 +7018,15 @@
       registrosGlobal.forEach(r => {
         const nombre = (r.nombreInstructor || "").trim();
         const apellido = (r.apellidoInstructor || "").trim();
-        const clave = (nombre + "|" + apellido).toLowerCase();
+        const categoria = getCategoria(r.competencia) || "Sin tipo";
+        const clave = (nombre + "|" + apellido + "|" + categoria).toLowerCase();
+
         if (!mapHorasPorInstructor[clave]) {
           mapHorasPorInstructor[clave] = {
             nombre,
             apellido,
             horas: 0,
-            tipos: new Set(),
+            tipo: categoria,
             fechaInicio: null,
             fechaFin: null
           };
@@ -6307,11 +7034,6 @@
         const instructor = mapHorasPorInstructor[clave];
         const horas = Number(r.horasProg);
         instructor.horas += Number.isFinite(horas) ? horas : 0;
-
-        const categoria = getCategoria(r.competencia);
-        if (categoria) {
-          instructor.tipos.add(categoria);
-        }
 
         const fechaInicio = normalizarFechaRegistro(r.fechaInicioProg);
         if (fechaInicio && (!instructor.fechaInicio || fechaInicio < instructor.fechaInicio)) {
@@ -6331,13 +7053,9 @@
       if (!tbody3) return;
 
       tbody3.innerHTML = "";
-      const prioridadTipos = ["Transversales", "Técnicas", "Inglés", "Práctica"];
       arrInstructores.forEach((inst, i) => {
-        const tiposOrdenados = prioridadTipos.filter(tipo => inst.tipos.has(tipo));
-        const tipoTexto = tiposOrdenados.length ? tiposOrdenados.join(" - ") : "-";
-        const tipoKeys = tiposOrdenados
-          .map(tipo => normalizarCategoriaGantt(tipo))
-          .filter(Boolean);
+        const tipoTexto = inst.tipo || "-";
+        const tipoKey = normalizarCategoriaGantt(tipoTexto || "");
 
         const fechaInicioTexto = inst.fechaInicio ? formatearFechaCorta(inst.fechaInicio) : "-";
         const fechaFinTexto = inst.fechaFin ? formatearFechaCorta(inst.fechaFin) : "-";
@@ -6360,8 +7078,14 @@
         }
 
         const tr = document.createElement("tr");
-        if (tipoKeys.length) {
-          tr.dataset.tipo = Array.from(new Set(tipoKeys)).join(" ");
+        if (tipoKey) {
+          tr.dataset.tipo = tipoKey;
+        }
+        if (inst.fechaInicio) {
+          tr.dataset.fechaInicio = inst.fechaInicio.toISOString();
+        }
+        if (inst.fechaFin) {
+          tr.dataset.fechaFin = inst.fechaFin.toISOString();
         }
         tr.innerHTML = `
       <td>${i + 1}</td>
@@ -6384,6 +7108,8 @@
       <td>${totalHoras.toFixed(2)}</td>
     </tr>`;
       }
+
+      aplicarFiltrosReporte3();
 
         // 4) Construir gráfico de barras de horas por instructor (CanvasJS)
         const contGrafico = document.getElementById("chartInstructoresHorasContainer");
@@ -6776,9 +7502,9 @@
             if (!lista || lista.length === 0) return;
 
             lista.forEach(([comp, total]) => {
-              const tr = document.createElement('tr');
-              const compNormalized = comp.trim().replace(/\s+/g, ' ').toUpperCase();
-              const totalHoras = typeof total === 'number' ? total : parseFloat(total) || 0;
+          const tr = document.createElement('tr');
+          const compNormalized = comp.trim().replace(/\s+/g, ' ').toUpperCase();
+          const totalHoras = typeof total === 'number' ? total : parseFloat(total) || 0;
 
               // Solo se consideran 'programadas' (para otros reportes) las que tienen horas > 0
               if (totalHoras > 0) {
@@ -6801,6 +7527,12 @@
               }
               const tipo = obtenerEtiquetaTipoCompetencia(comp);
               const infoFecha = obtenerDatosFechaCompetencia(comp);
+              if (infoFecha.fechaInicio instanceof Date) {
+                tr.dataset.fechaInicio = infoFecha.fechaInicio.toISOString();
+              }
+              if (infoFecha.fecha instanceof Date) {
+                tr.dataset.fechaFin = infoFecha.fecha.toISOString();
+              }
               const fechaInicioTexto = infoFecha?.fechaInicioTexto || '-';
               const fechaFinTexto = infoFecha?.fechaTexto || '-';
               const fechaInicioSort = infoFecha?.fechaInicio ? infoFecha.fechaInicio.getTime() : '';
@@ -6831,7 +7563,7 @@
               return acc + valor;
             }, 0);
 
-            tfoot2.innerHTML = `
+          tfoot2.innerHTML = `
       <tr>
         <td colspan='6' style='text-align:right; font-weight:bold;'>Total Horas Programadas:</td>
         <td>${totalHorasProg.toFixed(2)}</td>
@@ -6839,7 +7571,8 @@
         <td></td>
       </tr>
     `;
-          }
+            actualizarTotalesReporte2();
+  }
         })();
 
 
@@ -6947,6 +7680,7 @@
         generarPivotTableAvancePorAprendiz();
         generarPivotTableReporte6();
         generarReporte8PendientesPorAprendizInstructor();
+        actualizarMesesFormacion();
         // NUEVO: devolver cantidad de registros de juicios
         return registrosJuicios.length;
       }
@@ -7565,6 +8299,38 @@
         // Competencia objetivo del resumen
         const claveResultadosPractica = normalizeCompetencia("RESULTADOS DE APRENDIZAJE ETAPA PRACTICA");
 
+        const totalRapsHeader = Number(document.getElementById("numResultadosHeader")?.textContent || "0");
+        const totalRaps =
+          typeof totalRapsGlobal === "number" && totalRapsGlobal > 0 ? totalRapsGlobal : totalRapsHeader;
+
+        const conteoJuiciosPorAprendiz = {};
+        if (Array.isArray(registrosJuicios)) {
+          registrosJuicios.forEach(r => {
+            const numDoc = (r.numDoc || "").toString().trim();
+            const nombreCompleto = ((r.nombre || "") + " " + (r.apellidos || "")).trim();
+            const claveAprendiz = numDoc + "|" + nombreCompleto;
+            if (!claveAprendiz.trim()) return;
+
+            if (!conteoJuiciosPorAprendiz[claveAprendiz]) {
+              conteoJuiciosPorAprendiz[claveAprendiz] = {
+                nombreCompleto,
+                aprobado: 0,
+                porEvaluar: 0,
+                noAprobado: 0
+              };
+            }
+
+            const juicioN = normalizarTexto(r.juicioEval);
+            if (juicioN === "APROBADO") {
+              conteoJuiciosPorAprendiz[claveAprendiz].aprobado++;
+            } else if (juicioN === "POR EVALUAR") {
+              conteoJuiciosPorAprendiz[claveAprendiz].porEvaluar++;
+            } else if (juicioN === "NO APROBADO") {
+              conteoJuiciosPorAprendiz[claveAprendiz].noAprobado++;
+            }
+          });
+        }
+
         // Determina si una competencia está programada (misma lógica que Reporte 4)
         const esCompetenciaProgramada = (compTexto) => {
           if (!compTexto) return false;
@@ -7599,39 +8365,11 @@
           );
         });
 
-        // 1A) Para el RESUMEN: mapa de TODAS las competencias pendientes por aprendiz
-        // (SIN filtrar por programadas)
-        const mapaPendientesResumen = {}; // claveAprendiz -> { nombreCompleto, comps: Set(normalizadas) }
-
-        filtrados.forEach(r => {
-          const numDoc = r.numDoc || "";
-          const nombreCompleto = ((r.nombre || "") + " " + (r.apellidos || "")).trim();
-          const claveAprendiz = numDoc + "|" + nombreCompleto;
-
-          const compTexto = (r.competencia || "").trim();
-          if (!compTexto) return;
-          const compNorm = normalizeCompetencia(compTexto);
-          if (!compNorm) return;
-
-          if (!mapaPendientesResumen[claveAprendiz]) {
-            mapaPendientesResumen[claveAprendiz] = {
-              nombreCompleto,
-              comps: new Set()
-            };
-          }
-          mapaPendientesResumen[claveAprendiz].comps.add(compNorm);
-        });
-
-        // Aprendices que SOLO tienen pendiente RESULTADOS DE APRENDIZAJE ETAPA PRACTICA
-        const nombresSoloPractica = [];
-        Object.values(mapaPendientesResumen).forEach(item => {
-          if (item.comps.size === 1 && item.comps.has(claveResultadosPractica)) {
-            nombresSoloPractica.push(item.nombreCompleto);
-          }
-        });
-
-        // Ordenar nombres para que se vea más organizado
-        nombresSoloPractica.sort((a, b) =>
+        const nombresSoloPractica = [...new Set(
+          Object.values(pazSalvoMap)
+            .map(ap => (ap.nombreCompleto || "").trim())
+            .filter(Boolean)
+        )].sort((a, b) =>
           a.toUpperCase().localeCompare(b.toUpperCase())
         );
 
@@ -7699,37 +8437,40 @@
         });
 
         // 3) Pivot por aprendiz, guardando SOLO competencias PROGRAMADAS
-        const pivot = {};
+      const pivot = {};
+      filtrados.forEach(r => {
+        const numDoc = r.numDoc || "";
+        const nombreCompleto = ((r.nombre || "") + " " + (r.apellidos || "")).trim();
+        const claveAprendiz = numDoc + "|" + nombreCompleto;
 
-        filtrados.forEach(r => {
-          const numDoc = r.numDoc || "";
-          const nombreCompleto = ((r.nombre || "") + " " + (r.apellidos || "")).trim();
-          const claveAprendiz = numDoc + "|" + nombreCompleto;
+        const compTexto = (r.competencia || "").trim();
+        if (!compTexto) return;
 
-          const compTexto = (r.competencia || "").trim();
-          if (!compTexto) return;
+        // --- INICIO CORRECCIÓN ---
+        const compKey = normalizeCompetencia(compTexto);
+        
+        // Verificar si es Etapa Práctica (para permitirla aunque no esté programada)
+        const esPractica = compKey.includes("ETAPA PRACTICA");
 
-          // Solo competencias programadas para el detalle
-          if (!esCompetenciaProgramada(compTexto)) return;
+        // --- FIN CORRECCIÓN ---
 
-          const compKey = normalizeCompetencia(compTexto);
-          if (!compKey) return;
+        if (!compKey) return;
 
-          if (!pivot[claveAprendiz]) {
-            pivot[claveAprendiz] = {
-              numDoc,
-              nombreCompleto,
-              competencias: {} // compKey -> { texto }
-            };
-          }
+        if (!pivot[claveAprendiz]) {
+          pivot[claveAprendiz] = {
+            numDoc,
+            nombreCompleto,
+            competencias: {} // compKey -> { texto }
+          };
+        }
 
-          // Guardar competencia solo una vez por aprendiz en el detalle
-          if (!pivot[claveAprendiz].competencias[compKey]) {
-            pivot[claveAprendiz].competencias[compKey] = {
-              texto: compTexto
-            };
-          }
-        });
+        // Guardar competencia solo una vez por aprendiz en el detalle
+        if (!pivot[claveAprendiz].competencias[compKey]) {
+          pivot[claveAprendiz].competencias[compKey] = {
+            texto: compTexto
+          };
+        }
+      });
 
         // 4) Ordenar aprendices por nombre para el detalle
         const filasAprendices = Object.values(pivot).sort((a, b) =>
@@ -7766,20 +8507,29 @@
 
 
         // nombresSoloPractica ya viene calculado arriba en procesarReporte8
-        if (nombresSoloPractica.length > 0) {
-          const cantidadSoloPractica = nombresSoloPractica.length;
+        const aprendicesSoloPractica = filasAprendices.filter(a =>
+          nombresSoloPractica.includes(a.nombreCompleto)
+        );
+        const cantidadSoloPractica = aprendicesSoloPractica.length;
+
+        const spanListosProductiva = document.getElementById("numAprendicesListosProductivaHeader");
+        const spanNoListosProductiva = document.getElementById("numAprendicesNoListosProductivaHeader");
+        if (spanListosProductiva) {
+          spanListosProductiva.textContent = cantidadSoloPractica.toString();
+        }
+        if (spanNoListosProductiva) {
+          const aprendicesActivos = filasAprendices.length;
+          spanNoListosProductiva.textContent = Math.max(0, aprendicesActivos - cantidadSoloPractica).toString();
+        }
+        if (cantidadSoloPractica > 0) {
 
           // Tomamos de filasAprendices la info de documento + nombre
-          const aprendicesSoloPractica = filasAprendices.filter(a =>
-            nombresSoloPractica.includes(a.nombreCompleto)
-          );
-
           // Texto de resumen
           const textoResumen = document.createElement("p");
           textoResumen.className = "texto-resumen-practica";
           textoResumen.textContent =
-            `Los siguientes ${cantidadSoloPractica} aprendices son los que finalizaron todas las competencias ` +
-            `y solo tienen pendiente la Competencia: RESULTADOS DE APRENDIZAJE ETAPA PRACTICA`;
+            `Los siguientes ${cantidadSoloPractica} aprendices tienen exactamente un RAP marcado como "Por evaluar" ` +
+            `en el reporte "% Avance por Aprendiz", por lo que están catalogados como aptos para generar el Paz y Salvo.`;
           contResumen.appendChild(textoResumen);
 
           // Tabla tipo lista con checkboxes
@@ -8167,6 +8917,7 @@
           if (tituloPendInstr) {
             tituloPendInstr.style.display = tieneDatos ? "block" : "none";
           }
+          actualizarTotalAprendicesReporte8();
         } // cierra if (tbodyPendInstr && filasAprendices.length > 0)
 
       } // cierra function generarReporte8PendientesPorAprendizInstructor
@@ -8345,6 +9096,28 @@
         }
 
         renumerarFilasTabla(tbody);
+        actualizarTotalHorasProgramadasReporte1();
+      }
+
+      function actualizarTotalHorasProgramadasReporte1() {
+        const tbody = document.getElementById("tbodyReporte1");
+        const spanTotal = document.getElementById("totalHorasProgramadasReporte1");
+        if (!tbody || !spanTotal) return;
+
+        const filas = Array.from(tbody.querySelectorAll("tr"));
+        let total = 0;
+        filas.forEach(tr => {
+          if (tr.style.display === "none") return;
+          const cell = tr.cells[8];
+          if (!cell) return;
+          const valor = Number(cell.textContent?.replace(/,/g, ".") || 0) || 0;
+          total += valor;
+        });
+
+        const totalRedondeado = Math.round(total);
+        establecerValorAnimado(spanTotal, totalRedondeado.toString());
+        actualizarCantidadFilasVisibles("tablaPendientesInstructorReporte8", "totalRegistrosPendientesReporte8");
+        actualizarCantidadFilasVisibles("tablaReporte1", "totalRegistrosReporte1");
       }
 
       // Wrapper específico para Reporte 6
@@ -8617,33 +9390,46 @@
         });
 
         // Filtramos juicios: solo EN FORMACIÓN o CONDICIONADO
-        const filtrados = registrosJuicios.filter(r => {
-          const estadoU = (r.estado || "").toUpperCase();
-          return (estadoU === "EN FORMACION" || estadoU === "CONDICIONADO");
-        });
+        const aprendicesNoAprobadosSet = new Set();
+          const filtrados = registrosJuicios.filter(r => {
+            const estadoU = (r.estado || "").toUpperCase();
+            return (estadoU === "EN FORMACION" || estadoU === "CONDICIONADO");
+          });
 
-        const grupos = {};
-        filtrados.forEach(r => {
-          const key = r.competencia + "|" + r.resAprendizaje;
-          if (!grupos[key]) {
-            grupos[key] = {
-              competencia: r.competencia,
-              rap: r.resAprendizaje,
-              funcionarios: new Set(),        // textos originales (con CC, etc.)
-              funcionariosNombres: new Set(), // nombres normalizados
-              aprobado: 0,
-              porEvaluar: 0,
-              noAprobado: 0
-            };
-          }
+          const grupos = {};
+          filtrados.forEach(r => {
+            const key = r.competencia + "|" + r.resAprendizaje;
+            const infoFecha = obtenerDatosFechaCompetencia(r.competencia);
+            const diasColor = (infoFecha?.diasColor || "").toLowerCase();
+            if (!grupos[key]) {
+              grupos[key] = {
+                competencia: r.competencia,
+                rap: r.resAprendizaje,
+                funcionarios: new Set(),        // textos originales (con CC, etc.)
+                funcionariosNombres: new Set(), // nombres normalizados
+                aprobado: 0,
+                porEvaluar: 0,
+                noAprobado: 0
+              };
+              grupos[key].diasColor = diasColor;
+            }
+            if (!grupos[key].diasColor && diasColor) {
+              grupos[key].diasColor = diasColor;
+            }
 
-          const juicio = (r.juicioEval || "").toUpperCase();
+            const juicio = (r.juicioEval || "").toUpperCase();
           if (juicio === "APROBADO") {
             grupos[key].aprobado++;
           } else if (juicio === "POR EVALUAR") {
             grupos[key].porEvaluar++;
           } else if (juicio === "NO APROBADO") {
             grupos[key].noAprobado++;
+            const nombreCompleto = ((r.nombre || "") + " " + (r.apellidos || "")).trim();
+            const doc = (r.numDoc || "").toString().trim();
+            const claveAprendiz = `${doc}|${nombreCompleto}`.trim();
+            if (claveAprendiz) {
+              aprendicesNoAprobadosSet.add(claveAprendiz);
+            }
           }
 
           const nombreFunc = String(r.funcionario || "").trim();
@@ -8658,8 +9444,31 @@
         });
 
         const arrGrupos = Object.values(grupos);
+        const competenciasNoAprobadasSet = new Set();
+        const resultadosNoAprobadosSet = new Set();
+        arrGrupos.forEach(grupo => {
+          if (grupo.noAprobado > 0) {
+            competenciasNoAprobadasSet.add(normalizeCompetencia(grupo.competencia || ""));
+            resultadosNoAprobadosSet.add(`${normalizeCompetencia(grupo.competencia || "")}|${normalizeTexto(grupo.rap || "")}`);
+          }
+        });
+        const totalRapsNoAprobados = arrGrupos.reduce((sum, grupo) => sum + (grupo.noAprobado || 0), 0);
+        const spanCompetenciasNoAprob = document.getElementById("numCompetenciasNoAprobadasHeader");
+        if (spanCompetenciasNoAprob) {
+          spanCompetenciasNoAprob.textContent = competenciasNoAprobadasSet.size.toString();
+        }
+        const spanResultadosNoAprob = document.getElementById("numResultadosNoAprobadosHeader");
+        if (spanResultadosNoAprob) {
+          spanResultadosNoAprob.textContent = resultadosNoAprobadosSet.size.toString();
+        }
+          const spanAprendicesConCompNoAprob = document.getElementById("numAprendicesConCompetenciasNoAprobadasHeader");
+          if (spanAprendicesConCompNoAprob) {
+            spanAprendicesConCompNoAprob.textContent = aprendicesNoAprobadosSet.size.toString();
+          }
+          actualizarTotalCantidadAprendicesVistoTablaProgramadas();
         // NUEVO: actualizar KPI de "Resultados de aprendizaje" con el total general
         const totalRaps = arrGrupos.length;
+        totalRapsGlobal = totalRaps;
         const numResultadosHeaderEl = document.getElementById("numResultadosHeader");
         if (numResultadosHeaderEl) {
           numResultadosHeaderEl.textContent = totalRaps;
@@ -8774,21 +9583,44 @@
             pivot[key] = {
               numDoc: r.numDoc,
               nombreCompleto: r.nombre + " " + r.apellidos,
-              aprobado: 0,
-              porEvaluar: 0
+              aprobadoSet: new Set(),
+              porEvaluarSet: new Set(),
+              noAprobadoSet: new Set()
             };
           }
 
           const juicioEval = (r.juicioEval || "").toLowerCase();
+          const rapKey = `${normalizeCompetencia(r.competencia || "")}|${normalizeTexto(r.resAprendizaje || "")}`;
+
+          if (!rapKey.trim()) return;
+
           if (juicioEval === "aprobado") {
-            pivot[key].aprobado++;
+            pivot[key].aprobadoSet.add(rapKey);
           } else if (juicioEval === "por evaluar") {
-            pivot[key].porEvaluar++;
+            pivot[key].porEvaluarSet.add(rapKey);
+          } else if (juicioEval === "no aprobado") {
+            pivot[key].noAprobadoSet.add(rapKey);
           }
         });
 
         let pivotRows = Object.values(pivot);
+        pivotRows.forEach(row => {
+          row.aprobado = row.aprobadoSet?.size || 0;
+          row.porEvaluar = row.porEvaluarSet?.size || 0;
+          row.noAprobado = row.noAprobadoSet?.size || 0;
+        });
         pivotRows.sort((a, b) => a.nombreCompleto.localeCompare(b.nombreCompleto));
+
+        pazSalvoMap = {};
+        pivotRows.forEach(row => {
+          if (row.porEvaluar === 1) {
+            const clave = `${row.numDoc || ""}|${row.nombreCompleto || ""}`;
+            pazSalvoMap[clave] = {
+              nombreCompleto: row.nombreCompleto || "",
+              numDoc: row.numDoc || ""
+            };
+          }
+        });
 
         const tbody7 = document.getElementById("pivotAvanceContainer");
         if (!tbody7) return;
@@ -8867,28 +9699,40 @@
           tbody7.appendChild(tr);
         });
 
+        if (typeof generarReporte8PendientesPorAprendizInstructor === "function") {
+          generarReporte8PendientesPorAprendizInstructor();
+        }
+
+        actualizarTotalesAvanceAprendiz();
+
+
 
         // Actualizar % avance promedio del grupo + barra
         const spanAvancePromedio = document.getElementById("avancePromedioGrupoHeader");
-        const barraAvance = document.getElementById("avancePromedioGrupoBar");
+        const circularAvance = document.getElementById("avancePromedioCircular");
 
         if (spanAvancePromedio) {
           const promedio = (cantidadConAvance > 0) ? (sumaAvance / cantidadConAvance) : 0;
           const texto = promedio.toFixed(1) + " %";
           spanAvancePromedio.textContent = texto;
 
-          // Rellenar barra en función del porcentaje (0–100)
-          if (barraAvance) {
-            const valorBarra = Math.max(0, Math.min(100, promedio));
-            barraAvance.style.width = valorBarra.toFixed(1) + "%";
+          // Actualizar círculo
+          const valorBarra = Math.max(0, Math.min(100, promedio));
+          if (circularAvance) {
+            circularAvance.style.setProperty("--avance", valorBarra.toFixed(1));
           }
         }
 
         // Actualizar Nº aprendices con riesgo
-        const spanAprendicesRiesgo = document.getElementById("numAprendicesRiesgoHeader");
-        if (spanAprendicesRiesgo) {
-          spanAprendicesRiesgo.textContent = aprendicesRiesgo.toString();
-        }
+          const spanAprendicesRiesgo = document.getElementById("numAprendicesRiesgoHeader");
+          if (spanAprendicesRiesgo) {
+            spanAprendicesRiesgo.textContent = aprendicesRiesgo.toString();
+          }
+          const spanAprendicesConCompetenciasPorEvaluar = document.getElementById("numAprendicesConCompetenciasPorEvaluarHeader");
+          if (spanAprendicesConCompetenciasPorEvaluar) {
+            const aprendicesConPorEvaluar = pivotRows.filter(row => (row.porEvaluar || 0) > 0).length;
+            spanAprendicesConCompetenciasPorEvaluar.textContent = aprendicesConPorEvaluar.toString();
+          }
 
         // Renderizar gráfica de fallas en el reporte (CanvasJS, solo si hay fallas)
         const contGraficoFallas = document.getElementById("graficoFallasReporte7Container");
@@ -8908,54 +9752,659 @@
 
 
 
+      
+      // =========================
+      // Exportar a PDF (misma vista del panel)
+      // =========================
+
+      function serializarNodoParaImpresion(origen, preprocesarClone) {
+        if (!origen) return "";
+
+        const clone = origen.cloneNode(true);
+
+        if (typeof preprocesarClone === "function") {
+          try { preprocesarClone(clone); } catch (e) { /* noop */ }
+        }
+
+        // Copiar contenido de <canvas> como imagen (CanvasJS u otros) para que se vea en impresión
+        const canvasesOrigen = origen.querySelectorAll("canvas");
+        const canvasesClone = clone.querySelectorAll("canvas");
+        canvasesClone.forEach((cClone, idx) => {
+          const cOrigen = canvasesOrigen[idx];
+          if (!cOrigen) return;
+          try {
+            const img = document.createElement("img");
+            img.src = cOrigen.toDataURL("image/png");
+            img.style.maxWidth = "100%";
+            img.style.height = "auto";
+            cClone.replaceWith(img);
+          } catch (e) {
+            // Si falla (por CORS u otro motivo), se deja el canvas tal cual
+          }
+        });
+
+        // Si el origen está oculto (por ejemplo, acordeón cerrado), forzamos visibilidad en el clon
+        try {
+          const displayOrigen = window.getComputedStyle(origen).display;
+          if (displayOrigen === "none") clone.style.display = "block";
+        } catch (e) { /* noop */ }
+
+        return clone.outerHTML;
+      }
+
+      // Limpieza para exportación PDF: solo texto, tablas y gráficas (sin controles)
+      function limpiarControlesParaPDF(clone) {
+        if (!clone) return;
+
+        // Remover UI de filtros/carga/controles interactivos
+        clone.querySelectorAll("button, input, select, textarea, label").forEach(el => el.remove());
+
+        // Remover contenedores típicos de filtros y navegación
+        clone.querySelectorAll(
+          "#export-section, #reportes, .tabs, .acordeon-header, .acordeon-icon, " +
+          ".filtros-colores-dias, .filtros-raps-botones, .btn-menu-reporte, " +
+          ".chip-reporte1, .chip-reporte2"
+        ).forEach(el => el.remove());
+
+        // Remover cualquier elemento cuyo id/clase indique filtro (backup)
+        clone.querySelectorAll('[id*="filtro"], [class*="filtro"], [id*="filter"], [class*="filter"]').forEach(el => el.remove());
+
+        // Remover secciones de carga de archivos si quedaron contenedores sueltos
+        clone.querySelectorAll('input[type="file"]').forEach(inp => {
+          const wrap = inp.closest("div");
+          if (wrap) wrap.remove();
+        });
+      }
+
+      function quitarIdsDelNodo(nodo) {
+        if (!nodo) return;
+        if (nodo.id) nodo.removeAttribute("id");
+        nodo.querySelectorAll("[id]").forEach(el => el.removeAttribute("id"));
+      }
+
+      function removerFiltrosVisuales(clone) {
+        if (!clone) return;
+        clone.querySelectorAll(
+          ".filtros-reporte1, .filtros-reporte2, .filtros-reporte4, .filtros-reporte5, .filtros-reporte6, " +
+          ".filtros-reporte8, .filtros-colores-dias, .filtros-raps-botones, .detalle-gantt-controls, " +
+          ".detalle-gantt-search, .detalle-gantt-filtros, .gantt-filter-button, .filtro-busqueda-reporte1"
+        ).forEach(el => el.remove());
+      }
+
+      function crearSeccionPDFConTabla(titulo, descripcion, tabla) {
+        if (!tabla) return null;
+        const contenedor = document.createElement("div");
+        contenedor.className = "pdf-reporte-section";
+        const h2 = document.createElement("h2");
+        h2.textContent = titulo;
+        contenedor.appendChild(h2);
+        if (descripcion) {
+          const p = document.createElement("p");
+          p.className = "descripcion-reporte";
+          p.innerHTML = descripcion;
+          contenedor.appendChild(p);
+        }
+        contenedor.appendChild(tabla);
+        return contenedor;
+      }
+
+      function construirTablaAprendicesListosProductivaParaPDF() {
+        let tabla = null;
+
+        if (Array.isArray(aprendicesListosProductivaParaExportar) && aprendicesListosProductivaParaExportar.length) {
+          tabla = document.createElement("table");
+          tabla.className = "tabla-avance-aprendices tabla-aprendices-listos";
+          tabla.style.width = "85%";
+          tabla.style.borderCollapse = "collapse";
+          tabla.style.tableLayout = "fixed";
+          tabla.style.marginTop = "4px";
+          tabla.style.marginLeft = "auto";
+          tabla.style.marginRight = "auto";
+
+          const colgroup = document.createElement("colgroup");
+          ["12%", "28%", "60%"].forEach(width => {
+            const col = document.createElement("col");
+            col.style.width = width;
+            colgroup.appendChild(col);
+          });
+          tabla.appendChild(colgroup);
+
+          const thead = document.createElement("thead");
+          const trHead = document.createElement("tr");
+          ["#", "Documento", "Nombre del Aprendiz"].forEach(texto => {
+            const th = document.createElement("th");
+            th.textContent = texto;
+            th.style.backgroundColor = "#e5e7eb";
+            th.style.fontWeight = "bold";
+            th.style.textAlign = "center";
+            th.style.border = "1px solid #000000";
+            th.style.padding = "4px 6px";
+            th.style.fontSize = "8.5pt";
+            trHead.appendChild(th);
+          });
+          thead.appendChild(trHead);
+          tabla.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+          aprendicesListosProductivaParaExportar.forEach((ap, idx) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td style="border:1px solid #000000; padding:4px 6px;">${idx + 1}</td>
+              <td style="border:1px solid #000000; padding:4px 6px;">${ap.documento || ""}</td>
+              <td style="border:1px solid #000000; padding:4px 6px;">${ap.nombre || ""}</td>
+            `;
+            tr.querySelectorAll("td").forEach(td => {
+              td.style.fontSize = "8.5pt";
+              td.style.textAlign = "center";
+              td.style.verticalAlign = "top";
+            });
+            tbody.appendChild(tr);
+          });
+          tabla.appendChild(tbody);
+        }
+
+        if (!tabla && typeof tablaListosProductivaHTML === "string" && tablaListosProductivaHTML.trim()) {
+          const tempDiv = document.createElement("div");
+          tempDiv.innerHTML = tablaListosProductivaHTML;
+          const tablaTemp = tempDiv.querySelector("table");
+          if (tablaTemp) {
+            tabla = tablaTemp.cloneNode(true);
+            tabla.style.width = "85%";
+            tabla.style.borderCollapse = "collapse";
+            tabla.style.tableLayout = "fixed";
+            tabla.style.marginTop = "4px";
+            tabla.style.marginLeft = "auto";
+            tabla.style.marginRight = "auto";
+            tabla.querySelectorAll("th, td").forEach(celda => {
+              celda.style.border = "1px solid #000";
+              celda.style.padding = "4px";
+              celda.style.fontSize = "8.5pt";
+            });
+          }
+        }
+
+        return tabla;
+      }
+
+function construirTablaSimpleAprendicesParaPDF(lista, opciones = {}) {
+  if (!Array.isArray(lista) || !lista.length) return null;
+
+  const cols = opciones.cols || ["#", "Documento", "Nombre del Aprendiz"];
+  const incluirCompetencia = !!opciones.incluirCompetencia;
+
+  const tabla = document.createElement("table");
+  tabla.className = opciones.className || "tabla-avance-aprendices";
+  tabla.style.width = "85%";
+  tabla.style.borderCollapse = "collapse";
+  tabla.style.tableLayout = "fixed";
+  tabla.style.marginTop = "6px";
+  tabla.style.marginLeft = "auto";
+  tabla.style.marginRight = "auto";
+
+  const thead = document.createElement("thead");
+  const trH = document.createElement("tr");
+  cols.forEach(t => {
+    const th = document.createElement("th");
+    th.textContent = t;
+    th.style.border = "1px solid #000";
+    th.style.padding = "4px";
+    th.style.fontSize = "8.5pt";
+    th.style.fontWeight = "bold";
+    trH.appendChild(th);
+  });
+  thead.appendChild(trH);
+  tabla.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  lista.forEach((ap, idx) => {
+    const tr = document.createElement("tr");
+
+    const tdNum = document.createElement("td");
+    tdNum.textContent = String(idx + 1);
+
+    const tdDoc = document.createElement("td");
+    tdDoc.textContent = ap.documento || "";
+
+    const tdNom = document.createElement("td");
+    tdNom.textContent = ap.nombre || "";
+
+    [tdNum, tdDoc, tdNom].forEach(td => {
+      td.style.border = "1px solid #000";
+      td.style.padding = "4px";
+      td.style.fontSize = "8.5pt";
+      td.style.verticalAlign = "top";
+    });
+
+    tr.appendChild(tdNum);
+    tr.appendChild(tdDoc);
+    tr.appendChild(tdNom);
+
+    if (incluirCompetencia) {
+      const tdComp = document.createElement("td");
+      tdComp.textContent = ap.competencia || "";
+      tdComp.style.border = "1px solid #000";
+      tdComp.style.padding = "4px";
+      tdComp.style.fontSize = "8.5pt";
+      tdComp.style.verticalAlign = "top";
+      tr.appendChild(tdComp);
+    }
+
+    tbody.appendChild(tr);
+  });
+  tabla.appendChild(tbody);
+
+  return tabla;
+}
+
+function construirTablaAprendicesPorEvaluarMayor1ParaPDF() {
+  return construirTablaSimpleAprendicesParaPDF(
+    aprendicesPorEvaluarMayor1ParaExportar || [],
+    { className: "tabla-avance-aprendices tabla-por-evaluar-mas1" }
+  );
+}
+
+function construirTablaAprendicesNovedadesProductivaParaPDF() {
+  return construirTablaSimpleAprendicesParaPDF(
+    aprendicesNovedadesProductivaParaExportar || [],
+    { className: "tabla-avance-aprendices tabla-novedades-productiva", incluirCompetencia: true, cols: ["#", "Documento", "Nombre del Aprendiz", "Competencia"] }
+  );
+}
+
+
+
+function construirSeccionAprendicesListosProductivaPDF() {
+  prepararDatosListosParaProductiva();
+
+  const contenedor = document.createElement("div");
+  contenedor.className = "pdf-reporte-section";
+
+  const h2 = document.createElement("h2");
+  h2.textContent = "Aprendices listos para ir a etapa productiva";
+  contenedor.appendChild(h2);
+
+  const p = document.createElement("p");
+  p.className = "descripcion-reporte";
+  p.innerHTML = "Aprendices que tienen pendiente únicamente la competencia <strong>RESULTADOS DE APRENDIZAJE ETAPA PRACTICA</strong> (según el reporte de pendientes) y listas derivadas del reporte <strong>% Avance por Aprendiz</strong>.";
+  contenedor.appendChild(p);
+
+  const tablaListos = construirTablaAprendicesListosProductivaParaPDF();
+  if (tablaListos) {
+    contenedor.appendChild(tablaListos);
+  } else {
+    const em = document.createElement("em");
+    em.textContent = "Por el momento no hay ningún aprendiz.";
+    contenedor.appendChild(em);
+  }
+
+  const tablaMas = construirTablaAprendicesPorEvaluarMayor1ParaPDF();
+  if (tablaMas) {
+    const h3 = document.createElement("h3");
+    h3.style.marginTop = "10px";
+    h3.textContent = "Aprendices con novedades para ir a etapa productiva";
+    contenedor.appendChild(h3);
+    contenedor.appendChild(tablaMas);
+  }
+
+  return contenedor;
+}
+
+
+      function construirTablaCompetenciasSobreEjecutadasParaPDF() {
+        const tablaOriginal = document.getElementById("tablaReporte2");
+        if (!tablaOriginal) return null;
+        const filas = Array.from(tablaOriginal.querySelectorAll("#tbodyReporte2 tr"));
+        const filtradas = filas.filter(tr => {
+          if (tr.querySelector("td[colspan]")) return false;
+          return tr.classList.contains("textoRojo");
+        });
+        if (!filtradas.length) return null;
+
+        const tabla = document.createElement("table");
+        tabla.className = "tabla-competencias-sobre-ejecutadas";
+        tabla.style.width = "85%";
+        tabla.style.borderCollapse = "collapse";
+        tabla.style.tableLayout = "fixed";
+        tabla.style.marginTop = "4px";
+        tabla.style.marginLeft = "auto";
+        tabla.style.marginRight = "auto";
+
+        const colgroup = document.createElement("colgroup");
+        ["6%", "46%", "16%", "16%", "16%"].forEach(width => {
+          const col = document.createElement("col");
+          col.style.width = width;
+          colgroup.appendChild(col);
+        });
+        tabla.appendChild(colgroup);
+
+        const thead = document.createElement("thead");
+        thead.innerHTML = "<tr><th>#</th><th>Competencia</th><th>Total de Horas</th><th>Horas Diseño</th><th>%</th></tr>";
+        tabla.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        filtradas.forEach((tr, idx) => {
+          const cells = tr.getElementsByTagName("td");
+          const nuevaFila = document.createElement("tr");
+          if (tr.className) nuevaFila.className = tr.className;
+          const totalHoras = cells[6]?.innerHTML || "";
+          const horasDiseno = cells[7]?.innerHTML || "";
+          const porcentaje = cells[8]?.innerHTML || "";
+          nuevaFila.innerHTML = `<td>${idx + 1}</td><td>${cells[1]?.innerHTML || ""}</td>` +
+            `<td>${totalHoras}</td><td>${horasDiseno}</td><td>${porcentaje}</td>`;
+          tbody.appendChild(nuevaFila);
+        });
+        tabla.appendChild(tbody);
+        return tabla;
+      }
+
+      function construirSeccionCompetenciasSobreEjecutadasPDF() {
+        const tabla = construirTablaCompetenciasSobreEjecutadasParaPDF();
+        return crearSeccionPDFConTabla(
+          "Competencias sobre ejecutadas",
+          "Se listan únicamente las competencias cuyo porcentaje de ejecución supera el <strong>100 %</strong> frente a las horas definidas en el diseño curricular (filas resaltadas en rojo en el reporte % Competencias con Horas).",
+          tabla
+        );
+      }
+
+      function construirTablaCompetenciasPendientesParaPDF() {
+        const tablaOriginal = document.getElementById("tablaReporte4");
+        if (!tablaOriginal) return null;
+        const filas = Array.from(tablaOriginal.querySelectorAll("#tbodyReporte4 tr"));
+        const filtradas = filas.filter(tr => {
+          const celdas = tr.getElementsByTagName("td");
+          if (!celdas.length) return false;
+          if (celdas[0]?.colSpan > 1) return false;
+          const diasTd = tr.querySelector("td.col-dias");
+          const colorDias = (diasTd?.getAttribute("data-color") || "").toLowerCase();
+          if (colorDias !== "pendiente") return false;
+          const valorProg = (celdas[6]?.textContent || "").trim().toUpperCase();
+          return valorProg === "NO" || valorProg === "1/2";
+        });
+        if (!filtradas.length) return null;
+
+        const tabla = document.createElement("table");
+        tabla.className = "tabla-competencias-pendientes";
+        tabla.style.width = "85%";
+        tabla.style.borderCollapse = "collapse";
+        tabla.style.tableLayout = "fixed";
+        tabla.style.marginTop = "4px";
+        tabla.style.marginLeft = "auto";
+        tabla.style.marginRight = "auto";
+
+        const colgroup = document.createElement("colgroup");
+        ["8%", "72%", "20%"].forEach(width => {
+          const col = document.createElement("col");
+          col.style.width = width;
+          colgroup.appendChild(col);
+        });
+        tabla.appendChild(colgroup);
+
+        const thead = document.createElement("thead");
+        thead.innerHTML = "<tr><th>#</th><th>Competencia</th><th>Programada</th></tr>";
+        tabla.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        filtradas.forEach((tr, idx) => {
+          const cells = tr.getElementsByTagName("td");
+          const nuevaFila = document.createElement("tr");
+          if (tr.className) nuevaFila.className = tr.className;
+          const competencia = cells[1]?.innerHTML || "";
+          const programada = cells[6]?.innerHTML || "";
+          nuevaFila.innerHTML = `<td>${idx + 1}</td><td>${competencia}</td><td>${programada}</td>`;
+          tbody.appendChild(nuevaFila);
+        });
+        tabla.appendChild(tbody);
+        return tabla;
+      }
+
+      function construirSeccionCompetenciasPendientesPDF() {
+        const tabla = construirTablaCompetenciasPendientesParaPDF();
+        return crearSeccionPDFConTabla(
+          "Competencias pendientes",
+          "De acuerdo con el reporte \"Competencias del Programa (Programada: Sí/No)\", se relacionan las competencias sin programación (<strong>No</strong>) o parcialmente programadas (<strong>1/2</strong>).",
+          tabla
+        );
+      }
+
+      function construirTablaRapsFiltradosParaPDF(claseFiltro) {
+        const tablaOriginal = document.getElementById("tablaReporte6");
+        if (!tablaOriginal) return null;
+        const clone = tablaOriginal.cloneNode(true);
+        quitarIdsDelNodo(clone);
+        removerFiltrosVisuales(clone);
+        const tbody = clone.querySelector("tbody");
+        if (!tbody) return null;
+        let tieneFilas = false;
+        Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
+          if (!tr.classList.contains(claseFiltro)) {
+            tr.remove();
+          } else {
+            tieneFilas = true;
+          }
+        });
+        return tieneFilas ? clone : null;
+      }
+
+      function construirSeccionCompetenciasEvaluadasSinProgramarPDF() {
+        const tabla = construirTablaRapsFiltradosParaPDF("fila-rap-no-programado");
+        return crearSeccionPDFConTabla(
+          "Competencias Evaluadas sin estar programadas",
+          "De acuerdo con el reporte \"RAPs Aprobados - Por evaluar y No aprobados\", se listan las competencias que presentan resultados de aprendizaje aprobados sin que dichas competencias estén programadas en el diseño curricular.",
+          tabla
+        );
+      }
+
+      function construirSeccionCompetenciasRapsInstructorNoProgramadoPDF() {
+        const tabla = construirTablaRapsFiltradosParaPDF("fila-instructor-diferente");
+        return crearSeccionPDFConTabla(
+          "Competencias y RAPs evaluados por instructor no programado",
+          "De acuerdo con el reporte \"RAPs Aprobados - Por evaluar y No aprobados\", se relacionan los resultados de aprendizaje evaluados por instructores que no fueron los programados originalmente.",
+          tabla
+        );
+      }
+
+      function construirSeccionRapsPorEvaluarPDF() {
+        const tablaOriginal = document.getElementById("tablaProgramadas");
+        if (!tablaOriginal) return null;
+        const clone = tablaOriginal.cloneNode(true);
+        quitarIdsDelNodo(clone);
+        removerFiltrosVisuales(clone);
+        const tbody = clone.querySelector("#tbodyProgramadas");
+        if (tbody) tbody.removeAttribute("id");
+        clone.style.width = "85%";
+        clone.style.borderCollapse = "collapse";
+        clone.style.tableLayout = "fixed";
+        clone.style.marginTop = "4px";
+        clone.style.marginLeft = "auto";
+        clone.style.marginRight = "auto";
+        clone.querySelectorAll("th, td").forEach(cell => {
+          cell.style.border = "1px solid #000";
+          cell.style.padding = "4px";
+          cell.style.fontSize = "9pt";
+          cell.style.verticalAlign = "top";
+        });
+        return crearSeccionPDFConTabla(
+          "Raps por evaluar",
+          "Se incluyen los resultados de aprendizaje que actualmente están pendientes de juicio evaluativo, con fechas de programación, tipo, instructores y aprendices afectados.",
+          clone
+        );
+      }
+
+      function construirSeccionCompetenciasAvancePDF() {
+        const reporte2 = document.getElementById("reporte2");
+        if (!reporte2) return null;
+        const clone = reporte2.cloneNode(true);
+        quitarIdsDelNodo(clone);
+        removerFiltrosVisuales(clone);
+        clone.querySelectorAll(".detalle-gantt-card").forEach(el => el.remove());
+        return { origen: clone };
+      }
+
+      function construirSeccionCronogramaGanttPDF() {
+        const ganttCard = document.querySelector("#reporte2 .detalle-gantt-card");
+        if (!ganttCard) return null;
+        const clone = ganttCard.cloneNode(true);
+        quitarIdsDelNodo(clone);
+        removerFiltrosVisuales(clone);
+        clone.style.width = "100%";
+        clone.style.maxWidth = "100%";
+        clone.style.margin = "0 auto 16px";
+        clone.querySelectorAll(".detalle-gantt-container").forEach(el => {
+          el.style.maxWidth = "100%";
+          el.style.overflowX = "auto";
+        });
+        clone.querySelectorAll("table.tabla-gantt-detalle").forEach(tbl => {
+          tbl.style.tableLayout = "fixed";
+          tbl.style.width = "100%";
+          tbl.style.fontSize = "6pt";
+          Array.from(tbl.querySelectorAll("col")).forEach((col, idx) => {
+            if (idx === 0) {
+              col.style.width = "4%";
+            } else if (idx === 1) {
+              col.style.width = "24%";
+            } else if (idx === 2) {
+              col.style.width = "8%";
+            } else if (idx === 3) {
+              col.style.width = "10%";
+            } else {
+              col.style.width = "6%";
+            }
+          });
+        });
+        return { origen: clone };
+      }
+
+      function construirContenidoPDF(seccionesSeleccionadas) {
+        const partes = [];
+
+        // Encabezado superior institucional (logo y títulos)
+        const encabezado = document.querySelector("header");
+        if (encabezado) partes.push(serializarNodoParaImpresion(encabezado));
+
+        // Encabezado del panel (tarjetas, timeline, KPIs, análisis, detalle de aprendices, etc.)
+        const headerInfo = document.getElementById("headerInfo");
+        if (headerInfo) {
+          partes.push(serializarNodoParaImpresion(headerInfo, (clone) => {
+            // No imprimir el Centro de Reportes (Generación de Reportes / Acciones de Exportación)
+            const exportUI = clone.querySelector("#export-section");
+            if (exportUI) exportUI.remove();
+
+            
+            // Dejar el PDF hasta la gráfica: remover Detalle de Aprendices (tabla)
+            const detalleAprendices = clone.querySelector(".detalle-aprendices-card");
+            if (detalleAprendices) detalleAprendices.remove();
+
+            // Quitar el acordeón "📊 Reportes de la formacion" (UI de pestañas/accordion)
+            const acordeonReportes = clone.querySelector("#reportes");
+            if (acordeonReportes) acordeonReportes.remove();
+// No imprimir botón del acordeón; imprimir solo el contenido
+            const btn = clone.querySelector(".acordeon-header");
+            if (btn) btn.remove();
+
+            const cuerpo = clone.querySelector(".acordeon-body");
+            if (cuerpo) cuerpo.style.display = "block";
+          }));
+        } else {
+          const info = document.getElementById("accordionInfoBody");
+          if (info) partes.push(serializarNodoParaImpresion(info));
+        }
+
+        // Reportes seleccionados (si existen)
+        if (Array.isArray(seccionesSeleccionadas) && seccionesSeleccionadas.length > 0) {
+          seccionesSeleccionadas.forEach(sec => {
+            const nodo = sec && sec.origen ? sec.origen : sec;
+            if (!nodo) return;
+            const preprocesar = sec && sec.preprocesar ? sec.preprocesar : limpiarControlesParaPDF;
+            partes.push('<div class="page-break"></div>');
+            partes.push(serializarNodoParaImpresion(nodo, preprocesar));
+          });
+        }
+
+        return partes.join("");
+      }
+
+      function obtenerNombreArchivoActaComite() {
+        const obtenerCodigoFicha = () => {
+          return (document.getElementById("codigoFicha")?.textContent || "")
+            .toString()
+            .trim()
+            .replace(/[^0-9]/g, "") || "SENA";
+        };
+        const ahora = new Date();
+        const dia = String(ahora.getDate()).padStart(2, "0");
+        const mes = String(ahora.getMonth() + 1).padStart(2, "0");
+        const anio = ahora.getFullYear();
+        return `Acta de Comite - ${obtenerCodigoFicha()}-${dia}-${mes}-${anio}`;
+      }
+
+      function abrirVentanaParaImprimirPDF(htmlContenido) {
+        const ventana = window.open("", "_blank");
+        if (!ventana) {
+          alert("No fue posible abrir la ventana de impresión. Verifique el bloqueador de ventanas emergentes.");
+          return;
+        }
+
+        // Copiar todos los <style> y <link rel="stylesheet"> de la página original
+        const estilosOriginales = Array
+          .from(document.querySelectorAll("style, link[rel='stylesheet']"))
+          .map(el => el.outerHTML)
+          .join("");
+
+          const nombreArchivo = obtenerNombreArchivoActaComite();
+          ventana.document.write(`<html><head><meta charset='UTF-8'><title>${nombreArchivo}</title>`);
+          ventana.document.write(estilosOriginales);
+
+        // Estilos específicos para impresión
+        ventana.document.write(`
+          <style>
+            body { background: #ffffff !important; margin: 0; padding: 16px; }
+            #export-section, .export-section, .reportes-main { display: none !important; }
+            .page-break { break-before: page; page-break-before: always; height: 0; }
+            @media print {
+              body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+              /* Solo texto, tablas y gráficas (sin UI) */
+              #export-section, #reportes, .tabs, .acordeon-header, .acordeon-icon,
+              button, input, select, textarea, label,
+              .filtros-colores-dias, .filtros-raps-botones, .btn-menu-reporte,
+              .chip-reporte1, .chip-reporte2,
+              .detalle-aprendices-card,
+              [id*="filtro"], [class*="filtro"], [id*="filter"], [class*="filter"] { display: none !important; }
+            }
+          </style>
+        `);
+
+        ventana.document.write("</head><body>");
+        ventana.document.write(htmlContenido);
+        ventana.document.write("</body></html>");
+        ventana.document.close();
+
+          ventana.document.title = nombreArchivo;
+          setTimeout(() => ventana.print(), 700);
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const botonPDF = document.getElementById("btnExportarPDF");
-        if (botonPDF) {
-          botonPDF.addEventListener("click", function () {
-            const checkboxes = document.querySelectorAll(".reporte-checkbox:checked");
-            const secciones = Array.from(checkboxes).map(cb => document.getElementById(cb.value));
-
-            const ventana = window.open("", "_blank");
-            ventana.document.write("<html><head><title>Reporte SENA</title>");
-            // Copiar todos los <style> y <link rel="stylesheet"> de la página original
-            const estilosOriginales = Array
-              .from(document.querySelectorAll("style, link[rel='stylesheet']"))
-              .map(el => el.outerHTML)
-              .join("");
-
-            // Inyectar estilos completos en la ventana del PDF
-            ventana.document.write(estilosOriginales);
-
-            // Forzar que el navegador imprima los colores de fondo
-            ventana.document.write(
-              "<style>@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}</style>"
-            );
-
-            ventana.document.write("</head><body>");
-
-            const bloqueEncabezado = construirBloqueEncabezadoExport();
-            ventana.document.write(bloqueEncabezado);
-
-            secciones.forEach(seccion => {
-              if (seccion) ventana.document.write(seccion.innerHTML + "<hr/>");
-            });
-
-
-
-            ventana.document.write("</body></html>");
-            ventana.document.close();
-
-            setTimeout(() => ventana.print(), 500); // permite que cargue el contenido antes de imprimir
-          });
-        } else {
+        if (!botonPDF) {
           console.warn("❗ No se encontró el botón con id 'btnExportarPDF'");
+          return;
         }
+
+        botonPDF.addEventListener("click", function () {
+          const seleccionados = obtenerReportesSeleccionadosCentro();
+          const secciones = obtenerSeccionesSeleccionadasParaPDF(seleccionados);
+
+          // Si no hay reportes seleccionados, se imprime únicamente el encabezado del panel
+          const html = construirContenidoPDF(secciones);
+
+          abrirVentanaParaImprimirPDF(html);
+        });
       });
-      // Bloque reutilizable para el encabezado de exportación (PDF y Word)
+
+// Bloque reutilizable para el encabezado de exportación (PDF y Word)
       // Bloque reutilizable para el encabezado de exportación (PDF y Word)
 
 
-      function construirBloqueEncabezadoExport() {
+      function construirBloqueEncabezadoExport(conSeparador = true) {
         const getText = (id) =>
           (document.getElementById(id)?.textContent || "").trim();
 
@@ -9056,7 +10505,7 @@
       ${tablaEstadoHTML}
     </div>
 
-    <hr style="margin:10px 0;">
+    ${conSeparador ? '<hr style="margin:10px 0;">' : ''}
   `;
       }
 
@@ -9162,6 +10611,386 @@
     <hr style="margin:10px 0;">
   `;
       }
+
+      const reportesCentroMetadatos = [
+        {
+          key: "avance-fallas",
+          label: "Porcentaje de avance de aprendices y fallas",
+          exportSectionId: "reporte7",
+          exportTableSelector: "#pivotAvanceContainer",
+          excelName: "Porcentaje de avance de aprendices y fallas"
+        },
+        {
+          key: "competencias-pendientes-aprendiz",
+          label: "Competencias pendientes por evaluar por cada aprendiz",
+          exportSectionId: "reporte8",
+          exportTableSelector: "#tbodyReporte8",
+          excelName: "Competencias pendientes por aprendiz"
+        },
+    {
+  key: "aprendices-listos-productiva",
+  label: "Aprendices listos para ir a etapa productiva",
+  exportSectionId: null,
+  pdfBuilder: construirSeccionAprendicesListosProductivaPDF,
+  excelName: "Aprendices listos etapa productiva",
+  excelIncludeBuilderTables: true
+},
+        {
+          key: "listado-instructores-pendientes-juicio",
+          label: "Listado de instructores con aprendices pendientes por emitir juicio",
+          exportSectionId: "listado-instructores-pendientes-juicio",
+          exportTableSelector: "#tablaPendientesInstructorReporte8",
+          excelName: "Listado de instructores con aprendices pendientes"
+        },
+        {
+          key: "competencias-avance-diseno",
+          label: "Competencias y % de avance vs diseño",
+          exportSectionId: "reporte2",
+          pdfBuilder: construirSeccionCompetenciasAvancePDF,
+          exportTableSelector: "#tablaReporte2",
+          excelName: "Competencias y % de avance vs diseño"
+        },
+        {
+          key: "cronograma-gantt",
+          label: "Cronograma de programación de competencias (Gantt)",
+          exportSectionId: "reporte3",
+          pdfBuilder: construirSeccionCronogramaGanttPDF,
+          excelName: "Cronograma de programación (Gantt)",
+          excelIncludeBuilderTables: true
+        },
+        {
+          key: "competencias-sobre-ejecutadas",
+          label: "Competencias sobre ejecutadas",
+          exportSectionId: "reporte2",
+          pdfBuilder: construirSeccionCompetenciasSobreEjecutadasPDF,
+          excelName: "Competencias sobre ejecutadas",
+          excelIncludeBuilderTables: true
+        },
+        {
+          key: "competencias-pendientes",
+          label: "Competencias pendientes",
+          exportSectionId: "reporte4",
+          pdfBuilder: construirSeccionCompetenciasPendientesPDF,
+          exportTableSelector: "#tablaProgramadas",
+          excelName: "Competencias pendientes",
+          excelIncludeBuilderTables: true
+        },
+        {
+          key: "competencias-evaluadas-sin-programar",
+          label: "Competencias Evaluadas sin estar programadas",
+          exportSectionId: "reporte5",
+          pdfBuilder: construirSeccionCompetenciasEvaluadasSinProgramarPDF,
+          excelName: "Competencias evaluadas sin estar programadas",
+          excelIncludeBuilderTables: true
+        },
+        {
+          key: "competencias-raps-instructor-no-programado",
+          label: "Competencias y RAPs evaluados por instructor no programado",
+          exportSectionId: "reporte6",
+          pdfBuilder: construirSeccionCompetenciasRapsInstructorNoProgramadoPDF,
+          excelName: "Competencias y RAPs por instructor no programado",
+          excelIncludeBuilderTables: true
+        },
+        {
+          key: "raps-por-evaluar",
+          label: "Raps por evaluar",
+          pdfBuilder: construirSeccionRapsPorEvaluarPDF,
+          exportTableSelector: "#tablaProgramadas",
+          excelName: "Raps por evaluar"
+        }
+      ];
+
+      const reportesCentroMap = reportesCentroMetadatos.reduce((acc, meta) => {
+        acc[meta.key] = meta;
+        return acc;
+      }, {});
+
+      function obtenerSeccionesSeleccionadasParaPDF(seleccionados) {
+        if (!Array.isArray(seleccionados) || seleccionados.length === 0) return [];
+        return seleccionados
+          .map(key => {
+            const meta = reportesCentroMap[key];
+            if (!meta) return null;
+            if (typeof meta.pdfBuilder === "function") {
+              const resultado = meta.pdfBuilder();
+              if (!resultado) return null;
+              if (resultado instanceof Element) return resultado;
+              if (resultado.origen) return resultado;
+              return null;
+            }
+            const id = meta.exportSectionId || key;
+            return id ? document.getElementById(id) : null;
+          })
+          .filter(Boolean);
+      }
+
+      function obtenerReportesSeleccionadosCentro() {
+        const checkboxes = document.querySelectorAll(".reporte-checkbox:checked");
+        return Array.from(checkboxes).map(cb => cb.dataset.reporteKey || cb.value);
+      }
+
+
+
+      // Función nueva para calcular los aprendices listos para etapa productiva
+// y actualizar la variable global que usan los reportes
+
+// =====================
+// Helpers – Etapa productiva (Listos / Por evaluar>1 / Novedades)
+// =====================
+function normalizarTextoClaveExport(texto) {
+  return (texto || "")
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+function obtenerMapaDocumentoPorAprendizDesdeAvance() {
+  const mapa = {};
+  const tbody = document.getElementById("pivotAvanceContainer");
+  if (!tbody) return mapa;
+
+  tbody.querySelectorAll("tr").forEach(tr => {
+    const tds = tr.querySelectorAll("td");
+    if (!tds || tds.length < 3) return;
+    const doc = (tds[1].textContent || "").trim();
+    const nom = (tds[2].textContent || "").trim();
+    const clave = normalizarTextoClaveExport(nom);
+    if (clave && doc && !mapa[clave]) mapa[clave] = doc;
+  });
+
+  return mapa;
+}
+
+function obtenerAprendicesPorEvaluarMayorA1DesdeAvance() {
+  const tbody = document.getElementById("pivotAvanceContainer");
+  if (!tbody) return [];
+  const lista = [];
+
+  tbody.querySelectorAll("tr").forEach(tr => {
+    const tds = tr.querySelectorAll("td");
+    if (!tds || tds.length < 8) return;
+
+    const doc = (tds[1].textContent || "").trim();
+    const nom = (tds[2].textContent || "").trim();
+    const porEvalTxt = (tds[6].textContent || "").trim();
+    const match = porEvalTxt.match(/\d+/);
+    const porEval = match ? parseInt(match[0], 10) : 0;
+
+    if (porEval > 1) {
+      lista.push({ documento: doc, nombre: nom, porEvaluar: porEval });
+    }
+  });
+
+  lista.sort((a, b) => (a.nombre || "").localeCompare(b.nombre || ""));
+  return lista;
+}
+
+function obtenerAprendicesNovedadesProductivaDesdePendientesJuicio(excluirNombresSet) {
+  const tabla = document.getElementById("tablaPendientesInstructorReporte8");
+  if (!tabla) return [];
+
+  const mapaDoc = obtenerMapaDocumentoPorAprendizDesdeAvance();
+  const lista = [];
+  const vistos = new Set();
+
+  const tbody = tabla.querySelector("#tbodyPendientesInstructorReporte8");
+  if (!tbody) return [];
+
+  tbody.querySelectorAll("tr").forEach(tr => {
+    const tds = tr.querySelectorAll("td");
+    if (!tds || tds.length < 8) return;
+
+    const competencia = (tds[2].textContent || "").trim();
+    if (!competencia) return;
+
+    // Excluir la competencia de etapa práctica
+    if (normalizarTextoClaveExport(competencia) === "RESULTADOS DE APRENDIZAJE ETAPA PRACTICA") return;
+
+    const nombres = (tds[7].textContent || "")
+      .split(/\n|,|;/g)
+      .map(x => x.trim())
+      .filter(Boolean);
+
+    nombres.forEach(nom => {
+      const clave = normalizarTextoClaveExport(nom);
+      if (!clave) return;
+
+      if (excluirNombresSet && excluirNombresSet.has(clave)) return;
+
+      const key = `${clave}||${normalizarTextoClaveExport(competencia)}`;
+      if (vistos.has(key)) return;
+      vistos.add(key);
+
+      lista.push({
+        documento: mapaDoc[clave] || "",
+        nombre: nom,
+        competencia: competencia
+      });
+    });
+  });
+
+  // Ordenar por nombre
+  lista.sort((a, b) => (a.nombre || "").localeCompare(b.nombre || ""));
+  return lista;
+}
+
+
+function prepararDatosListosParaProductiva() {
+    aprendicesListosProductivaParaExportar = [];
+    aprendicesPorEvaluarMayor1ParaExportar = [];
+    aprendicesNovedadesProductivaParaExportar = [];
+
+    const contResumen = document.getElementById("contenedorResumenPracticaReporte8");
+    const contTablas = document.getElementById("contenedorTablasReporte8");
+
+    if (!contResumen || !contTablas) return null;
+
+    const tablaResumen = contResumen.querySelector("table.tabla-resumen-practica");
+    const tablaPendientes = contTablas.querySelector("table.tabla-aprendiz-reporte8");
+
+    if (!tablaResumen || !tablaPendientes) return null;
+
+    // 1. Obtener nombres del resumen (los que solo deben práctica)
+    const nombresSoloPractica = new Set();
+
+    tablaResumen.querySelectorAll("tbody tr").forEach((tr) => {
+        const celdas = tr.querySelectorAll("td");
+        if (celdas.length >= 2) {
+            const nombre = celdas[1].textContent || "";
+            const clave = normalizarTextoClaveExport(nombre);
+            if (clave) nombresSoloPractica.add(clave);
+        }
+    });
+
+    if (nombresSoloPractica.size === 0) return null;
+
+    // 2. Cruzar con la tabla de pendientes para obtener documento y nombre exacto
+    const mapaAprendices = {};
+    tablaPendientes.querySelectorAll("tbody tr").forEach((tr) => {
+        const celdas = tr.querySelectorAll("td");
+        if (celdas.length >= 3) {
+            const doc = (celdas[1].textContent || "").trim();
+            const nom = (celdas[2].textContent || "").trim();
+            const clave = normalizarTextoClaveExport(nom);
+            if (nombresSoloPractica.has(clave) && !mapaAprendices[clave]) {
+                mapaAprendices[clave] = { documento: doc, nombre: nom };
+            }
+        }
+    });
+
+    // 3. Guardar en la variable global
+    const listaAprendices = Object.values(mapaAprendices).sort((a, b) => (a.nombre || "").localeCompare(b.nombre || ""));
+    aprendicesListosProductivaParaExportar = listaAprendices;
+
+    // 4. Adicionales requeridos: (a) Por evaluar > 1, (b) Novedades (competencia != etapa práctica)
+    aprendicesPorEvaluarMayor1ParaExportar = obtenerAprendicesPorEvaluarMayorA1DesdeAvance();
+
+    const excluir = new Set();
+    listaAprendices.forEach(ap => excluir.add(normalizarTextoClaveExport(ap.nombre)));
+    aprendicesPorEvaluarMayor1ParaExportar.forEach(ap => excluir.add(normalizarTextoClaveExport(ap.nombre)));
+
+    aprendicesNovedadesProductivaParaExportar = obtenerAprendicesNovedadesProductivaDesdePendientesJuicio(excluir);
+
+    // 5. Construir tabla única (Excel) con secciones apiladas
+    const hayAlguna = (listaAprendices.length > 0) ||
+                      (aprendicesPorEvaluarMayor1ParaExportar.length > 0) ||
+                      (aprendicesNovedadesProductivaParaExportar.length > 0);
+
+    if (!hayAlguna) return null;
+
+    const wrapper = document.createElement("div");
+    const tabla = document.createElement("table");
+    tabla.style.borderCollapse = "collapse";
+    tabla.style.fontSize = "10px";
+    tabla.style.width = "100%";
+
+    const addFilaTitulo = (texto, colSpan) => {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.textContent = texto;
+      td.colSpan = colSpan;
+      td.style.fontWeight = "bold";
+      td.style.padding = "6px 4px";
+      td.style.border = "1px solid #000";
+      tr.appendChild(td);
+      return tr;
+    };
+
+    const addCabecera = (cols) => {
+      const tr = document.createElement("tr");
+      cols.forEach(c => {
+        const th = document.createElement("th");
+        th.textContent = c;
+        th.style.fontWeight = "bold";
+        th.style.border = "1px solid #000";
+        th.style.padding = "4px";
+        tr.appendChild(th);
+      });
+      return tr;
+    };
+
+    const addFilaVacia = (colSpan) => {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.colSpan = colSpan;
+      td.innerHTML = "&nbsp;";
+      td.style.border = "1px solid #000";
+      tr.appendChild(td);
+      return tr;
+    };
+
+    const tbody = document.createElement("tbody");
+
+    // Sección 1: Listos
+    tbody.appendChild(addFilaTitulo("Aprendices listos para ir a etapa productiva", 4));
+    tbody.appendChild(addCabecera(["#", "Documento", "Nombre del Aprendiz", ""]));
+    if (listaAprendices.length) {
+      listaAprendices.forEach((ap, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="border:1px solid #000; padding:4px;">${idx + 1}</td>
+          <td style="border:1px solid #000; padding:4px;">${ap.documento || ""}</td>
+          <td style="border:1px solid #000; padding:4px;">${ap.nombre || ""}</td>
+          <td style="border:1px solid #000; padding:4px;"></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    } else {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td colspan="4" style="border:1px solid #000; padding:4px;"><em>Sin registros.</em></td>`;
+      tbody.appendChild(tr);
+    }
+
+    tbody.appendChild(addFilaVacia(4));
+
+    // Sección 2: Por evaluar > 1
+    tbody.appendChild(addFilaTitulo("Aprendices con más de un RAP por evaluar", 4));
+    tbody.appendChild(addCabecera(["#", "Documento", "Nombre del Aprendiz", ""]));
+    if (aprendicesPorEvaluarMayor1ParaExportar.length) {
+      aprendicesPorEvaluarMayor1ParaExportar.forEach((ap, idx) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="border:1px solid #000; padding:4px;">${idx + 1}</td>
+          <td style="border:1px solid #000; padding:4px;">${ap.documento || ""}</td>
+          <td style="border:1px solid #000; padding:4px;">${ap.nombre || ""}</td>
+          <td style="border:1px solid #000; padding:4px;"></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    } else {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td colspan="4" style="border:1px solid #000; padding:4px;"><em>Sin registros.</em></td>`;
+      tbody.appendChild(tr);
+    }
+
+    tbody.appendChild(addFilaVacia(4));
+    tabla.appendChild(tbody);
+    wrapper.appendChild(tabla);
+    return wrapper.children.length ? wrapper : null;
+}
 
 
       // =========================
@@ -9513,6 +11342,8 @@
         // 3.4 – Aprendices listos para ir a etapa productiva
         let tablaPendientesAprendizHTML = "";
         let tablaListosProductivaHTML = "";
+        let tablaPorEvaluarMasDe1HTML = "";
+
 
         const contTablasReporte8 = document.getElementById("contenedorTablasReporte8");
         const contResumenReporte8 = document.getElementById("contenedorResumenPracticaReporte8");
@@ -9581,8 +11412,9 @@
 
           tablaPendientesAprendizHTML = clonePendientes.outerHTML;
 
-            // ===== 3.4 – Aprendices listos para ir a etapa productiva =====
+            // ===== 3.4 - Aprendices listos para ir a etapa productiva =====
             // Solo aplica si existe el resumen de etapa práctica del reporte 8
+            aprendicesListosProductivaParaExportar = [];
             if (contResumenReporte8) {
               const tablaResumen = contResumenReporte8.querySelector("table.tabla-resumen-practica");
 
@@ -9634,6 +11466,15 @@
                   const listaAprendices = Object.values(mapaAprendices).sort((a, b) =>
                     a.nombre.toUpperCase().localeCompare(b.nombre.toUpperCase())
                   );
+
+                  if (listaAprendices.length > 0) {
+                    aprendicesListosProductivaParaExportar = listaAprendices.map(ap => ({
+                      nombre: ap.nombre,
+                      documento: ap.documento
+                    }));
+                  } else {
+                    aprendicesListosProductivaParaExportar = [];
+                  }
 
                   if (listaAprendices.length > 0) {
                     const tablaListos = document.createElement("table");
@@ -9698,6 +11539,74 @@
 
                     tablaListos.appendChild(tbodyL);
                     tablaListosProductivaHTML = tablaListos.outerHTML;
+                    // ===== 3.4.A – Aprendices con novedades para ir a etapa productiva (desde % Avance por Aprendiz) =====
+                    const normalizarClaveLocal = (texto) => (texto || "").toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().trim().replace(/\s+/g, " ");
+                    const setListosLocal = new Set();
+                    try {
+                      tablaListos.querySelectorAll("tbody tr").forEach(trx => {
+                        const tdx = trx.querySelectorAll("td");
+                        if (tdx && tdx.length >= 3) {
+                          setListosLocal.add(normalizarClaveLocal(tdx[2].textContent || ""));
+                        }
+                      });
+                    } catch (e) {}
+
+                    const listaMasDe1 = [];
+                    const tbodyAv = document.getElementById("pivotAvanceContainer");
+                    if (tbodyAv) {
+                      tbodyAv.querySelectorAll("tr").forEach(trx => {
+                        const tdsx = trx.querySelectorAll("td");
+                        if (!tdsx || tdsx.length < 8) return;
+
+                        const docx = (tdsx[1].textContent || "").trim();
+                        const nomx = (tdsx[2].textContent || "").trim();
+                        const porEvalTxt = (tdsx[6].textContent || "").trim();
+                        const m = porEvalTxt.match(/\d+/);
+                        const porEval = m ? parseInt(m[0], 10) : 0;
+
+                        // condición solicitada: por evaluar > 1
+                        if (porEval > 1 && !setListosLocal.has(normalizarClaveLocal(nomx))) {
+                          listaMasDe1.push({ documento: docx, nombre: nomx });
+                        }
+                      });
+                    }
+                    listaMasDe1.sort((a,b) => (a.nombre||"").localeCompare(b.nombre||""));
+
+                    if (listaMasDe1.length) {
+                      const tablaMas1 = document.createElement("table");
+                      tablaMas1.classList.add("tabla-avance-aprendices", "tabla-competencias-pendientes");
+                      tablaMas1.style.width = "100%";
+                      tablaMas1.style.borderCollapse = "collapse";
+
+                      const theadM = document.createElement("thead");
+                      const trHM = document.createElement("tr");
+                      ["#", "Documento", "Nombre del Aprendiz"].forEach(txt => {
+                        const th = document.createElement("th");
+                        th.textContent = txt;
+                        th.style.fontWeight = "bold";
+                        th.style.border = "1px solid #000";
+                        th.style.padding = "4px 6px";
+                        th.style.fontSize = "8.5pt";
+                        trHM.appendChild(th);
+                      });
+                      theadM.appendChild(trHM);
+                      tablaMas1.appendChild(theadM);
+
+                      const tbodyM = document.createElement("tbody");
+                      listaMasDe1.forEach((ap, i) => {
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                          <td style="border:1px solid #000; padding:4px 6px; font-size:8.5pt;">${i+1}</td>
+                          <td style="border:1px solid #000; padding:4px 6px; font-size:8.5pt;">${ap.documento || ""}</td>
+                          <td style="border:1px solid #000; padding:4px 6px; font-size:8.5pt;">${ap.nombre || ""}</td>
+                        `;
+                        tbodyM.appendChild(tr);
+                      });
+                      tablaMas1.appendChild(tbodyM);
+
+                      tablaPorEvaluarMasDe1HTML = tablaMas1.outerHTML;
+                    }
+
                   }
                 }
               }
@@ -9739,7 +11648,7 @@
           quitarIconosOrdenTabla(clonePendJuicio);
 
           tablaPendientesJuicioHTML = clonePendJuicio.outerHTML;
-        }
+            }
 
         const ciudad = municipioFicha || "Ibagué";
 
@@ -9757,6 +11666,7 @@
         let tablaCompetenciasHorasHTML = "";
         let tablaCompetenciasSobreEjecutadasHTML = "";
         let tablaCompetenciasProgramadasPendientesHTML = "";   // NUEVO: reporte 4 en el acta
+        let tablaRapsPorEvaluarHTML = "";
         let tablaRapsOtroInstructorHTML = "";   // NUEVO: RAPs evaluados por instructor no programado
         let tablaCronogramaGanttHTML = "";   // NUEVO: Cronograma Gantt de Competencias
 
@@ -9993,6 +11903,37 @@
                 }
               }
 
+              const tablaProgramadasElem = document.getElementById("tablaProgramadas");
+              if (tablaProgramadasElem) {
+                const cloneProgramadas = tablaProgramadasElem.cloneNode(true);
+                cloneProgramadas.removeAttribute("id");
+                const tbodyProg = cloneProgramadas.querySelector("#tbodyProgramadas");
+                if (tbodyProg) tbodyProg.removeAttribute("id");
+                quitarIconosOrdenTabla(cloneProgramadas);
+                const oldCgProg = cloneProgramadas.querySelector("colgroup");
+                if (oldCgProg) oldCgProg.remove();
+                const colgroupProg = document.createElement("colgroup");
+                ["5%", "25%", "10%", "10%", "10%", "10%", "15%", "12%", "3%"].forEach(width => {
+                  const col = document.createElement("col");
+                  col.style.width = width;
+                  colgroupProg.appendChild(col);
+                });
+                cloneProgramadas.insertBefore(colgroupProg, cloneProgramadas.firstElementChild);
+                cloneProgramadas.style.width = "85%";
+                cloneProgramadas.style.borderCollapse = "collapse";
+                cloneProgramadas.style.tableLayout = "fixed";
+                cloneProgramadas.style.marginTop = "4px";
+                cloneProgramadas.style.marginLeft = "auto";
+                cloneProgramadas.style.marginRight = "auto";
+                cloneProgramadas.querySelectorAll("th, td").forEach(cell => {
+                  cell.style.border = "1px solid #000";
+                  cell.style.padding = "4px";
+                  cell.style.fontSize = "8pt";
+                  cell.style.verticalAlign = "top";
+                });
+                tablaRapsPorEvaluarHTML = `<div class="tabla-acta-wrap" style="margin-top:4px;">${cloneProgramadas.outerHTML}</div>`;
+              }
+
               // Helper local para generar tablas del reporte 6 con estilos inline para Word
               const generarTablaActaReporte6 = (datos, clase) => {
                 if (!datos || !datos.length) return "";
@@ -10224,6 +12165,308 @@
         }
 
 
+
+        const seleccionActa = obtenerReportesSeleccionadosCentro();
+        const incluyeActa = (key) => seleccionActa.includes(key);
+
+        const desarrolloCompetenciasPendientesAprendizHTML = incluyeActa("competencias-pendientes-aprendiz")
+          ? `
+                    <li class="titulo-3">
+                      Competencias pendientes por evaluar por cada aprendiz.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          De acuerdo con el reporte "Competencias Pendientes por Aprendiz e Instructor", se relacionan las competencias que los aprendices tienen pendientes por evaluar y el instructor que impartió la competencia.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaPendientesAprendizHTML
+            ? tablaPendientesAprendizHTML
+            : "<em>(De acuerdo con el reporte \"Competencias Pendientes por Aprendiz e Instructor\", a la fecha no se registran competencias pendientes por evaluar para los aprendices de la ficha.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+                  `
+          : "";
+
+        const desarrolloAprendicesListosHTML = incluyeActa("aprendices-listos-productiva")
+          ? `
+                    <li class="titulo-3">
+                      Aprendices listos para ir a etapa productiva.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          Se listan los aprendices que, de acuerdo con el mismo reporte, ya finalizaron todas las competencias lectivas
+                          y solo tienen pendiente la competencia &quot;RESULTADOS DE APRENDIZAJE ETAPA PRACTICA&quot;.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaListosProductivaHTML
+            ? tablaListosProductivaHTML
+            : "<em>Por el momento no hay ningún aprendiz.</em>"
+          }
+                        </div>
+                        ${tablaPorEvaluarMasDe1HTML
+            ? `
+                        <div class="tabla-acta-wrap" style="margin-top:12px;">
+                          <div style="font-weight:600; margin-bottom:6px;">Aprendices con novedades para ir a etapa productiva</div>
+                          ${tablaPorEvaluarMasDe1HTML}
+                        </div>
+                        `
+            : ""
+          }
+                      </div>
+                    </li>
+                  `
+          : "";
+
+        const desarrolloInstructoresHTML = incluyeActa("listado-instructores-pendientes-juicio")
+          ? `
+                <li class="titulo-1">
+                  Instructores
+                  <div class="contenido-item" style="margin-top:6px; border:1px solid #000; padding:6px; border-radius:6px;">
+                    <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor en formación</div>
+                    <div class="tabla-acta-wrap" style="margin-top:4px;">
+                      ${tablaEquipoFormacionHTML || "<em>(No se encontraron instructores en formación al momento de generar el acta.)</em>"}
+                    </div>
+                  </div>
+                  <div class="contenido-item" style="margin-top:12px; border:1px solid #000; padding:6px; border-radius:6px;">
+                    <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor con el que vieron formación</div>
+                    <div class="tabla-acta-wrap" style="margin-top:4px;">
+                      ${tablaEquipoVistoHTML || "<em>(No se encontraron registros de instructores que hayan impartido al momento de generar el acta.)</em>"}
+                    </div>
+                  </div>
+                  <span style="font-size:9pt;">Asimismo, se relacionan los instructores con las competencias que tienen asignadas y las horas programadas:</span>
+                  <div class="tabla-acta-wrap" style="margin-top:4px;">
+                    ${tablaInstructoresCompetenciasHTML || "<em>(No se encontró información del listado de competencias por instructor al momento de generar el acta.)</em>"}
+                  </div>
+                  <ol class="lista-acta nivel-3" type="i">
+                    <li class="titulo-3">
+                      Listado de instructores con aprendices pendientes por emitir juicio.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          Se listan los instructores que tienen aprendices con juicios evaluativos pendientes, indicando la competencia, los aprendices asociados y la cantidad de aprendices por competencia.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaPendientesJuicioHTML
+            ? tablaPendientesJuicioHTML
+            : "<em>(No se encontraron instructores con aprendices pendientes por emitir juicio en los reportes cargados.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+                  </ol>
+                </li>
+                `
+          : "";
+
+        const desarrolloAnalisisCompetenciasHTML = (() => {
+          const desarrolloAnalisisCompetenciasSubItems = [];
+          if (incluyeActa("competencias-avance-diseno")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Competencias y % de avance vs diseño.
+                      <div class="contenido-item">
+                        ${graficoCompetenciasActaHTML}
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaCompetenciasHorasHTML
+            ? tablaCompetenciasHorasHTML
+            : "<em>(No se encontró información del reporte % Competencias con Horas al momento de generar el acta.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (incluyeActa("cronograma-gantt")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Cronograma de programación de competencias (Gantt).
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          Se presenta el cronograma de programación de competencias con los meses en que cada competencia ha sido programada.
+                        </p>
+                        <div class="tabla-acta-wrap" style="margin-top:4px; overflow-x:auto;">
+                          ${tablaCronogramaGanttHTML
+            ? tablaCronogramaGanttHTML
+            : "<em>(No se encontró información del cronograma Gantt al momento de generar el acta.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (incluyeActa("competencias-sobre-ejecutadas")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Competencias sobre ejecutadas.
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          Se listan únicamente las competencias cuyo porcentaje de ejecución supera el <strong>100 %</strong> frente a las horas definidas en el diseño curricular (filas resaltadas en rojo en el reporte % Competencias con Horas).
+                        </p>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaCompetenciasSobreEjecutadasHTML
+            ? tablaCompetenciasSobreEjecutadasHTML
+            : "<em>(No se encontraron competencias que superen el 100% en el reporte % Competencias con Horas.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (incluyeActa("competencias-pendientes")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Competencias pendientes
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          De acuerdo con el reporte "Competencias del Programa (Programada: Sí/No)", se relacionan las competencias sin programación (<strong>No</strong>) o parcialmente programadas (<strong>1/2</strong>).
+                        </p>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaCompetenciasProgramadasPendientesHTML
+            ? tablaCompetenciasProgramadasPendientesHTML
+            : "<em>(No se encontró información del reporte \"Competencias del Programa (Programada: Sí/No)\" al momento de generar el acta.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (incluyeActa("competencias-evaluadas-sin-programar")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Competencias Evaluadas sin estar programadas
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          De acuerdo con el reporte "RAPs Aprobados - Por evaluar y No aprobados", se listan las competencias que presentan resultados de aprendizaje aprobados sin que dichas competencias están programadas en el dise?o.
+                        </p>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaRapsNoProgramadosHTML
+            ? tablaRapsNoProgramadosHTML
+            : "<em>(No se encontró información de competencias evaluadas sin estar programadas al momento de generar el acta.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (incluyeActa("competencias-raps-instructor-no-programado")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Competencias y RAPs evaluados por instructor no programado.
+                      <div class="contenido-item">
+                        <p style="margin:0 0 4px 0; font-size:9pt;">
+                          De acuerdo con el reporte "RAPs Aprobados - Por evaluar y No aprobados", se relacionan los resultados de aprendizaje que fueron evaluados por un instructor diferente al programado para esa competencia.
+                        </p>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaRapsOtroInstructorHTML
+            ? tablaRapsOtroInstructorHTML
+            : "<em>(No se encontraron RAPs evaluados por instructores diferentes al programado.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (incluyeActa("raps-por-evaluar")) {
+            desarrolloAnalisisCompetenciasSubItems.push(`
+                    <li class="titulo-3">
+                      Raps por evaluar.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          De acuerdo con el reporte "Raps por evaluar", se consignan los resultados de aprendizaje que actualmente tienen juicios pendientes y los aprendices vinculados a cada competencia.
+                        </span>
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaRapsPorEvaluarHTML
+            ? tablaRapsPorEvaluarHTML
+            : "<em>(No se encontró información del reporte \"Raps por evaluar\" al momento de generar el acta.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+          `);
+          }
+          if (!desarrolloAnalisisCompetenciasSubItems.length) return "";
+          return `
+                <li class="titulo-2">
+                  Análisis de competencias y resultados de aprendizaje
+                  <ol class="lista-acta nivel-3" type="i">
+                    ${desarrolloAnalisisCompetenciasSubItems.join("")}
+                  </ol>
+                </li>
+              `;
+        })();
+
+        const desarrolloPorcentajeHTML = incluyeActa("avance-fallas")
+          ? `
+                    <li class="titulo-3">
+                      Porcentaje de avance de aprendices y fallas.
+                      <div class="contenido-item">
+                        <span style="font-size:9pt;">
+                          Se presenta el porcentaje total de avance por aprendiz y el consolidado de fallas del reporte "Avance por Aprendiz", complementado con la tabla del avance general.
+                        </span>
+                        ${graficoFallasAprendicesHTML}
+                        <div class="tabla-acta-wrap" style="margin-top:4px;">
+                          ${tablaAvanceAprendicesHTML
+            ? tablaAvanceAprendicesHTML
+            : "<em>(No se encontró información del reporte % Avance por Aprendiz al momento de generar el acta.)</em>"
+          }
+                        </div>
+                      </div>
+                    </li>
+                  `
+          : "";
+
+        const agendaDetalleAprendicesItems = [];
+        if (incluyeActa("avance-fallas")) {
+          agendaDetalleAprendicesItems.push("<li>Porcentaje de avance de aprendices y fallas</li>");
+        }
+        if (incluyeActa("competencias-pendientes-aprendiz")) {
+          agendaDetalleAprendicesItems.push("<li>Competencias pendientes por evaluar por cada aprendiz.</li>");
+        }
+        if (incluyeActa("aprendices-listos-productiva")) {
+          agendaDetalleAprendicesItems.push("<li>Aprendices listos para ir a etapa productiva.</li>");
+        }
+        const agendaDetalleAprendicesHTML = agendaDetalleAprendicesItems.join("");
+
+        const agendaDetalleInstructoresHTML = incluyeActa("listado-instructores-pendientes-juicio")
+          ? `
+                <li>Instructores
+                  <ol type="i">
+                    <li>Listado de instructores con aprendices pendientes por emitir juicio.</li>
+                  </ol>
+                </li>
+                `
+          : "";
+
+        const agendaDetalleCompetenciasItems = [];
+        if (incluyeActa("competencias-avance-diseno")) {
+          agendaDetalleCompetenciasItems.push("<li>Competencias y % de avance vs diseño.</li>");
+        }
+        if (incluyeActa("cronograma-gantt")) {
+          agendaDetalleCompetenciasItems.push("<li>Cronograma de programación de competencias (Gantt).</li>");
+        }
+        if (incluyeActa("competencias-sobre-ejecutadas")) {
+          agendaDetalleCompetenciasItems.push("<li>Competencias sobre ejecutadas.</li>");
+        }
+        if (incluyeActa("competencias-pendientes")) {
+          agendaDetalleCompetenciasItems.push("<li>Competencias pendientes.</li>");
+        }
+        if (incluyeActa("competencias-evaluadas-sin-programar")) {
+          agendaDetalleCompetenciasItems.push("<li>Competencias Evaluadas sin estar programadas.</li>");
+        }
+        if (incluyeActa("competencias-raps-instructor-no-programado")) {
+          agendaDetalleCompetenciasItems.push("<li>Competencias y RAPs evaluados por instructor no programado.</li>");
+        }
+        if (incluyeActa("raps-por-evaluar")) {
+          agendaDetalleCompetenciasItems.push("<li>Raps por evaluar.</li>");
+        }
+        const agendaDetalleCompetenciasHTML = agendaDetalleCompetenciasItems.length
+          ? `
+                <li>Análisis de competencias y resultados de aprendizaje
+                  <ol type="i">
+                    ${agendaDetalleCompetenciasItems.join("")}
+                  </ol>
+                </li>
+                `
+          : "";
 
         // =========================
         // HTML del documento Word
@@ -10633,10 +12876,8 @@
               <ol type="a" style="padding-left:18px;">
                 <li>Detalle de aprendices
                   <ol type="i" style="padding-left:16px;">
-                    <li>Porcentaje de avance de aprendices y fallas</li>
-                    <li>Competencias pendientes por evaluar por cada aprendiz.</li>
+                    ${agendaDetalleAprendicesHTML}
                     <li>Alternativa de etapa productiva.</li>
-                    <li>Aprendices listos para ir a etapa productiva.</li>
                     <li>Cursos Complementarios
                       <ol type="1" style="padding-left:14px;">
                         <li>Cursos Preparatorios para pruebas saber TYT</li>
@@ -10652,21 +12893,8 @@
                     </li>
                   </ol>
                 </li>
-                <li>Instructores
-                  <ol type="i" style="padding-left:16px;">
-                    <li>Listado de instructores con aprendices pendientes por emitir juicio.</li>
-                  </ol>
-                </li>
-                <li>Análisis de competencias y resultados de aprendizaje
-                  <ol type="i" style="padding-left:16px;">
-                    <li>Competencias y % de avance vs diseño.</li>
-                    <li>Cronograma de programación de competencias (Gantt).</li>
-                    <li>Competencias sobre ejecutadas.</li>
-                    <li>Competencias pendientes.</li>
-                    <li>Competencias Evaluadas sin estar programadas.</li>
-                    <li>Competencias y RAPs evaluados por instructor no programado.</li>
-                  </ol>
-                </li>
+                ${agendaDetalleInstructoresHTML}
+                ${agendaDetalleCompetenciasHTML}
               </ol>
             </li>
             <li>Análisis de casos especiales</li>
@@ -10759,43 +12987,9 @@
                     </div>
                   </div>
                   <ol class="lista-acta nivel-3" type="i">
-                    <li class="titulo-3">
-                      Porcentaje de avance de aprendices y fallas
-                      <div class="contenido-item">
-                        <span style="font-size:9pt;">
-                          Se relaciona el porcentaje de avance por aprendiz, las fallas registradas,
-                          los resultados de aprendizaje aprobados y los que están por evaluar.
-                        </span>
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaAvanceAprendicesHTML
-            ? tablaAvanceAprendicesHTML
-            : "<em>(No se encontró información de avance por aprendiz en el panel al momento de generar el acta.)</em>"
-          }
-                        </div>
-                        <div class="titulo-1">
-                        ${graficoFallasAprendicesHTML
-            ? `<div class="tabla-acta-wrap" style="margin:6px auto; text-align:center; width:100%;">
-                                 <div style="width:10cm; margin:0 auto;">${graficoFallasAprendicesHTML}</div>
-                               </div>`
-            : ""
-          }
-                      </div>
-                      </div>
-                    </li>
-                    <li class="titulo-3">
-                      Competencias pendientes por evaluar por cada aprendiz.
-                      <div class="contenido-item">
-                        <span style="font-size:9pt;">
-                          De acuerdo con el reporte "Competencias Pendientes por Aprendiz e Instructor", se relacionan las competencias que los aprendices tienen pendientes por evaluar y el instructor que impartió la competencia.
-                        </span>
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaPendientesAprendizHTML
-            ? tablaPendientesAprendizHTML
-            : "<em>(De acuerdo con el reporte &quot;Competencias Pendientes por Aprendiz e Instructor&quot;, a la fecha no se registran competencias pendientes por evaluar para los aprendices de la ficha.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
+                    ${desarrolloPorcentajeHTML}
+                    ${desarrolloCompetenciasPendientesAprendizHTML}
+                    ${desarrolloAprendicesListosHTML}
                     <li class="titulo-3">
                       Alternativa de etapa productiva.
                       <div class="contenido-item">
@@ -10854,21 +13048,7 @@
                         ${tablaDetalleAlternativaHTML || "<em>(No se encontraron aprendices activos para detallar alternativa.)</em>"}
                       </div>
                     </li>
-                    <li class="titulo-3">
-                      Aprendices listos para ir a etapa productiva.
-                      <div class="contenido-item">
-                        <span style="font-size:9pt;">
-                          Se listan los aprendices que, de acuerdo con el mismo reporte, ya finalizaron todas las competencias lectivas
-                          y solo tienen pendiente la competencia &quot;RESULTADOS DE APRENDIZAJE ETAPA PRACTICA&quot;.
-                        </span>
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaListosProductivaHTML
-            ? tablaListosProductivaHTML
-            : "<em>Por el momento no hay ningún aprendiz.</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
+
                     <li class="titulo-3">
                       Cursos Complementarios
                       <ol class="lista-acta nivel-4" type="1">
@@ -11009,161 +13189,9 @@
                     </li>
                   </ol>
                 </li>
-                <li class="titulo-2">
-                  Instructores
-                  <div class="contenido-item" style="padding-left:0;">
-                    <span style="font-size:9pt;">
-                      A continuación se presenta el listado de instructores con el total de horas programadas para la ficha:
-                    </span>
-                    <div class="titulo-1">
-                    ${graficoHorasInstructoresActaHTML}
-                    </div>
-                    <div class="contenido-item" style="margin-top:6px; border:1px solid #000; padding:6px; border-radius:6px;">
-                      <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor en formación</div>
-                      <div class="tabla-acta-wrap" style="margin-top:4px;">
-                        ${tablaEquipoFormacionHTML || "<em>(No se encontraron instructores en formación al momento de generar el acta.)</em>"}
-                      </div>
-                    </div>
-                    <div class="contenido-item" style="margin-top:12px; border:1px solid #000; padding:6px; border-radius:6px;">
-                      <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor que impartió</div>
-                      <div class="tabla-acta-wrap" style="margin-top:4px;">
-                        ${tablaEquipoVistoHTML || "<em>(No se encontraron registros de instructores que hayan impartido al momento de generar el acta.)</em>"}
-                      </div>
-                    </div>
-                    <span style="font-size:9pt;">Así mismo, se relacionan los instructores con las competencias que tienen asignadas y las horas programadas:</span>
-                    <div class="tabla-acta-wrap" style="margin-top:4px;">
-                      ${tablaInstructoresCompetenciasHTML || "<em>(No se encontró información del listado de competencias por instructor al momento de generar el acta.)</em>"}
-                    </div>
-                  </div>
-                  <ol class="lista-acta nivel-3" type="i">
-                    <li class="titulo-3">
-                      Listado de instructores con aprendices pendientes por emitir juicio.
-                      <div class="contenido-item">
-                        <span style="font-size:9pt;">
-                          Se listan los instructores que tienen aprendices con juicios evaluativos pendientes,
-                          indicando la competencia, los aprendices asociados y la cantidad de aprendices por competencia.
-                        </span>
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaPendientesJuicioHTML
-            ? tablaPendientesJuicioHTML
-            : "<em>(No se encontraron instructores con aprendices pendientes por emitir juicio en los reportes cargados.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                  </ol>
-                </li>
-                <li class="titulo-2">
-                  Análisis de competencias y resultados de aprendizaje
-                  <ol class="lista-acta nivel-3" type="i">
-                    <li class="titulo-3">
-                      Competencias y % de avance vs diseño.
-                      <div class="contenido-item">
-                        <p style="margin:0 0 2px 0;">
-                          
-                        </p>
-                      <!--   <p style="margin:0 0 4px 0; font-size:9pt;">
-                          Se presenta el porcentaje de avance por competencia, comparando el total de horas
-                          programadas frente a las horas definidas en el diseño curricular.
-                        </p> -->
+                ${desarrolloInstructoresHTML}
+                ${desarrolloAnalisisCompetenciasHTML}
 
-                        ${graficoCompetenciasActaHTML}
-
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaCompetenciasHorasHTML
-            ? tablaCompetenciasHorasHTML
-            : "<em>(No se encontró información del reporte % Competencias con Horas al momento de generar el acta.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                    <li class="titulo-3">
-                      Cronograma de programación de competencias (Gantt).
-                      <div class="contenido-item">
-                        <p style="margin:0 0 4px 0; font-size:9pt;">
-                          Se presenta el cronograma de programación de competencias con los meses en que cada competencia ha sido programada.
-                        </p>
-
-                        <div class="tabla-acta-wrap" style="margin-top:4px; overflow-x:auto;">
-                          ${tablaCronogramaGanttHTML
-            ? tablaCronogramaGanttHTML
-            : "<em>(No se encontró información del cronograma Gantt al momento de generar el acta.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                    <li class="titulo-3">
-                      Competencias sobre ejecutadas.
-                      <div class="contenido-item">
-                        <p style="margin:0 0 4px 0; font-size:9pt;">
-                          Se listan únicamente las competencias cuyo porcentaje de ejecución supera el
-                          <strong>100&nbsp;%</strong> frente a las horas definidas en el diseño curricular
-                          (filas resaltadas en rojo en el reporte % Competencias con Horas).
-                        </p>
-
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaCompetenciasSobreEjecutadasHTML
-            ? tablaCompetenciasSobreEjecutadasHTML
-            : "<em>(No se encontraron competencias que superen el 100% en el reporte % Competencias con Horas.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                    <li class="titulo-3">
-                      Competencias pendientes
-                      <div class="contenido-item">
-                        <p style="margin:0 0 4px 0; font-size:9pt;">
-                          De acuerdo con el reporte &quot;Competencias del Programa (Programada: Sí/No)&quot;,
-                          se relacionan las competencias sin programación (<strong>No</strong>) o parcialmente programadas (<strong>1/2</strong>).
-                          Las competencias se resaltan en rojo.
-                        </p>
-
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaCompetenciasProgramadasPendientesHTML
-            ? tablaCompetenciasProgramadasPendientesHTML
-            : "<em>(No se encontró información del reporte &quot;Competencias del Programa (Programada: Sí/No)&quot; al momento de generar el acta.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                    <li class="titulo-3">
-                      Competencias Evaluadas sin estar programadas
-                      <div class="contenido-item">
-                        <p style="margin:0 0 4px 0; font-size:9pt;">
-                          De acuerdo con el reporte "RAPs Aprobados - Por evaluar y No aprobados",
-                          se listan las competencias que presentan resultados de aprendizaje aprobados
-                          sin que dichas competencias estén programadas en el diseño.
-                        </p>
-
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaRapsNoProgramadosHTML
-            ? tablaRapsNoProgramadosHTML
-            : "<em>(No se encontró información de competencias evaluadas sin estar programadas al momento de generar el acta.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                    <li class="titulo-3">
-                      Competencias y RAPs evaluados por instructor no programado.
-                      <div class="contenido-item">
-                        <p style="margin:0 0 4px 0; font-size:9pt;">
-                          De acuerdo con el reporte &quot;RAPs Aprobados - Por evaluar y No aprobados&quot;,
-                          se relacionan los resultados de aprendizaje que fueron evaluados por un instructor
-                          diferente al programado para esa competencia.
-                        </p>
-
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          ${tablaRapsOtroInstructorHTML
-            ? tablaRapsOtroInstructorHTML
-            : "<em>(No se encontraron RAPs evaluados por instructores diferentes al programado.)</em>"
-          }
-                        </div>
-                      </div>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
             <li class="titulo-1">
               Análisis de casos especiales
               <div class="contenido-item" style="font-size:9pt; font-style:italic; margin-top:4px;">
@@ -11284,7 +13312,7 @@
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `Acta_Comite_Ficha_${codigoFicha || "SENA"}.doc`;
+        link.download = `${obtenerNombreArchivoActaComite()}.doc`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -11293,175 +13321,7 @@
       // =========================
       // Función para exportar los reportes seleccionados a Word
       // =========================
-      function exportarReportesSeleccionadosAWord() {
-        const checkboxes = document.querySelectorAll(".reporte-checkbox:checked");
-        const secciones = Array.from(checkboxes).map(cb => document.getElementById(cb.value));
-
-        if (secciones.length === 0) {
-          alert("⚠️ Debes seleccionar al menos un reporte para exportar.");
-          return;
-        }
-
-        // Copiar todos los estilos de la página (para conservar colores, fondos, etc.)
-        const estilosOriginales = Array
-          .from(document.querySelectorAll("style, link[rel='stylesheet']"))
-          .map(el => el.outerHTML)
-          .join("");
-
-
-        // Cabecera y estilos específicos para Word
-        let contenidoHTML = `
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Reporte SENA</title>
-    ${estilosOriginales}
-    <style>  
-  @page Section1 {
-        margin-top: 20mm;
-        margin-right: 15mm;
-        margin-bottom: 20mm;
-        margin-left: 5mm;  /* margen izquierdo más estrecho */
-      }
-      div.Section1 {
-        page: Section1;
-      }
-
-    /* Fuente general del documento Word */
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 10pt;
-      }
-      /* Títulos (h1, h2, h3) en tamaño 11 */
-      h1, h2, h3 {
-        font-size: 11pt;
-      }
-      /* Tablas: fuente a 8pt en todo el contenido de celdas */
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      th, td {
-        font-size: 8pt !important;
-      }
-      /* Ajuste de tablas pequeñas (alternativas y cursos) para Word */
-      .tabla-alternativa-productiva {
-        width: 70% !important;
-        max-width: 700px;
-        margin: 8px auto;
-        table-layout: fixed;
-      }
-      .tabla-alternativa-productiva th,
-      .tabla-alternativa-productiva td {
-        word-break: break-word;
-        padding: 6px;
-      }
-      .tabla-alternativa-productiva .col-cantidad {
-        width: 15% !important;
-        text-align: center;
-      }
-      .tabla-alternativa-productiva .col-alternativa {
-        width: 60% !important;
-      }
-      .tabla-alternativa-productiva .col-nombres {
-        width: 25% !important;
-      }
-      .tabla-alternativa-productiva.tabla-media {
-        width: 55% !important;
-        max-width: 420px;
-      }
-      .tabla-alternativa-productiva.tabla-media .col-nombres {
-        width: 70% !important;
-      }
-      .tabla-alternativa-productiva.tabla-media .col-cantidad {
-        width: 30% !important;
-      }
-
-      /* Refuerzo de anchos por columna para Word (reportes seleccionados) */
-      .tabla-alternativa-productiva.tabla-ancha tr > th:nth-child(1),
-      .tabla-alternativa-productiva.tabla-ancha tr > td:nth-child(1) {
-        width: 60% !important;
-      }
-      .tabla-alternativa-productiva.tabla-ancha tr > th:nth-child(2),
-      .tabla-alternativa-productiva.tabla-ancha tr > td:nth-child(2) {
-        width: 15% !important;
-        text-align: center;
-      }
-      .tabla-alternativa-productiva.tabla-ancha tr > th:nth-child(3),
-      .tabla-alternativa-productiva.tabla-ancha tr > td:nth-child(3) {
-        width: 25% !important;
-      }
-
-      /* Encabezado del Gantt en Word: fondo verde y texto blanco */
-      #ganttContainer table thead th,
-      #ganttContainerPendientes table thead th {
-        background-color: #16a34a !important;  /* verde SENA */
-        color: #ffffff !important;
-      }
-
-      /* Ajustes específicos para el Gantt EN EL WORD */
-      #ganttContainer,
-      #ganttContainerPendientes {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow: visible !important;   /* en Word no queremos scroll interno */
-        box-sizing: border-box;
-      }
-
-      #ganttContainer table,
-      #ganttContainerPendientes table {
-        width: 100% !important;
-        table-layout: fixed;            /* fuerza a repartir el ancho en la página */
-      }
-
-      #ganttContainer th,
-      #ganttContainer td,
-      #ganttContainerPendientes th,
-      #ganttContainerPendientes td {
-        font-size: 7pt !important;      /* más pequeño que el resto */
-        padding: 2px 1px !important;    /* menos padding para que ocupen menos ancho */
-        word-wrap: break-word;          /* permite que los textos largos se partan */
-      }
-
-#tituloGanttCompetencias {
-  margin-top: 8px;
-  margin-bottom: 12px;
-  font-weight: 700;
-}
-
-
-    </style>
-  </head>
-  <body>
-    `;
-
-        // Encabezado institucional + información general + análisis + detalle (sin logo)
-        contenidoHTML += construirBloqueEncabezadoExportWord();
-
-
-
-        // Añadir el contenido de los reportes seleccionados
-        secciones.forEach(seccion => {
-          if (seccion) {
-            contenidoHTML += seccion.innerHTML + "<hr/>";
-          }
-        });
-
-
-        contenidoHTML += "</body></html>";
-
-        // Crear y descargar el archivo .doc
-        const blob = new Blob(['\ufeff', contenidoHTML], { type: "application/msword" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `Reporte_SENA.doc`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-      // Aplica color al encabezado de la tabla (fila de títulos) en la hoja de Excel
+            // Aplica color al encabezado de la tabla (fila de títulos) en la hoja de Excel
       function aplicarEstilosCabeceraTabla(ws) {
         if (!ws["!ref"]) return;
 
@@ -11527,66 +13387,133 @@
       }
 
       function exportarTodosLosReportesAExcel() {
-        const wb = XLSX.utils.book_new();
-        const checkboxes = document.querySelectorAll(".reporte-checkbox:checked");
-        const seleccionados = Array.from(checkboxes).map(cb => cb.value);
+  const wb = XLSX.utils.book_new();
+  const seleccionados = obtenerReportesSeleccionadosCentro();
 
-        const agregarHoja = (tablaSelector, nombreHoja) => {
-          const tabla = document.querySelector(tablaSelector)?.closest("table");
-          if (!tabla) return;
+  // --- Funciones internas de utilidad para la exportación ---
+  const MAX_SHEET_NAME_LENGTH = 31;
+  const sanitizarNombreHoja = (texto) => {
+    if (!texto) return "Reporte";
+    // Elimina caracteres prohibidos en Excel: [ ] * / \ ? :
+    const valid = texto.replace(/[\[\]\*\/\\\?\:]/g, "").trim();
+    return valid || "Reporte";
+  };
 
-          // 1) Pasar la tabla a hoja, empezando en A4 para dejar espacio al encabezado institucional
-          const ws = XLSX.utils.table_to_sheet(tabla, { origin: "A4" });
+  const construirNombreHoja = (textoBase, indice) => {
+    const suffix = indice === 0 ? "" : ` (${indice + 1})`;
+    const maxBaseLength = MAX_SHEET_NAME_LENGTH - suffix.length;
+    let base = textoBase;
+    if (base.length > maxBaseLength) {
+      base = base.slice(0, maxBaseLength);
+    }
+    return `${base}${suffix}`.trim() || "Reporte";
+  };
 
-          // 2) Aplicar colores al encabezado de la tabla y a filas especiales (.fila-instructor-diferente, .textoRojo)
-          aplicarEstilosCabeceraTabla(ws);
-          aplicarColoresFilaSegunClases(tabla, ws);
+  const agregarHoja = (tabla, nombreHoja) => {
+    if (!tabla) return;
+    
+    // Clonar para no alterar el DOM original y limpiar iconos de ordenamiento
+    const tablaLimpia = tabla.cloneNode(true);
+    tablaLimpia.querySelectorAll(".sort-icons").forEach(el => el.remove());
 
-          // 3) Agregar encabezado institucional arriba (filas 1–3)
-          XLSX.utils.sheet_add_aoa(
-            ws,
-            [
-              ["SENA - Regional Tolima - Centro de Comercio y Servicios"],
-              ["Reporte: " + nombreHoja],
-              []
-            ],
-            { origin: "A1" }
-          );
-
-          XLSX.utils.book_append_sheet(wb, ws, nombreHoja);
-        };
-
-        // Mantienes la misma lógica de selección de reportes
-        if (seleccionados.includes("reporte1")) agregarHoja("#tbodyReporte1", "Reporte 1");
-        if (seleccionados.includes("reporte2")) agregarHoja("#tbodyReporte2", "Reporte 2");
-        if (seleccionados.includes("reporte3")) agregarHoja("#tbodyReporte3", "Reporte 3");
-        if (seleccionados.includes("reporte4")) agregarHoja("#tbodyReporte4", "Reporte 4");
-
-          if (seleccionados.includes("reporte5")) {
-            agregarHoja("#tablaProgramadas", "Reporte 5");
-          }
-
-        if (seleccionados.includes("reporte6")) agregarHoja("#tablaReporte6", "Reporte 6");
-        if (seleccionados.includes("reporte7")) agregarHoja("#pivotAvanceContainer", "Reporte 7");
-        if (seleccionados.includes("reporte8")) agregarHoja("#tbodyReporte8", "Reporte 8");
-
-        // Validar si el workbook tiene al menos una hoja
-        if (wb.SheetNames.length === 0) {
-          alert("⚠️ Debes seleccionar al menos un reporte para exportar.");
-          return;
+    // Limpieza específica para tablas Gantt (quitar barras visuales)
+    if (tablaLimpia.classList.contains("tabla-gantt-detalle") || tablaLimpia.classList.contains("tabla-cronograma-gantt")) {
+      tablaLimpia.querySelectorAll("td").forEach(td => {
+        if (td.querySelector(".gantt-month-bar")) {
+          td.textContent = "X"; // Marca textual para Excel
         }
+      });
+      tablaLimpia.querySelectorAll(".gantt-month-bar").forEach(bar => bar.remove());
+    }
 
-        XLSX.writeFile(wb, `Reportes_Ficha_${codigoFichaPrimero || "SENA"}.xlsx`);
+    const ws = XLSX.utils.table_to_sheet(tablaLimpia, { origin: "A4" });
+    aplicarEstilosCabeceraTabla(ws);
+    aplicarColoresFilaSegunClases(tablaLimpia, ws);
+
+    // Agregar encabezado institucional en las primeras filas
+    XLSX.utils.sheet_add_aoa(
+      ws,
+      [
+        ["SENA - Regional Tolima - Centro de Comercio y Servicios"],
+        ["Reporte: " + nombreHoja],
+        [] // Espacio antes de la tabla
+      ],
+      { origin: "A1" }
+    );
+    
+    XLSX.utils.book_append_sheet(wb, ws, nombreHoja);
+  };
+
+  // Función interna para obtener tablas, AHORA CON EL FIX PARA APRENDICES LISTOS
+  const obtenerTablasParaMeta = (meta) => {
+    const tablas = [];
+
+    // --- FIX: Generar la tabla de Aprendices Listos si se solicita ---
+    if (meta.key === "aprendices-listos-productiva") {
+      const tablaGenerada = prepararDatosListosParaProductiva();
+      if (tablaGenerada) {
+        tablas.push(tablaGenerada);
       }
+      return tablas;
+    }
+    // ---------------------------------------------------------------
+
+    // Búsqueda normal por selector (para reportes que ya existen en el DOM)
+    if (meta.exportTableSelector) {
+      const tabla = document.querySelector(meta.exportTableSelector)?.closest("table");
+      if (tabla) {
+        tablas.push(tabla);
+      }
+    }
+
+    // Búsqueda para reportes construidos dinámicamente (PDF Builders)
+    if (meta.excelIncludeBuilderTables && typeof meta.pdfBuilder === "function") {
+      const resultado = meta.pdfBuilder();
+      const nodo = resultado?.origen || resultado;
+      if (nodo instanceof Element) {
+        if (nodo.tagName === "TABLE") {
+          tablas.push(nodo);
+        }
+        nodo.querySelectorAll("table").forEach(tbl => tablas.push(tbl));
+      }
+    }
+    return tablas;
+  };
+
+  const contadorNombres = new Map();
+
+  // Iterar sobre los metadatos globales de reportes
+  if (typeof reportesCentroMetadatos !== "undefined") {
+    reportesCentroMetadatos.forEach(meta => {
+      if (!seleccionados.includes(meta.key)) return;
+
+      const tablas = obtenerTablasParaMeta(meta);
+      if (!tablas.length) return;
+
+      tablas.forEach(tabla => {
+        const nombreLimpio = sanitizarNombreHoja(meta.excelName || meta.label || "Reporte");
+        const cuenta = contadorNombres.get(nombreLimpio) || 0;
+        const nombreHoja = construirNombreHoja(nombreLimpio, cuenta);
+        contadorNombres.set(nombreLimpio, cuenta + 1);
+        
+        agregarHoja(tabla, nombreHoja);
+      });
+    });
+  } else {
+    console.warn("La variable global 'reportesCentroMetadatos' no está definida.");
+  }
+
+  // Validar si se generó alguna hoja
+  if (wb.SheetNames.length === 0) {
+    alert("⚠️ Debes seleccionar al menos un reporte válido para exportar o el reporte seleccionado no contiene datos.");
+    return;
+  }
+
+  // Descargar archivo
+  XLSX.writeFile(wb, `${obtenerNombreArchivoActaComite()}.xlsx`);
+}
 
       document.addEventListener("DOMContentLoaded", function () {
-        const botonWord = document.getElementById("btnExportarWord");
-        if (botonWord) {
-          botonWord.addEventListener("click", exportarReportesSeleccionadosAWord);
-        } else {
-          console.warn("❗ No se encontró el botón con id 'btnExportarWord'");
-        }
-
         const botonExcel = document.getElementById("btnExportarExcel");
         if (botonExcel) {
           botonExcel.addEventListener("click", exportarTodosLosReportesAExcel);
@@ -11657,6 +13584,7 @@
                 // por si el usuario abre tab2 después de cargar los datos
                 dibujarGraficoCompetenciasHoras();
               }
+              actualizarTotalesReporte2();
             }, 50);
           });
         }
@@ -11959,13 +13887,14 @@
       }
 
         function aplicarFiltrosReporte2() {
-      // Reporte 2: colCompetencia=1, colTipo=2, agrupado=false 
+      // Reporte 2: colCompetencia=1, colTipo=2, agrupado=false
       // (Asumiendo indices: 0=#, 1=Comp, 2=Tipo ... en tabla plana)
       aplicarFiltrosCompetenciasConTipo("tbodyReporte2", filtrosReporte2, { colCompetencia: 1, colTipo: 2, agrupado: false });
 
       const tbody = document.getElementById("tbodyReporte2");
       if (!tbody) return;
 
+      // Filtro por color (días) - AND con filtros anteriores
       const coloresActivos = obtenerColoresActivos("tablaReporte2");
       if (coloresActivos.length > 0) {
         Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
@@ -11978,16 +13907,105 @@
         });
       }
 
-      renumerarFilasTabla(tbody);
-
-      // Al filtrar Reporte 2, también convendría actualizar la gráfica con las filas visibles
-      // pero la función dibujarGrafico... lee de #tbodyReporte2. Si ocultamos filas con display:none,
-      // la gráfica debería ignorarlas si ajustamos la función para chequear display, 
-        // o redibujarla filtrada.
-        // La implementación actual de dibujarGrafico lee TODAS las filas. 
-        // Para que la gráfica responda al filtro, deberíamos filtrar también.
-        // Por ahora, el requerimiento es solo filtros de tabla.
+      // Filtro por mes (AND con lo anterior)
+      let mostrarTodosMes = !filtroMesReporte2 || filtroMesReporte2 === "ALL";
+      let rango = mostrarTodosMes ? null : obtenerRangoMes(filtroMesReporte2);
+      if (!rango && !mostrarTodosMes) {
+        mostrarTodosMes = true;
       }
+
+      Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
+        if (!tr || !tr.cells || tr.cells.length === 0) return;
+
+        // Ocultar/restaurar campos que NO aplican cuando se filtra por mes
+        [6, 8].forEach(idx => {
+          const celda = tr.cells[idx];
+          if (!celda) return;
+          if (mostrarTodosMes) restaurarValorCampoMes(celda);
+          else ocultarValorCampoMes(celda);
+        });
+
+        if (mostrarTodosMes) return;
+        if (tr.style.display === "none") return;
+
+        const inicio = tr.dataset.fechaInicio ? new Date(tr.dataset.fechaInicio) : null;
+        const fin = tr.dataset.fechaFin ? new Date(tr.dataset.fechaFin) : null;
+
+        if (!solapaMes(inicio, fin, rango)) {
+          tr.style.display = "none";
+        }
+      });
+
+      renumerarFilasTabla(tbody);
+      actualizarTotalesReporte2();
+      }
+
+      function aplicarFiltrosReporte3() {
+        const tbody = document.getElementById("tbodyReporte3");
+        if (!tbody) return;
+
+        const texto = (document.getElementById("busquedaInstructoresHoras")?.value || "").trim().toLowerCase();
+        const coloresActivos = obtenerColoresActivos("tablaInstructoresHoras");
+
+        let mostrarTodosMes = !filtroMesReporte3 || filtroMesReporte3 === "ALL";
+        let rango = mostrarTodosMes ? null : obtenerRangoMes(filtroMesReporte3);
+        if (!rango && !mostrarTodosMes) {
+          mostrarTodosMes = true;
+        }
+
+        const filas = Array.from(tbody.querySelectorAll("tr"));
+        filas.forEach(tr => {
+          if (!tr || !tr.cells || tr.cells.length === 0) return;
+
+          let visible = true;
+
+          // Mes
+          if (!mostrarTodosMes) {
+            const inicio = tr.dataset.fechaInicio ? new Date(tr.dataset.fechaInicio) : null;
+            const fin = tr.dataset.fechaFin ? new Date(tr.dataset.fechaFin) : null;
+            if (!solapaMes(inicio, fin, rango)) visible = false;
+          }
+
+          // Categorías (Tipo)
+          if (visible && typeof filtrosReporte3Categorias !== "undefined" && filtrosReporte3Categorias) {
+            const tiposAttr = (tr.dataset.tipo || "").toLowerCase();
+            if (tiposAttr) {
+              const tiposFila = tiposAttr.split(/\s+/).filter(Boolean);
+              const tieneActivo = tiposFila.some(tipo => !!filtrosReporte3Categorias[tipo]);
+              if (!tieneActivo) visible = false;
+            } else {
+              const algunoActivo = Object.values(filtrosReporte3Categorias).some(v => !!v);
+              if (algunoActivo) visible = false;
+            }
+          }
+
+          // Colores (días)
+          if (visible && coloresActivos.length > 0) {
+            const diasTd = tr.querySelector("td.col-dias");
+            const color = (diasTd?.getAttribute("data-color") || "").toLowerCase();
+            if (!coloresActivos.includes(color)) visible = false;
+          }
+
+          // Texto
+          if (visible && texto) {
+            const textoFila = Array.from(tr.cells).map(td => (td.textContent || "").toLowerCase()).join(" ");
+            if (!textoFila.includes(texto)) visible = false;
+          }
+
+          tr.style.display = visible ? "" : "none";
+
+          // Ocultar/restaurar "Horas Programadas" cuando se filtra por mes
+          const celdaHoras = tr.cells[7];
+          if (celdaHoras) {
+            if (mostrarTodosMes) restaurarValorCampoMes(celdaHoras);
+            else ocultarValorCampoMes(celdaHoras);
+          }
+        });
+
+        renumerarFilasTabla(tbody);
+        actualizarTotalHorasReporte3();
+      }
+
       function aplicarFiltrosReporte6() {
         const tbody = document.getElementById("tbodyReporte6");
         if (!tbody) return;
@@ -11997,6 +14015,8 @@
         const soloOtro = filtrosReporte6.soloRapsOtro;
         const soloNoProg = filtrosReporte6.soloRapsNoProgramados;
         const coloresActivos = obtenerColoresActivos("tablaReporte6");
+        const filtrarNoAprobado = coloresActivos.includes("no-aprobado");
+        const coloresDias = coloresActivos.filter(color => color !== "no-aprobado");
 
         const filas = Array.from(tbody.querySelectorAll("tr"));
         let contadorVisibles = 1;
@@ -12041,10 +14061,18 @@
             }
           }
 
-          if (visible && coloresActivos.length > 0) {
+          if (visible && coloresDias.length > 0) {
             const tdDias = tr.querySelector("td.col-dias");
             const diasColor = (tdDias?.getAttribute("data-color") || "").toLowerCase();
-            if (!coloresActivos.includes(diasColor)) {
+            if (!coloresDias.includes(diasColor)) {
+              visible = false;
+            }
+          }
+
+          if (visible && filtrarNoAprobado) {
+            const noAprobadoTexto = (celdas[10]?.textContent || "").trim();
+            const noAprobadoValor = parseFloat(noAprobadoTexto.replace(/,/g, ".") || "0");
+            if (!noAprobadoValor || noAprobadoValor <= 0) {
               visible = false;
             }
           }
@@ -12056,6 +14084,7 @@
             if (cabeceraActual) cabeceraActual.style.display = "";
           }
         });
+        actualizarTotalesReporte6();
       }
 
       // =========================
@@ -12294,7 +14323,7 @@
         const inputInstructoresHoras = document.getElementById("busquedaInstructoresHoras");
         if (inputInstructoresHoras) {
           inputInstructoresHoras.addEventListener("input", function () {
-            filtrarTablaSimplePorTexto("tbodyReporte3", this.value);
+            aplicarFiltrosReporte3();
           });
         }
         document.querySelectorAll(".chk-cat-reporte3").forEach(chk => {
@@ -12308,8 +14337,7 @@
             if (label) {
               label.classList.toggle("chip-inactivo", !this.checked);
             }
-            const texto = document.getElementById("busquedaInstructoresHoras")?.value || "";
-            filtrarTablaSimplePorTexto("tbodyReporte3", texto);
+            aplicarFiltrosReporte3();
           });
         });
 
@@ -12412,6 +14440,291 @@
             celdas[0].textContent = contadorVisible++;
           }
         });
+        actualizarTotalCantidadAprendicesVistoTablaProgramadas();
+        actualizarTotalCantAprendicesProgramadas();
+      }
+
+      function parseNumeroDesdeTexto(texto) {
+        if (!texto) return 0;
+        const limpio = texto.toString().replace(/\./g, "").replace(/,/g, ".");
+        const valor = Number(limpio);
+        return Number.isFinite(valor) ? valor : 0;
+      }
+
+      function parseNumericParts(texto) {
+        if (!texto) return null;
+        const trimmed = texto.toString().trim();
+        const match = trimmed.match(/^(-?\d+(?:\.\d+)?)/);
+        if (!match) return null;
+        const number = Number(match[1]);
+        const suffix = trimmed.substring(match[1].length);
+        const decimals = match[1].includes(".") ? match[1].split(".")[1].length : 0;
+        return { number, suffix, decimals };
+      }
+
+      function animateValue(element, newText, duration = 300) {
+        if (!element) return;
+        const parsed = parseNumericParts(newText);
+        if (!parsed) {
+          element.textContent = newText;
+          element.dataset.currentValue = "";
+          return;
+        }
+        const { number: target, suffix, decimals } = parsed;
+        const prevValue = parseFloat(element.dataset.currentValue);
+        const startValue = Number.isFinite(prevValue) ? prevValue : target;
+        if (element.dataset.animationId) {
+          cancelAnimationFrame(Number(element.dataset.animationId));
+        }
+        const startTime = performance.now();
+        const step = (now) => {
+          const progress = Math.min(1, (now - startTime) / duration);
+          const current = startValue + (target - startValue) * progress;
+          element.textContent = suffix
+            ? `${current.toFixed(decimals)}${suffix}`
+            : current.toFixed(decimals);
+          if (progress < 1) {
+            element.dataset.animationId = requestAnimationFrame(step);
+          } else {
+            element.dataset.animationId = "";
+            element.dataset.currentValue = target.toString();
+          }
+        };
+        element.dataset.currentValue = startValue.toString();
+        element.dataset.animationId = requestAnimationFrame(step);
+      }
+
+      function establecerValorAnimado(elemento, texto) {
+        if (!elemento) return;
+        animateValue(elemento, texto);
+        elemento.classList.remove("valor-animado");
+        void elemento.offsetWidth;
+        elemento.classList.add("valor-animado");
+      }
+
+      function actualizarCantidadFilasVisibles(containerId, spanId, restar = 0) {
+        const contenedor = document.getElementById(containerId);
+        const span = document.getElementById(spanId);
+        if (!contenedor || !span) return;
+        const filas = Array.from(contenedor.querySelectorAll("tr"))
+          .filter(tr => tr.style.display !== "none" && tr.querySelectorAll("td").length > 1);
+        const cantidad = Math.max(0, filas.length - (restar || 0));
+        establecerValorAnimado(span, cantidad.toString());
+      }
+
+      function actualizarTotalCantidadAprendicesVistoTablaProgramadas() {
+        const span = document.getElementById("numRapsPendientesVistoHeader");
+        if (!span) return 0;
+
+        const tabla = document.getElementById("tablaProgramadas");
+        if (!tabla) {
+          span.textContent = "0";
+          totalRapsPendientesVistoGlobal = 0;
+          return 0;
+        }
+
+        const filas = tabla.querySelectorAll("tbody tr");
+        let total = 0;
+        filas.forEach(tr => {
+          const diasTd = tr.querySelector("td.col-dias");
+          const color = (diasTd?.getAttribute("data-color") || "").toLowerCase();
+          if (color !== "rojo") return;
+
+          const celdas = tr.getElementsByTagName("td");
+          const cantidadTd = celdas[8];
+          if (!cantidadTd) return;
+
+          total += parseNumeroDesdeTexto(cantidadTd.textContent);
+        });
+
+        totalRapsPendientesVistoGlobal = total;
+        span.textContent = total.toString();
+        return total;
+      }
+
+      function actualizarTotalCantAprendicesProgramadas() {
+        const tabla = document.getElementById("tablaProgramadas");
+        const span = document.getElementById("totalCantAprendicesProgramadas");
+        if (!tabla || !span) return;
+
+        const filas = Array.from(tabla.querySelectorAll("tbody tr"));
+        let total = 0;
+        filas.forEach(tr => {
+          if (tr.style.display === "none") return;
+          const celdas = tr.getElementsByTagName("td");
+          const valor = parseNumeroDesdeTexto(celdas[8]?.textContent);
+          total += valor;
+        });
+
+        const totalRedondeado = Math.round(total);
+        establecerValorAnimado(span, totalRedondeado.toString());
+        actualizarCantidadFilasVisibles("tablaProgramadas", "totalRegistrosProgramadas");
+      }
+
+      function actualizarTotalesReporte6() {
+        const tbody = document.getElementById("tbodyReporte6");
+        const spanAprobado = document.getElementById("totalAprobadoReporte6");
+        const spanPorEvaluar = document.getElementById("totalPorEvaluarReporte6");
+        const spanNoAprobado = document.getElementById("totalNoAprobadoReporte6");
+        if (!tbody || !spanAprobado || !spanPorEvaluar || !spanNoAprobado) return;
+
+        const filas = Array.from(tbody.querySelectorAll("tr"));
+        let aprobado = 0;
+        let porEvaluar = 0;
+        let noAprobado = 0;
+
+        filas.forEach(tr => {
+          if (tr.style.display === "none") return;
+          const celdas = tr.getElementsByTagName("td");
+          if (!celdas.length) return;
+          aprobado += parseNumeroDesdeTexto(celdas[8]?.textContent);
+          porEvaluar += parseNumeroDesdeTexto(celdas[9]?.textContent);
+          noAprobado += parseNumeroDesdeTexto(celdas[10]?.textContent);
+        });
+
+        establecerValorAnimado(spanAprobado, Math.round(aprobado).toString());
+        establecerValorAnimado(spanPorEvaluar, Math.round(porEvaluar).toString());
+        establecerValorAnimado(spanNoAprobado, Math.round(noAprobado).toString());
+        actualizarCantidadFilasVisibles("tablaReporte6", "totalRegistrosReporte6");
+      }
+
+      function actualizarTotalHorasReporte3() {
+        const tbody = document.getElementById("tbodyReporte3");
+        const spanTotal = document.getElementById("totalHorasReporte3");
+        if (!tbody || !spanTotal) return;
+
+        const filas = Array.from(tbody.querySelectorAll("tr"));
+        let total = 0;
+        filas.forEach(tr => {
+          if (tr.style.display === "none") return;
+          const celdas = tr.getElementsByTagName("td");
+          const valor = parseNumeroDesdeTexto(celdas[7]?.textContent);
+          total += valor;
+        });
+
+        const totalProcesado = Math.round(total / 100);
+        establecerValorAnimado(spanTotal, totalProcesado.toString());
+        actualizarCantidadFilasVisibles("tablaInstructoresHoras", "totalRegistrosReporte3", 1);
+        const tfoot3 = document.getElementById("tfootReporte3");
+        if (tfoot3) {
+          tfoot3.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align:right; font-weight:bold;">Total Horas Programadas:</td>
+              <td>${totalProcesado}</td>
+            </tr>
+          `;
+        }
+      }
+
+      function actualizarTotalAprendicesReporte8() {
+        const tbody = document.getElementById("tbodyPendientesInstructorReporte8");
+        const spanTotal = document.getElementById("totalAprendicesPendientesReporte8");
+        if (!tbody || !spanTotal) return;
+
+        const filas = Array.from(tbody.querySelectorAll("tr"));
+        let total = 0;
+        filas.forEach(tr => {
+          if (tr.style.display === "none") return;
+          const celdas = tr.getElementsByTagName("td");
+          const valor = parseNumeroDesdeTexto(celdas[8]?.textContent);
+          total += valor;
+        });
+
+        const totalRedondeado = Math.round(total);
+        establecerValorAnimado(spanTotal, totalRedondeado.toString());
+      }
+
+      function actualizarTotalesAvanceAprendiz() {
+        const tbody = document.getElementById("pivotAvanceContainer");
+        const spanAprobado = document.getElementById("totalAprobadoAvanceAprendiz");
+        const spanPorEvaluar = document.getElementById("totalPorEvaluarAvanceAprendiz");
+        const spanPromedio = document.getElementById("promedioPorcentajeAvanceAprendiz");
+        if (!tbody || !spanAprobado || !spanPorEvaluar || !spanPromedio) return;
+
+        const filas = Array.from(tbody.querySelectorAll("tr"));
+        let totalAprobado = 0;
+        let totalPorEvaluar = 0;
+        let porcentajeSum = 0;
+        let cantidadFilas = 0;
+
+        filas.forEach(tr => {
+          if (tr.style.display === "none") return;
+          const celdas = tr.getElementsByTagName("td");
+          if (!celdas.length) return;
+          totalAprobado += parseNumeroDesdeTexto(celdas[5]?.textContent);
+          totalPorEvaluar += parseNumeroDesdeTexto(celdas[6]?.textContent);
+          const pctTexto = (celdas[7]?.textContent || "").replace("%", "");
+          const pctValor = parseNumeroDesdeTexto(pctTexto);
+          if (!isNaN(pctValor)) {
+            porcentajeSum += pctValor;
+            cantidadFilas++;
+          }
+        });
+
+        establecerValorAnimado(spanAprobado, Math.round(totalAprobado).toString());
+        establecerValorAnimado(spanPorEvaluar, Math.round(totalPorEvaluar).toString());
+        const promedio = cantidadFilas > 0 ? porcentajeSum / cantidadFilas : 0;
+        const valorDividido = promedio / 100;
+        establecerValorAnimado(spanPromedio, `${valorDividido.toFixed(2)}%`);
+        actualizarCantidadFilasVisibles("pivotAvanceContainer", "totalRegistrosAvanceAprendiz");
+      }
+
+      function actualizarTotalesReporte2() {
+        const tbody = document.getElementById("tbodyReporte2");
+        const totalHoras = document.getElementById("totalHorasReporte2");
+        const totalDiseno = document.getElementById("totalHorasDisenoReporte2");
+        const totalPorcentaje = document.getElementById("totalPorcentajeReporte2");
+        if (!tbody) {
+          establecerValorAnimado(totalHoras, "0");
+          establecerValorAnimado(totalDiseno, "0");
+          establecerValorAnimado(totalPorcentaje, "0");
+          return;
+        }
+
+        let horas = 0;
+        let diseno = 0;
+        let porcentaje = 0;
+        let porcentajeCount = 0;
+
+        tbody.querySelectorAll("tr").forEach(tr => {
+          if (tr.style.display === "none") return;
+          const celdas = tr.getElementsByTagName("td");
+          if (!celdas.length) return;
+
+          horas += parseNumeroDesdeTexto(celdas[6]?.textContent);
+          diseno += parseNumeroDesdeTexto(celdas[7]?.textContent);
+          porcentaje += parseNumeroDesdeTexto(celdas[8]?.textContent.replace("%", ""));
+          porcentajeCount++;
+        });
+
+        if (totalHoras) {
+          const totalHorasValor = Math.round(horas / 100);
+          establecerValorAnimado(totalHoras, totalHorasValor.toString());
+        }
+        if (totalDiseno) {
+          const totalDisenoValor = Math.round(diseno / 100);
+          establecerValorAnimado(totalDiseno, totalDisenoValor.toString());
+        }
+        if (totalPorcentaje) {
+          const promedio = porcentajeCount > 0 ? porcentaje / porcentajeCount : 0;
+          const valor = promedio / 100;
+          establecerValorAnimado(totalPorcentaje, `${valor.toFixed(2)}%`);
+        }
+
+        const tfoot2 = document.getElementById("tfootReporte2");
+        if (tfoot2) {
+          const promedio = porcentajeCount > 0 ? porcentaje / porcentajeCount : 0;
+          const valorPorcentaje = (promedio / 100).toFixed(2);
+          tfoot2.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align:right; font-weight:bold;">Total Horas Programadas:</td>
+              <td>${Math.round(horas / 100)}</td>
+              <td>${Math.round(diseno / 100)}</td>
+              <td>${valorPorcentaje}%</td>
+            </tr>
+          `;
+        }
+        actualizarCantidadFilasVisibles("tablaReporte2", "totalRegistrosReporte2", 1);
       }
 
       // =========================
@@ -12476,12 +14789,18 @@
             }
 
             tr.style.display = visible ? "" : "none";
-            if (visible) {
-              celdas[0].textContent = contadorVisible++;
-            }
-          });
-          return;
+          if (visible) {
+            celdas[0].textContent = contadorVisible++;
+          }
+        });
+        if (idTbody === "pivotAvanceContainer") {
+          actualizarTotalesAvanceAprendiz();
         }
+        if (idTbody === "tbodyPendientesInstructorReporte8") {
+          actualizarTotalAprendicesReporte8();
+        }
+        return;
+      }
 
         // Caso con categorías: respetar cabeceras (no renumerarlas)
         const visiblePorCategoria = {};
@@ -12541,6 +14860,12 @@
         filasDatos.forEach(item => {
           item.tr.style.display = item.visible ? "" : "none";
         });
+        if (idTbody === "pivotAvanceContainer") {
+          actualizarTotalesAvanceAprendiz();
+        }
+        if (idTbody === "tbodyPendientesInstructorReporte8") {
+          actualizarTotalAprendicesReporte8();
+        }
 
         filasCabecera.forEach(item => {
           item.tr.style.display = visiblePorCategoria[item.categoria] ? "" : "none";
@@ -12623,6 +14948,7 @@
           // Mostrar u ocultar cada tabla según tenga filas visibles
           tabla.style.display = hayFilasVisibles ? "" : "none";
         });
+        actualizarTotalAprendicesReporte8();
       }
 
 
@@ -12640,9 +14966,9 @@
 
               const estado = filtroColorTabla[tableId] || (filtroColorTabla[tableId] = { verde: false, rojo: false });
               const estabaActivo = !!estado[color];
-              estado.verde = false;
-              estado.rojo = false;
-              estado.pendiente = false;
+              ["verde", "rojo", "pendiente", "no-aprobado"].forEach(col => {
+                estado[col] = false;
+              });
               if (!estabaActivo) estado[color] = true;
 
         cont.querySelectorAll(".btn-filtro-dias").forEach(b => {
@@ -12655,8 +14981,7 @@
                 } else if (tableId === "tablaReporte2") {
                 aplicarFiltrosReporte2();
               } else if (tableId === "tablaInstructoresHoras") {
-                const texto = document.getElementById("busquedaInstructoresHoras")?.value || "";
-                filtrarTablaSimplePorTexto("tbodyReporte3", texto);
+                aplicarFiltrosReporte3();
               } else if (tableId === "tablaReporte6") {
                 aplicarFiltrosReporte6();
               } else if (tableId === "tablaPendientesInstructorReporte8") {
@@ -12674,6 +14999,23 @@
 
     });
         });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const selectReporte2 = document.getElementById("mesSelectReporte2");
+        if (selectReporte2) {
+          selectReporte2.addEventListener("change", function () {
+            filtroMesReporte2 = this.value || "ALL";
+            aplicarFiltrosReporte2();
+          });
+        }
+        const selectReporte3 = document.getElementById("mesSelectReporte3");
+        if (selectReporte3) {
+          selectReporte3.addEventListener("change", function () {
+            filtroMesReporte3 = this.value || "ALL";
+            aplicarFiltrosReporte3();
+          });
+        }
       });
 
       // =========================
@@ -13226,7 +15568,7 @@
                 : "-";
             }
 
-            // Animaci?n de salida del login
+            // Animación de salida del login
             if (loginCard) {
               loginCard.classList.add("login-exit");
 
@@ -13326,7 +15668,68 @@
         }
 
       });
+
+      const inicializarTogglesReportes = () => {
+  const toggles = document.querySelectorAll(".report-card-toggle");
+  const allInputs = document.querySelectorAll(".reporte-checkbox");
+
+  // Estado inicial: TODO desmarcado (según tu requerimiento)
+  allInputs.forEach(chk => {
+    chk.checked = false;
+  });
+  toggles.forEach(tg => {
+    tg.checked = false;
+    tg.indeterminate = false;
+  });
+
+  // Comportamiento "TODOS" por grupo
+  toggles.forEach(toggle => {
+    const group = toggle.dataset.group;
+    if (!group) return;
+
+    const inputs = Array.from(
+      document.querySelectorAll(`.reporte-checkbox[data-report-group="${group}"]`)
+    );
+    if (!inputs.length) return;
+
+    const actualizar = () => {
+      const checkedCount = inputs.filter(i => i.checked).length;
+
+      // Opcional: estado intermedio cuando algunos están activos
+      toggle.indeterminate = checkedCount > 0 && checkedCount < inputs.length;
+      toggle.checked = checkedCount === inputs.length;
+    };
+
+    // Si el usuario activa/desactiva un checkbox interno, actualiza el "TODOS"
+    inputs.forEach(input => input.addEventListener("change", actualizar));
+
+    // Si el usuario activa/desactiva "TODOS", aplica al grupo completo
+    toggle.addEventListener("change", () => {
+      // IMPORTANTE: capturar el estado antes de disparar cambios,
+      // para que "actualizar()" no cambie toggle.checked a mitad del ciclo.
+      const estado = toggle.checked;
+
+      // Primero setea todos sin disparar eventos
+      inputs.forEach(input => {
+        input.checked = estado;
+      });
+
+      // Luego dispara "change" (si hay otros listeners que dependan de eso)
+      inputs.forEach(input => {
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+
+      toggle.indeterminate = false;
+      toggle.checked = estado;
+    });
+
+    actualizar();
+  });
+};
+
+document.addEventListener("DOMContentLoaded", inicializarTogglesReportes);
     </script>
 </body>
 
 </html>
+  
