@@ -19,13 +19,18 @@
 
     /* Paleta base */
     :root {
-      --verde-sena: #28a745;
-      --verde-sena-oscuro: #1e8a37;
-      --verde-sena-claro: #e9f7ef;
-      --gris-fondo: #f5f7fb;
-      --gris-borde: #e5e7eb;
-      --texto-principal: #111827;
-      --texto-secundario: #6b7280;
+    --verde-sena: #28a745;
+    --verde-sena-oscuro: #1e8a37;
+    --verde-sena-claro: #e9f7ef;
+    --gris-fondo: #f5f7fb;
+    --gris-borde: #e5e7eb;
+    --texto-principal: #111827;
+    --texto-secundario: #6b7280;
+    --chip-success: #1e8a37;
+    --chip-success-dark: #0f4f2c;
+    --chip-warning: #f9be00;
+    --chip-warning-dark: #d97706;
+    --chip-danger: #b91c1c;
     }
 
     /* Fondo general */
@@ -70,6 +75,31 @@
 
     .mes-selector-panel select:focus {
       box-shadow: inset 0 0 0 2px rgba(6, 95, 70, 0.4);
+    }
+
+    .reportes-main table tbody tr:nth-child(odd) {
+      background-color: rgba(15, 23, 42, 0.025);
+    }
+
+    .reportes-main table tbody tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .reportes-main table tbody tr:hover {
+      background-color: rgba(15, 23, 42, 0.08);
+      transition: background 0.2s ease;
+    }
+
+    td.col-dias[data-color="amarillo"] .dias-color {
+      background: rgba(249, 190, 0, 0.12);
+      border-radius: 4px;
+      padding: 0 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    td.col-dias[data-color="amarillo"] {
+      background: rgba(249, 190, 0, 0.08);
     }
 
     .mes-selector-icon {
@@ -1317,7 +1347,7 @@
       padding: 8px 26px;
       border-radius: 999px;
       border: none;
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: linear-gradient(135deg, var(--chip-success), var(--chip-success-dark));
       color: #ffffff;
       font-size: 14px;
       font-weight: 600;
@@ -1331,8 +1361,20 @@
     }
 
     .chip-reporte1-inner:hover {
-      border-color: var(--verde-sena);
-      box-shadow: 0 6px 14px rgba(40, 167, 69, 0.25);
+      border-color: var(--chip-success-dark);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+    }
+
+    .chip-reporte1.chip-amarillo .chip-reporte1-inner {
+      background: var(--chip-warning);
+      color: #1f2937;
+      box-shadow: 0 10px 22px rgba(249, 190, 0, 0.4);
+    }
+
+    .chip-reporte1.chip-naranja .chip-reporte1-inner {
+      background: var(--chip-warning-dark);
+      color: #1f1f1f;
+      box-shadow: 0 10px 22px rgba(217, 119, 6, 0.35);
     }
 
     /* Icono de check dentro del chip */
@@ -1345,6 +1387,7 @@
     .chip-reporte1 input:checked+.chip-reporte1-inner {
       box-shadow: 0 12px 28px rgba(15, 23, 42, 0.35);
       transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--chip-success-dark), #0f3d2f);
     }
 
     .chip-reporte1 input:checked+.chip-reporte1-inner .chip-check {
@@ -3187,6 +3230,12 @@
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tabla-total-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
     }
 
     .tabla-total-card::after {
@@ -3936,7 +3985,7 @@
                   <th>Apellido Instructor</th>
                   <th>Fecha de inicio</th>
                   <th>Fecha fin</th>
-                  <th>Días</th>
+                  <th>Diferencia de Días</th>
                   <th>Competencia</th>
                   <th>Tipo</th>
                   <th>Horas Programadas</th>
@@ -4040,7 +4089,7 @@
                   <th>Tipo</th>
                   <th>Fecha de inicio</th>
                   <th>Fecha fin</th>
-                  <th>Días</th>
+                  <th>Diferencia de Días</th>
                   <th>Total de Horas</th>
                   <th>Horas Diseño</th>
                   <th>%</th>
@@ -4170,7 +4219,7 @@
                 <th>Tipo</th>
                 <th>Fecha de inicio</th>
                 <th>Fecha fin</th>
-                <th>Días</th>
+                <th>Diferencia de Días</th>
                 <th>Horas Programadas</th>
               </tr>
             </thead>
@@ -4324,22 +4373,29 @@
                   </label>
                 </div>
 
-                <div class="filtros-colores-dias" data-table="tablaReporte4">
-                  <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-                  <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-                  <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
-                </div>
+              <div class="filtros-colores-dias" data-table="tablaReporte4">
+                <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
+                <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
+                <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
               </div>
+            </div>
 
-              <table id="tablaReporte4">
-                <thead>
-                  <tr>
-                    <th>#</th>
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosReporte4" class="tabla-total-value">0</strong>
+              </div>
+            </div>
+
+            <table id="tablaReporte4">
+              <thead>
+                <tr>
+                  <th>#</th>
                     <th>Competencia</th>
                     <th>Tipo</th>
                     <th>Fecha de inicio</th>
                     <th>Fecha fin</th>
-                    <th>Días</th>
+                    <th>Diferencia de Días</th>
                     <th>Programada</th>
                   </tr>
                 </thead>
@@ -4579,7 +4635,7 @@
                   <th>Tipo</th>
                   <th>Fecha de inicio</th>
                   <th>Fecha fin</th>
-                  <th>Días</th>
+                  <th>Diferencia de Días</th>
                   <th>RAP</th>
                   <th>Funcionario que evaluó</th>
                   <th>APROBADO</th>
@@ -4726,6 +4782,12 @@
               <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
               <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
             </div>
+            <div class="tabla-total">
+              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+                <span class="tabla-total-label">Cantidad registros</span>
+                <strong id="totalRegistrosReporte8" class="tabla-total-value">0</strong>
+              </div>
+            </div>
             <!-- Contenedor de las tablas visibles (una por aprendiz) -->
             <div id="contenedorTablasReporte8"></div>
 
@@ -4793,6 +4855,8 @@
                 <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="avance-fallas" data-reporte-key="avance-fallas"> Porcentaje de avance de aprendices y fallas</label>
                 <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="competencias-pendientes-aprendiz" data-reporte-key="competencias-pendientes-aprendiz"> Competencias pendientes por evaluar por cada aprendiz</label>
                 <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="aprendices-listos-productiva" data-reporte-key="aprendices-listos-productiva"> Aprendices listos para ir a etapa productiva</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="alternativa-etapa-productiva" data-reporte-key="alternativa-etapa-productiva"> Alternativa de etapa productiva</label>
+                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="cursos-complementarios" data-reporte-key="cursos-complementarios"> Cursos Complementarios</label>
                 </div>
             </section>
 
@@ -5527,6 +5591,44 @@
           .replace(".", "");
       }
 
+      function formatearFechaActa(fecha) {
+        if (!(fecha instanceof Date) || isNaN(fecha)) return "";
+        const dia = String(fecha.getDate()).padStart(2, "0");
+        const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+        const anio = fecha.getFullYear();
+        return `${dia}/${mes}/${anio}`;
+      }
+
+      function obtenerFechaActaDesdeCelda(td) {
+        if (!td) return "";
+        const sortValue = td.getAttribute("data-sort-value");
+        if (sortValue) {
+          const timestamp = Number(sortValue);
+          if (!Number.isNaN(timestamp)) {
+            return formatearFechaActa(new Date(timestamp));
+          }
+        }
+        const texto = (td.textContent || "").trim();
+        const fecha = parseFecha(texto);
+        if (fecha && !isNaN(fecha.getTime())) {
+          return formatearFechaActa(fecha);
+        }
+        return texto;
+      }
+
+      function formatearFechasTablaActa(tabla, columnas = []) {
+        if (!tabla || !Array.isArray(columnas) || columnas.length === 0) return;
+        const filas = Array.from(tabla.querySelectorAll("tbody tr"));
+        filas.forEach(tr => {
+          columnas.forEach(idx => {
+            const td = tr.cells && tr.cells[idx];
+            if (!td) return;
+            const fecha = obtenerFechaActaDesdeCelda(td);
+            if (fecha) td.textContent = fecha;
+          });
+        });
+      }
+
       function normalizarFechaRegistro(valor) {
         if (!valor) return null;
         if (valor instanceof Date) {
@@ -5580,7 +5682,21 @@
         return partes.join(" ");
       }
 
-      // Obtiene fecha fin y d�as restantes/pasados para una competencia
+            function obtenerColorSemaforoDias(diasValor) {
+        if (!Number.isFinite(diasValor)) {
+          return { clase: "", hex: "" };
+        }
+        if (diasValor >= 0) {
+          return { clase: "verde", hex: "#1e8a37" };
+        }
+        const diasAtraso = Math.abs(diasValor);
+        if (diasAtraso <= 30) {
+          return { clase: "amarillo", hex: "#BB8E23" };
+        }
+        return { clase: "rojo", hex: "#b91c1c" };
+      }
+
+// Obtiene fecha fin y d�as restantes/pasados para una competencia
       function obtenerDatosFechaCompetencia(competenciaTexto) {
         const compKey = normalizeCompetencia(competenciaTexto || "");
         const info = mapaFechasFinPorComp[compKey];
@@ -5620,8 +5736,7 @@
         const diasValor = Math.round(diffMs / (1000 * 60 * 60 * 24));
         const diasNumero = Math.abs(diasValor);
         const fechaTexto = info.texto || formatearFechaCorta(fecha);
-        const color = diasValor >= 0 ? "#1e8a37" : "#b91c1c";
-        const diasColor = diasValor >= 0 ? "verde" : "rojo";
+        const { clase: diasColor, hex: color } = obtenerColorSemaforoDias(diasValor);
         const diasHtml = (diasNumero || diasNumero === 0)
           ? `<span class="dias-color" data-color="${diasColor}" style="color:${color}; font-weight:600;">${diasNumero}</span>`
           : "-";
@@ -5916,6 +6031,9 @@
       let codigoFichaPrimero = "";
       // NUEVO: Variable para guardar el nivel de formación
       let nivelFormacionGlobal = "";
+      // NUEVO: mapa de horas diseño del archivo 3 (para validar competencias en actas)
+      let horasDisenoMapGlobal = {};
+      let competenciasDisenoNormSetGlobal = new Set();
       let codigoProgramaGlobal = "";
       let totalCompetenciasPrograma = 0; // total de competencias del programa (archivo 3)
       let modalidadFormacionGlobal = "";   // NUEVO: Modalidad de Formación desde C10
@@ -6720,8 +6838,7 @@
                 const diffMs = objetivo.getTime() - hoyPlano.getTime();
                 const diasValor = Math.round(diffMs / (1000 * 60 * 60 * 24));
                 const diasNumero = Math.abs(diasValor);
-                const colorClass = diasValor >= 0 ? "verde" : "rojo";
-                const colorHex = diasValor >= 0 ? "#1e8a37" : "#b91c1c";
+                const { clase: colorClass, hex: colorHex } = obtenerColorSemaforoDias(diasValor);
                 diasCelda = `<td class="col-dias" data-color="${colorClass}"><span class="dias-color" data-color="${colorClass}" style="color:${colorHex}; font-weight:600;">${diasNumero}</span></td>`;
               }
               tr.innerHTML = `
@@ -7730,6 +7847,14 @@
 
         // Guardar total de competencias del programa (archivo 3)
         totalCompetenciasPrograma = Object.keys(horasDisenoMap).length;
+
+        // NUEVO: guardar mapa de diseño para uso global (ej. Acta de comité)
+        horasDisenoMapGlobal = horasDisenoMap;
+        try {
+          competenciasDisenoNormSetGlobal = new Set(Object.keys(horasDisenoMapGlobal || {}).map(k => normalizeCompetencia(k)));
+        } catch (e) {
+          competenciasDisenoNormSetGlobal = new Set();
+        }
 
         // Actualizar tabla en Reporte 2
         const tbody = document.getElementById("tbodyReporte2");
@@ -8760,6 +8885,7 @@
 
         tablaUnica.appendChild(tbodyUnico);
         contVisible.appendChild(tablaUnica);
+        actualizarCantidadFilasVisibles("contenedorTablasReporte8", "totalRegistrosReporte8");
 
         // Habilitar ordenamiento (˄ ˅) en la tabla visible
         setupTablaOrdenable(
@@ -11000,6 +11126,7 @@ function prepararDatosListosParaProductiva() {
         // Inicializar variables para tablas nuevas
         let tablaRapsNoProgramadosHTML = "";
         let tablaDetalleAlternativaHTML = "";
+        let tablaCursosComplementariosAprendizHTML = "";
 
         const getText = (id) =>
           (document.getElementById(id)?.textContent || "").trim();
@@ -11042,6 +11169,7 @@ function prepararDatosListosParaProductiva() {
           if (tfootId) tfootId.removeAttribute("id");
           quitarIconosOrdenTabla(clone);
           estilizarTablaActa(clone, colWidths);
+          formatearFechasTablaActa(clone, [4, 5]);
           const filasFiltradas = Array.from(clone.querySelectorAll("tbody tr"));
           filasFiltradas.forEach((tr, index) => {
             const numTd = tr.querySelector("td:first-child");
@@ -11680,6 +11808,7 @@ function prepararDatosListosParaProductiva() {
           if (tfootClone1) tfootClone1.removeAttribute("id");
           quitarIconosOrdenTabla(cloneReporte1);
           estilizarTablaActa(cloneReporte1, ["4%", "14%", "14%", "10%", "10%", "8%", "20%", "11%", "9%"]);
+          formatearFechasTablaActa(cloneReporte1, [4, 5]);
           tablaInstructoresCompetenciasHTML = `<div class="tabla-acta-wrap" style="margin-top:4px;">${cloneReporte1.outerHTML}</div>`;
         }
 
@@ -12108,6 +12237,117 @@ function prepararDatosListosParaProductiva() {
           }
 
           tablaDetalleAlternativaHTML = construirTablaDetalleAlternativa();
+          // NUEVO: tabla de cursos complementarios por aprendiz (matriz con checks)
+          function construirTablaCursosComplementariosPorAprendiz() {
+            const aprendicesMap = new Map();
+            if (!Array.isArray(registrosJuicios) || !registrosJuicios.length) return "";
+
+            registrosJuicios.forEach(r => {
+              const estado = (r.estado || "").toUpperCase().trim();
+              if (estado === "EN FORMACION" || estado === "EN FORMACIÓN" || estado === "CONDICIONADO") {
+                const nombreCompleto = (r.nombre + " " + r.apellidos).trim();
+                if (nombreCompleto && !aprendicesMap.has(nombreCompleto)) {
+                  aprendicesMap.set(nombreCompleto, { nombre: nombreCompleto });
+                }
+              }
+            });
+
+            const lista = Array.from(aprendicesMap.values());
+            lista.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            if (!lista.length) return "";
+
+            // Competencias específicas que definen check activo
+            const compDerechos = "Ejercer derechos fundamentales del trabajo en el marco de la constitución política y los convenios internacionales.";
+            const compRazonar = "Razonar cuantitativamente frente a situaciones susceptibles de ser abordadas de manera matemática en contextos laborales, sociales y personales.";
+
+            const chkDerechos = (competenciasDisenoNormSetGlobal instanceof Set) && competenciasDisenoNormSetGlobal.has(normalizeCompetencia(compDerechos));
+            const chkRazonamiento = (competenciasDisenoNormSetGlobal instanceof Set) && competenciasDisenoNormSetGlobal.has(normalizeCompetencia(compRazonar));
+
+            // Si el nivel de formación no es TECNÓLOGO, se omiten las columnas del bloque TYT
+            const isTecnologo = (nivelFormacionGlobal || "").toUpperCase().trim() === "TECNÓLOGO";
+
+            const columnasPreparatorios = isTecnologo ? [
+              { label: "Lectura Crítica", checked: false },
+              { label: "Competencias Ciudadanas", checked: false },
+              { label: "Razonamiento Cuantitativo", checked: chkRazonamiento }
+            ] : [];
+
+            const columnasHabilidades = [
+              { label: "Experiencias Seguras en Línea", checked: false },
+              { label: "Comunicación y Colaboración", checked: false },
+              { label: "Contenido Digital", checked: false },
+              { label: "Gestión del Conocimiento", checked: false }
+            ];
+
+            const columnasEmprendimiento = [
+              { label: "Comportamiento Emprendedor", checked: false },
+              { label: "Emprendimiento Digital", checked: false },
+              { label: "Derechos Fundamentales para el Trabajo", checked: chkDerechos }
+            ];
+
+            const totalColumnas = 1 + columnasPreparatorios.length + columnasHabilidades.length + columnasEmprendimiento.length;
+            const anchoColumna = (100 / totalColumnas).toFixed(4);
+            const colgroupCols = Array(totalColumnas)
+              .fill(`<col style="width:${anchoColumna}%;">`)
+              .join("");
+
+            const simbolo = (v) => (v ? "☑" : "☐");
+
+            let html = '';
+            html += '<h4 style="text-align:center; margin-top:8px; margin-bottom:4px;">Cursos complementarios por aprendiz</h4>';
+            html += '<div style="font-size:8pt; margin:0 0 6px; text-align:justify;">☑ Marque cada celda cuando el aprendiz cumpla con los certificados de cada curso; las evidencias están disponibles en https://certificados.sena.edu.co/. Use la casilla correspondiente de cada aprendiz para registrar observaciones adicionales.</div>';
+            html += '<div class="tabla-acta-wrap" style="margin:4px auto;">';
+            html += '<table class="tabla-acta" style="width:100%; border-collapse:collapse; margin:0 auto; table-layout:fixed; font-size:8pt;">';
+            html += colgroupCols;
+            html += '<thead>';
+
+            // Encabezado por grupos
+            html += '<tr>';
+            html += '<th rowspan="2" style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px;">Nombre del aprendiz</th>';
+            if (columnasPreparatorios.length) {
+              html += '<th colspan="' + columnasPreparatorios.length + '" style="border:1px solid #000; background-color:#d1d5db; font-weight:bold; text-align:center; padding:4px;">Preparatorios para pruebas saber TYT</th>';
+            }
+            html += '<th colspan="' + columnasHabilidades.length + '" style="border:1px solid #000; background-color:#bfdbfe; font-weight:bold; text-align:center; padding:4px;">Desarrollo de Habilidades Digitales</th>';
+            html += '<th colspan="' + columnasEmprendimiento.length + '" style="border:1px solid #000; background-color:#d1d5db; font-weight:bold; text-align:center; padding:4px;">Emprendimiento y DDHH</th>';
+            html += '</tr>';
+
+            // Sub-encabezados
+            html += '<tr>';
+            columnasPreparatorios.forEach(c => {
+              html += '<th style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + c.label + '</th>';
+            });
+            columnasHabilidades.forEach(c => {
+              html += '<th style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + c.label + '</th>';
+            });
+            columnasEmprendimiento.forEach(c => {
+              html += '<th style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + c.label + '</th>';
+            });
+            html += '</tr>';
+
+            html += '</thead><tbody>';
+
+            // Filas por aprendiz
+            lista.forEach(item => {
+              html += '<tr>';
+              html += '<td style="border:1px solid #000; padding:4px; word-wrap:break-word;">' + (item.nombre || '') + '</td>';
+              columnasPreparatorios.forEach(c => {
+                html += '<td style="border:1px solid #000; text-align:center; padding:4px; font-size:8pt;">' + simbolo(!!c.checked) + '</td>';
+              });
+              columnasHabilidades.forEach(c => {
+                html += '<td style="border:1px solid #000; text-align:center; padding:4px; font-size:8pt;">' + simbolo(!!c.checked) + '</td>';
+              });
+              columnasEmprendimiento.forEach(c => {
+                html += '<td style="border:1px solid #000; text-align:center; padding:4px; font-size:8pt;">' + simbolo(!!c.checked) + '</td>';
+              });
+              html += '</tr>';
+            });
+
+            html += '</tbody></table></div>';
+            return html;
+          }
+
+          tablaCursosComplementariosAprendizHTML = construirTablaCursosComplementariosPorAprendiz();
+
 
           // --- 2.2.2 Instructores y Competencias ---
           const registrosOrdenados = [...registrosGlobal].sort((a, b) => {
@@ -12221,17 +12461,14 @@ function prepararDatosListosParaProductiva() {
           ? `
                 <li class="titulo-1">
                   Instructores
-                  <div class="contenido-item" style="margin-top:6px; border:1px solid #000; padding:6px; border-radius:6px;">
                     <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor en formación</div>
                     <div class="tabla-acta-wrap" style="margin-top:4px;">
                       ${tablaEquipoFormacionHTML || "<em>(No se encontraron instructores en formación al momento de generar el acta.)</em>"}
-                    </div>
+                   
                   </div>
-                  <div class="contenido-item" style="margin-top:12px; border:1px solid #000; padding:6px; border-radius:6px;">
                     <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor con el que vieron formación</div>
                     <div class="tabla-acta-wrap" style="margin-top:4px;">
                       ${tablaEquipoVistoHTML || "<em>(No se encontraron registros de instructores que hayan impartido al momento de generar el acta.)</em>"}
-                    </div>
                   </div>
                   <span style="font-size:9pt;">Asimismo, se relacionan los instructores con las competencias que tienen asignadas y las horas programadas:</span>
                   <div class="tabla-acta-wrap" style="margin-top:4px;">
@@ -12877,7 +13114,8 @@ function prepararDatosListosParaProductiva() {
                 <li>Detalle de aprendices
                   <ol type="i" style="padding-left:16px;">
                     ${agendaDetalleAprendicesHTML}
-                    <li>Alternativa de etapa productiva.</li>
+                    ${incluyeActa("alternativa-etapa-productiva") ? `<li>Alternativa de etapa productiva.</li>` : ""}
+                    ${incluyeActa("cursos-complementarios") ? `
                     <li>Cursos Complementarios
                       <ol type="1" style="padding-left:14px;">
                         <li>Cursos Preparatorios para pruebas saber TYT</li>
@@ -12885,6 +13123,7 @@ function prepararDatosListosParaProductiva() {
                         <li>Cursos Emprendimiento y Derechos Fundamentales</li>
                       </ol>
                     </li>
+                    ` : ""}
                     <li>Calificación cualitativa
                       <ol type="1" style="padding-left:14px;">
                         <li>Aspectos comportamentales.</li>
@@ -12990,7 +13229,8 @@ function prepararDatosListosParaProductiva() {
                     ${desarrolloPorcentajeHTML}
                     ${desarrolloCompetenciasPendientesAprendizHTML}
                     ${desarrolloAprendicesListosHTML}
-                    <li class="titulo-3">
+                    ${incluyeActa("alternativa-etapa-productiva") ? `
+<li class="titulo-3">
                       Alternativa de etapa productiva.
                       <div class="contenido-item">
                         <p class="subtitulo-seccion">
@@ -13048,9 +13288,14 @@ function prepararDatosListosParaProductiva() {
                         ${tablaDetalleAlternativaHTML || "<em>(No se encontraron aprendices activos para detallar alternativa.)</em>"}
                       </div>
                     </li>
+` : ""}
 
-                    <li class="titulo-3">
+${incluyeActa("cursos-complementarios") ? `
+<li class="titulo-3">
                       Cursos Complementarios
+                      <div class="contenido-item" style="padding-left:0;">
+                        ${tablaCursosComplementariosAprendizHTML || "<em>(Sin aprendices activos para cursos complementarios.)</em>"}
+                      </div>
                       <ol class="lista-acta nivel-4" type="1">
                         <li class="titulo-4">
                           Cursos Preparatorios para pruebas saber TYT
@@ -13168,9 +13413,9 @@ function prepararDatosListosParaProductiva() {
                         </li>
                       </ol>
                     </li>
-                   <p> <span style="font-size:9pt;">Razonamiento Cuantitativo y Derechos Fundamentales para el Trabajo [*Solo aplica para los tecnologos antiguos que no lo tengan en el Diseño Curricular]</span>
-                   </p>
-                    <li class="titulo-3">
+` : ""}
+
+<li class="titulo-3">
                       Calificación cualitativa
                       <ol class="lista-acta nivel-4" type="1">
                         <li class="titulo-4">
@@ -14949,6 +15194,7 @@ function prepararDatosListosParaProductiva() {
           tabla.style.display = hayFilasVisibles ? "" : "none";
         });
         actualizarTotalAprendicesReporte8();
+        actualizarCantidadFilasVisibles("contenedorTablasReporte8", "totalRegistrosReporte8");
       }
 
 
@@ -15231,6 +15477,7 @@ function prepararDatosListosParaProductiva() {
           }
 
           renumerarFilasTabla(tbody);
+          actualizarCantidadFilasVisibles("tablaReporte4", "totalRegistrosReporte4");
         }
 
       function renumerarFilasTabla(tbody) {
