@@ -10534,6 +10534,8 @@ function construirSeccionAprendicesListosProductivaPDF() {
         const getText = (id) =>
           (document.getElementById(id)?.textContent || "").trim();
 
+        const senaLogoUrl = "https://i.ibb.co/VpwBHTrw/Logosimbolo-SENA-PRINCIPAL-1.png";
+
         // Información general de la ficha
         const codigoFicha = getText("codigoFicha");
         const nombrePrograma = getText("nombrePrograma");
@@ -11128,6 +11130,9 @@ function prepararDatosListosParaProductiva() {
         let tablaDetalleAlternativaHTML = "";
         let tablaCursosComplementariosAprendizHTML = "";
 
+
+        // Logo institucional para encabezado Word
+        const senaLogoUrl = "https://i.ibb.co/VpwBHTrw/Logosimbolo-SENA-PRINCIPAL-1.png";
         const getText = (id) =>
           (document.getElementById(id)?.textContent || "").trim();
 
@@ -12716,6 +12721,17 @@ function prepararDatosListosParaProductiva() {
   <head>
     <meta charset="utf-8">
     <title>Acta Comité</title>
+
+    
+    <xml>
+      <w:WordDocument>
+        <w:View>Print</w:View>
+        <w:Zoom>100</w:Zoom>
+        <w:DoNotOptimizeForBrowser/>
+      </w:WordDocument>
+    </xml>
+    
+
     <style>
       /* Sección de página para que Word asigne el pie de página */
       @page Section1 {
@@ -12723,8 +12739,15 @@ function prepararDatosListosParaProductiva() {
         margin-right: 15mm;
         margin-bottom: 20mm;
         margin-left: 15mm;
-        mso-footer:f1;          /* id del pie de página */
-        mso-footer-margin:10mm; /* margen del pie de página */
+
+        mso-header: h1;
+        mso-header-margin: 10mm;
+
+        mso-footer: f1;
+        mso-footer-margin: 10mm;
+
+        mso-title-page: no;
+        mso-paper-source: 0;
       }
       div.Section1 { page:Section1; }
 
@@ -12823,11 +12846,12 @@ function prepararDatosListosParaProductiva() {
         text-align: center;
         font-weight: bold;
       }
-      /* Estilo del texto del pie de página */
-      p.MsoFooter {
+      /* Estilo del encabezado y pie de página */
+      p.MsoHeader, p.MsoFooter {
         text-align: center;
         font-size: 8pt;
         margin: 0;
+        font-family: Arial, sans-serif;
       }
      
     
@@ -13052,10 +13076,11 @@ function prepararDatosListosParaProductiva() {
       }
 
     </style>
-  </head>
+    </head>
   <body>
-    <!-- Word usará esta Section1 para aplicar el pie de página -->
     <div class="Section1">
+
+
 
       <!-- ÚNICA TABLA, 4 COLUMNAS, 4 FILAS -->
       <table class="acta-encabezado">
@@ -13069,13 +13094,13 @@ function prepararDatosListosParaProductiva() {
           <td colspan="4">
             <strong>NOMBRE DEL COMITÉ O DE LA REUNIÓN:</strong>
             Comité de evaluación y seguimiento para el Programa de Formación:
-            <span style="font-weight:bold; color:#c00000;">${nombrePrograma}</span>, FICHA:
-            <span style="font-weight:bold; color:#c00000;">${codigoFicha}</span>,
+            <span style="font-weight:bold; color:#00324D;">${nombrePrograma}</span>, FICHA:
+            <span style="font-weight:bold; color:#00324D;">${codigoFicha}</span>,
             Modalidad de Formación:
-            <span style="font-weight:bold; color:#c00000;">${modalidadFormacionGlobal || "N/A"}</span>;
+            <span style="font-weight:bold; color:#00324D;">${modalidadFormacionGlobal || "N/A"}</span>;
             a cargo del instructor
             <strong>Gerente de Proyecto</strong>
-            <span style="font-weight:bold; color:#c00000;">${instructorGerente}</span>
+            <span style="font-weight:bold; color:#00324D;">${instructorGerente}</span>
           </td>
         </tr>
 
@@ -13084,11 +13109,11 @@ function prepararDatosListosParaProductiva() {
           <td><strong>CIUDAD Y FECHA:</strong></td>
           <td>
             ${ciudad},
-            <span style="font-weight:bold; color:#c00000;">${fechaHoy}</span>
+            <span style="font-weight:bold; color:#00324D;">${fechaHoy}</span>
           </td>
           <td><strong>HORA INICIO:</strong></td>
           <td>
-            <span style="font-weight:bold; color:#c00000;">${horaInicio}</span>
+            <span style="font-weight:bold; color:#00324D;">${horaInicio}</span>
           </td>
         </tr>
 
@@ -13150,8 +13175,8 @@ function prepararDatosListosParaProductiva() {
         <td colspan="4">
           <strong>OBJETIVO(S) DE LA REUNIÓN:</strong><br>
           Comité de evaluación y seguimiento para el Programa de Formación
-          <span style="font-weight:bold; color:#c00000;">${codigoFicha}</span>
-          <span style="font-weight:bold; color:#c00000;">${nombrePrograma}</span>
+          <span style="font-weight:bold; color:#00324D;">${codigoFicha}</span>
+          <span style="font-weight:bold; color:#00324D;">${nombrePrograma}</span>
         </td>
       </tr>
             <!-- Fila 7: Título DESARROLLO DE LA REUNIÓN -->
@@ -13169,11 +13194,11 @@ function prepararDatosListosParaProductiva() {
               Verificación del quorum
               <div class="contenido-item">
                 Coordinador Académico:
-                <span style="font-weight:bold; color:#c00000;">${coordinadorAcademico}</span><br>
+                <span style="font-weight:bold; color:#00324D;">${coordinadorAcademico}</span><br>
                 Instructor Gerente de Proyecto:
-                <span style="font-weight:bold; color:#c00000;">${instructorGerente}</span><br>
+                <span style="font-weight:bold; color:#00324D;">${instructorGerente}</span><br>
                 Aprendiz Vocero:
-                <span style="font-weight:bold; color:#c00000;">${aprendizVocero}</span><br>
+                <span style="font-weight:bold; color:#00324D;">${aprendizVocero}</span><br>
                 Psicóloga de Bienestar:
               </div>
             </li>
@@ -13203,19 +13228,19 @@ function prepararDatosListosParaProductiva() {
                       <div><strong>Etapa en proceso:</strong> ${etapaEnProceso}</div>
                     </div>
                     Avance promedio del grupo:
-                    <span style="font-weight:bold; color:#c00000;">${avancePromedioGrupo}</span>
+                    <span style="font-weight:bold; color:#00324D;">${avancePromedioGrupo}</span>
                     <span style="font-size:9pt;">
                       Este porcentaje se calcula sobre el total de competencias del programa,
                       que son
-                      <span style="font-weight:bold; color:#c00000;">${numCompetencias}</span>,
+                      <span style="font-weight:bold; color:#00324D;">${numCompetencias}</span>,
                       y sobre el total de Resultados de aprendizaje del Diseño Curricular,
                       que son
-                      <span style="font-weight:bold; color:#c00000;">${numResultados}</span>.
+                      <span style="font-weight:bold; color:#00324D;">${numResultados}</span>.
                     </span><br><br>
                     <span style="font-size:9pt;">
                       Se presenta el consolidado de aprendices por estado académico de la ficha.
                       Total aprendices Matriculados:
-                      <span style="font-weight:bold; color:#c00000;">${totalAprendicesEstado}</span>.
+                      <span style="font-weight:bold; color:#00324D;">${totalAprendicesEstado}</span>.
                     </span>
                     ${graficoEstadoActaHTML}
                     <div class="tabla-acta-wrap" style="margin-top:4px;">
@@ -13496,28 +13521,28 @@ ${incluyeActa("cursos-complementarios") ? `
         <td style="padding:6px; border:1px solid #000; width:18%; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
       </tr>
       <tr>
-        <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${coordinadorAcademico}</td>
+        <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${coordinadorAcademico}</td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
       </tr>
       <tr>
-        <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${instructorGerente}</td>
+        <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${instructorGerente}</td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
       </tr>
       <tr>
-        <td style="padding:8px; border:1px solid #000; color:#c00000; font-weight:700;">${aprendizVocero}</td>
+        <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${aprendizVocero}</td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
       </tr>
       <tr>
-        <td style="padding:8px; border:1px solid #000;">Psicologa de Bienestar:</td>
+        <td style="padding:8px; border:1px solid #000;color:#00324D; font-weight:700;">PSICOLOGA DE BIENESTAR:</td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
         <td style="border:1px solid #000;"></td>
@@ -13543,11 +13568,20 @@ ${incluyeActa("cursos-complementarios") ? `
         <td colspan="5" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
           ANEXOS
         </td>
+        <div style="mso-element:header" id="h1">
+      <p class="MsoHeader">
+        <img src="${senaLogoUrl}" alt="Logo SENA" style="height:24px; width:auto; display:block; margin:0 auto;">
+      </p>
+    </div>
+ <div style="mso-element:footer" id="f1">
+      <p class="MsoFooter" style="text-align:center;"><span style="font-size:9pt;">GOR-F-084V02</span></p>
+    </div>
       </tr>
       </table>
 
-      
+     
     </div>
+    
   </body>
 </html>
 `;
