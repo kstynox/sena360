@@ -1,18 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8" />
-  <title>SENA 360 – Panel Integral de Seguimiento a la FPI</title>
-
-  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-  <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <style>
+<meta charset="utf-8"/>
+<title>SENA 360 – Panel Integral de Seguimiento a la FPI</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<style>
     /* ============================
    NUEVO DISEÑO TIPO TARJETAS
    ============================ */
@@ -1565,11 +1562,11 @@
       display: inline-block;
       padding: 4px 12px;
       border-radius: 999px;
-      background-color: #d1fae5;
+      
       /* verde muy claro */
-      color: #065f46;
+      color: #ffffff;
       /* verde oscuro */
-      font-size: 15px;
+      font-size: 25px;
       /* ligeramente mayor que el resto */
       font-weight: 700;
     }
@@ -1579,9 +1576,9 @@
       display: inline-block;
       padding: 4px 12px;
       border-radius: 999px;
-      background-color: #e0f2fe;
+      
       /* azul claro */
-      color: #1d4ed8;
+      color: #ffffff;
       /* azul más intenso */
       font-weight: 700;
     }
@@ -3284,723 +3281,973 @@
       }
     }
 
-  </style>
+  
+
+/* ====== FICHA LAYOUT (UI tipo referencia) ====== */
+.ficha-layout-sena{
+  --green:#16a34a;
+  --green-2:#10b981;
+  --green-dark:#065f46;
+  --orange:#f97316;
+  --orange-dark:#c2410c;
+  --ink:#000000;
+  --ink-2:#0c3d1e;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --card:#ffffff;
+  --bg-soft:#f5f7fb;
+  margin: 14px 0 18px;
+}
+
+.ficha-layout-sena .ficha-panel{
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid rgba(229,231,235,.95);
+  box-shadow: 0 18px 40px rgba(15,23,42,.10);
+}
+
+.ficha-layout-sena .ficha-hero{
+  padding: 26px 28px 22px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(34,197,94,.22), transparent 55%),
+    radial-gradient(circle at 85% 22%, rgba(16,185,129,.16), transparent 60%),
+    linear-gradient(135deg, var(--ink-2), var(--ink));
+}
+
+.ficha-layout-sena .ficha-hero-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:10px;
+}
+
+.ficha-layout-sena .ficha-hero-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color: rgba(255,255,255,.75);
+  font-weight:700;
+}
+
+.ficha-layout-sena .ficha-hero-title{
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 900;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+}
+
+.ficha-layout-sena .ficha-mode-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.92);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.ficha-layout-sena .ficha-hero-divider{
+  height:1px;
+  margin: 18px 0;
+  background: rgba(255,255,255,.12);
+}
+
+.ficha-layout-sena .ficha-hero-codes{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ficha-layout-sena .ficha-code-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+}
+
+.ficha-layout-sena .ficha-code-icon{
+  width:42px; height:42px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: 18px;
+  background: rgba(34,197,94,.22);
+  flex:0 0 auto;
+}
+
+.ficha-layout-sena .ficha-code-icon.alt{
+  background: rgba(139,92,246,.20);
+}
+
+.ficha-layout-sena .ficha-code-label{
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.68);
+  font-weight: 800;
+}
+
+.ficha-layout-sena .ficha-code-value{
+  margin-top: 2px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.ficha-layout-sena .ficha-panel-body{
+  background: var(--bg-soft);
+  padding: 18px 18px 20px;
+}
+
+.ficha-layout-sena .ficha-stages{
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.ficha-layout-sena .stage-arrow{
+  width:42px; height:42px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  align-self:center;
+  background:#fff;
+  border: 1px solid rgba(229,231,235,.95);
+  box-shadow: 0 10px 24px rgba(15,23,42,.08);
+  color: rgba(100,116,139,.8);
+  font-size: 18px;
+}
+
+.ficha-layout-sena .stage-card{
+  border-radius: 18px;
+  background:#fff;
+  border: 1px solid rgba(229,231,235,.95);
+  box-shadow: 0 10px 26px rgba(15,23,42,.06);
+  padding: 14px 16px 16px;
+  overflow: hidden;
+}
+
+.ficha-layout-sena .stage-card.lectiva{ border-left: 5px solid var(--green); }
+.ficha-layout-sena .stage-card.productiva{ border-left: 5px solid var(--orange); }
+
+.ficha-layout-sena .stage-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom: 12px;
+}
+
+.ficha-layout-sena .stage-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+
+.ficha-layout-sena .stage-badge.lectiva{
+  background: rgba(22,163,74,.14);
+  border-color: rgba(22,163,74,.28);
+  color: var(--green-dark);
+}
+
+.ficha-layout-sena .stage-badge.productiva{
+  background: rgba(249,115,22,.14);
+  border-color: rgba(249,115,22,.30);
+  color: var(--orange-dark);
+}
+
+.ficha-layout-sena .stage-status{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #f3f4f6;
+  border: 1px solid rgba(229,231,235,.95);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ficha-layout-sena .stage-status.on{
+  background: rgba(22,163,74,.12);
+  border-color: rgba(22,163,74,.26);
+  color: #166534;
+}
+
+.ficha-layout-sena .stage-dates{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ficha-layout-sena .stage-date-box{
+  border-radius: 14px;
+  background: #f9fafb;
+  border: 1px solid rgba(229,231,235,.90);
+  padding: 12px;
+}
+
+.ficha-layout-sena .stage-date-label{
+  display:block;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.ficha-layout-sena .stage-date-value{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #111827;
+}
+
+.ficha-layout-sena .stage-progress-meta{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ficha-layout-sena .stage-progress-label{
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  font-weight: 900;
+}
+
+.ficha-layout-sena .stage-progress-value{
+  font-size: 16px;
+  font-weight: 900;
+  text-align: right;
+}
+
+.ficha-layout-sena .stage-progress-value.green{ color: var(--green-dark); }
+.ficha-layout-sena .stage-progress-value.orange{ color: var(--orange-dark); }
+
+.ficha-layout-sena .stage-progress-bar{
+  width:100%;
+  height:10px;
+  border-radius:999px;
+  background: rgba(229,231,235,.90);
+  overflow:hidden;
+}
+
+.ficha-layout-sena .stage-progress-fill{
+  height:100%;
+  width: var(--progress, 0%);
+  border-radius:999px;
+}
+
+.ficha-layout-sena .lectiva .stage-progress-fill{
+  background: linear-gradient(to right, var(--green), var(--green-2));
+}
+
+.ficha-layout-sena .productiva .stage-progress-fill{
+  background: linear-gradient(to right, var(--orange), #fb923c);
+}
+
+@media (max-width: 900px){
+  .ficha-layout-sena .ficha-hero-title{ font-size: 22px; }
+  .ficha-layout-sena .ficha-hero-codes{ grid-template-columns: 1fr; }
+  .ficha-layout-sena .ficha-stages{ grid-template-columns: 1fr; }
+  .ficha-layout-sena .stage-arrow{ display:none; }
+}
+</style>
 </head>
-
 <body>
-  <header>
-    <img src='https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png' alt='Logo SENA'>
-    <h1>Servicio Nacional de Aprendizaje - SENA Regional Tolima</h1>
-    <div class="header-center">
-      <h2>Centro de Comercio y Servicios</h2>
-      <h1>SENA 360 – Panel Integral de Seguimiento a la FPI</h1>
-
-      <hr>
-    </div>
-  </header>
-
-  <!-- PANTALLA INICIAL / LOGIN COORDINADOR -->
-  <div id="loginOverlay">
-    <div class="login-card">
-      <div class="login-logo">
-        <img src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png" alt="Logo SENA">
-      </div>
-      <h1 class="login-title">SENA 360 – Panel Integral de Seguimiento a la FPI</h1>
-      <p class="login-subtitle">Seleccione el Coordinador Académico para ingresar</p>
-
-      <div class="login-field">
-        <label for="coordinadorSelect">Coordinador Académico</label>
-        <select id="coordinadorSelect">
-          <option value="">Seleccione un coordinador...</option>
-          <option value="EDNA PAOLA OSORIO MUÑOZ">EDNA PAOLA OSORIO MUÑOZ</option>
-          <option value="JORGE ARMANDO VARELA RENDÓN">JORGE ARMANDO VARELA RENDÓN</option>
-          <option value="YOLANDA CÁRDENAS VILLAMARIN">YOLANDA CÁRDENAS VILLAMARIN</option>
-        </select>
-      </div>
-
-      <div class="login-toggle-roles">
-        <input type="checkbox" id="chkValidarRoles" checked aria-label="Validar roles" title="Validar roles" />
-      </div>
-
-      <button id="btnIngresar" class="btnEstilo login-button">Ingresar</button>
-      <div id="loginMensajeError" class="login-error" style="display:none;">
+<header>
+<img alt="Logo SENA" src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png"/>
+<h1>Servicio Nacional de Aprendizaje - SENA Regional Tolima</h1>
+<div class="header-center">
+<h2>Centro de Comercio y Servicios</h2>
+<h1>SENA 360 – Panel Integral de Seguimiento a la FPI</h1>
+<hr/>
+</div>
+</header>
+<!-- PANTALLA INICIAL / LOGIN COORDINADOR -->
+<div id="loginOverlay">
+<div class="login-card">
+<div class="login-logo">
+<img alt="Logo SENA" src="https://www.sena.edu.co/Style%20Library/alayout/images/logoSena.png"/>
+</div>
+<h1 class="login-title">SENA 360 – Panel Integral de Seguimiento a la FPI</h1>
+<p class="login-subtitle">Seleccione el Coordinador Académico para ingresar</p>
+<div class="login-field">
+<label for="coordinadorSelect">Coordinador Académico</label>
+<select id="coordinadorSelect">
+<option value="">Seleccione un coordinador...</option>
+<option value="EDNA PAOLA OSORIO MUÑOZ">EDNA PAOLA OSORIO MUÑOZ</option>
+<option value="JORGE ARMANDO VARELA RENDÓN">JORGE ARMANDO VARELA RENDÓN</option>
+<option value="YOLANDA CÁRDENAS VILLAMARIN">YOLANDA CÁRDENAS VILLAMARIN</option>
+</select>
+</div>
+<div class="login-toggle-roles">
+<input aria-label="Validar roles" checked="" id="chkValidarRoles" title="Validar roles" type="checkbox"/>
+</div>
+<button class="btnEstilo login-button" id="btnIngresar">Ingresar</button>
+<div class="login-error" id="loginMensajeError" style="display:none;">
         Por favor seleccione un coordinador para continuar.
       </div>
-    </div>
-  </div>
-  <!-- Overlay para confirmar Gerente de Proyecto -->
-  <div id="gerenteOverlay">
-    <div class="login-card">
-      <div class="login-header">
-        <div class="login-header-main">
-          <span class="login-icon">📋</span>
-          <div>
-            <div class="login-title">Confirmar Gerente de Proyecto</div>
-            <div class="login-subtitle">
+</div>
+</div>
+<!-- Overlay para confirmar Gerente de Proyecto -->
+<div id="gerenteOverlay">
+<div class="login-card">
+<div class="login-header">
+<div class="login-header-main">
+<span class="login-icon">📋</span>
+<div>
+<div class="login-title">Confirmar Gerente de Proyecto</div>
+<div class="login-subtitle">
               ¿El siguiente instructor es el Gerente de Proyecto?
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="login-fields">
-        <div class="login-field">
-          <label>Instructor</label>
-          <div id="gerenteInstructorNombre" class="login-subtitle" style="font-weight:600;"></div>
-        </div>
-      </div>
-
-      <div class="login-actions">
-        <button id="btnGerenteSi" class="btnEstilo">
-          <span class="login-button-icon">✔</span>
-          <span>Sí</span>
-        </button>
-
-        <button id="btnGerenteNo" class="btnEstilo btn-negativo">
-          <span class="login-button-icon">✖</span>
-          <span>No</span>
-        </button>
-      </div>
-
-      <!-- Se muestra solo si el usuario responde NO -->
-      <div id="contenedorSelectorGerente" style="display:none; margin-top:18px;">
-        <div class="login-field">
-          <label>Seleccione el Gerente de Proyecto</label>
-          <select id="selectGerenteProyecto">
-            <option value="">Seleccione un instructor…</option>
-          </select>
-        </div>
-
-        <div class="login-actions" style="margin-top:10px; justify-content:flex-end;">
-          <button id="btnAceptarGerente" class="btnEstilo">
-            <span class="login-button-icon">✔</span>
-            <span>Aceptar</span>
-          </button>
-        </div>
-
-        <div id="gerenteMensajeError" class="login-error" style="display:none;">
+</div>
+</div>
+</div>
+<div class="login-fields">
+<div class="login-field">
+<label>Instructor</label>
+<div class="login-subtitle" id="gerenteInstructorNombre" style="font-weight:600;"></div>
+</div>
+</div>
+<div class="login-actions">
+<button class="btnEstilo" id="btnGerenteSi">
+<span class="login-button-icon">✔</span>
+<span>Sí</span>
+</button>
+<button class="btnEstilo btn-negativo" id="btnGerenteNo">
+<span class="login-button-icon">✖</span>
+<span>No</span>
+</button>
+</div>
+<!-- Se muestra solo si el usuario responde NO -->
+<div id="contenedorSelectorGerente" style="display:none; margin-top:18px;">
+<div class="login-field">
+<label>Seleccione el Gerente de Proyecto</label>
+<select id="selectGerenteProyecto">
+<option value="">Seleccione un instructor…</option>
+</select>
+</div>
+<div class="login-actions" style="margin-top:10px; justify-content:flex-end;">
+<button class="btnEstilo" id="btnAceptarGerente">
+<span class="login-button-icon">✔</span>
+<span>Aceptar</span>
+</button>
+</div>
+<div class="login-error" id="gerenteMensajeError" style="display:none;">
           Por favor seleccione un instructor.
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- Overlay para seleccionar Aprendiz Vocero -->
-  <div id="voceroOverlay" style="display:none;">
-    <div class="login-card">
-      <div class="login-header">
-        <div class="login-header-main">
-          <span class="login-icon">🗣️</span>
-          <div>
-            <div class="login-title">Seleccionar Aprendiz Vocero</div>
-            <div class="login-subtitle">
+</div>
+</div>
+</div>
+<!-- Overlay para seleccionar Aprendiz Vocero -->
+<div id="voceroOverlay" style="display:none;">
+<div class="login-card">
+<div class="login-header">
+<div class="login-header-main">
+<span class="login-icon">🗣️</span>
+<div>
+<div class="login-title">Seleccionar Aprendiz Vocero</div>
+<div class="login-subtitle">
               Seleccione el aprendiz vocero del grupo (solo estado EN FORMACIÓN).
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="login-fields">
-        <div class="login-field">
-          <label for="selectAprendizVocero">Aprendiz Vocero</label>
-          <select id="selectAprendizVocero">
-            <option value="">Seleccione un aprendiz…</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="login-actions" style="margin-top:10px; justify-content:flex-end;">
-        <button id="btnAceptarVocero" class="btnEstilo">
-          <span class="login-button-icon">✔</span>
-          <span>Aceptar</span>
-        </button>
-      </div>
-
-      <div id="voceroMensajeError" class="login-error" style="display:none;">
+</div>
+</div>
+</div>
+<div class="login-fields">
+<div class="login-field">
+<label for="selectAprendizVocero">Aprendiz Vocero</label>
+<select id="selectAprendizVocero">
+<option value="">Seleccione un aprendiz…</option>
+</select>
+</div>
+</div>
+<div class="login-actions" style="margin-top:10px; justify-content:flex-end;">
+<button class="btnEstilo" id="btnAceptarVocero">
+<span class="login-button-icon">✔</span>
+<span>Aceptar</span>
+</button>
+</div>
+<div class="login-error" id="voceroMensajeError" style="display:none;">
         Por favor seleccione un aprendiz.
       </div>
-    </div>
-  </div>
-
-  <!-- ACORDEÓN: Cargue de Archivos -->
-  <div id="accordionCargue" class="contenedor">
-    <button type="button" id="accordionCargueToggle" class="acordeon-header">
-      <span>📂 Cargue de Archivos</span>
-      <span id="accordionCargueIcon" class="acordeon-icon">▾</span>
-    </button>
-
-    <div id="accordionCargueBody" class="acordeon-body">
-      <!-- ARCHIVO 1 -->
-      <div id="sectionFile1">
-        <h2>Cargar Archivo de Instructores (XLS/XLSX)</h2>
-        <p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular) › Gestion de Ambientes
+</div>
+</div>
+<!-- ACORDEÓN: Cargue de Archivos -->
+<div class="contenedor" id="accordionCargue">
+<button class="acordeon-header" id="accordionCargueToggle" type="button">
+<span>📂 Cargue de Archivos</span>
+<span class="acordeon-icon" id="accordionCargueIcon">▾</span>
+</button>
+<div class="acordeon-body" id="accordionCargueBody">
+<!-- ARCHIVO 1 -->
+<div id="sectionFile1">
+<h2>Cargar Archivo de Instructores (XLS/XLSX)</h2>
+<p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular) › Gestion de Ambientes
             › Instructores › Reporte de Instructores por Ficha.</em></p>
-        <input type="file" id="excelFile1" accept=".xls,.xlsx" />
-        <br /><br />
-        <button id="btnProcesar1" class="btnEstilo">Procesar Archivo 1</button>
-        <div id="mensajeArchivo1" class="mensaje-archivo"></div>
-      </div>
-
-      <!-- ARCHIVO 2 -->
-      <div id="sectionFile2" style="display: none;">
-        <h2>Cargar Archivo de Juicios Evaluativos (XLS/XLSX)</h2>
-        <p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular o Instructor) ›
+<input accept=".xls,.xlsx" id="excelFile1" type="file"/>
+<br/><br/>
+<button class="btnEstilo" id="btnProcesar1">Procesar Archivo 1</button>
+<div class="mensaje-archivo" id="mensajeArchivo1"></div>
+</div>
+<!-- ARCHIVO 2 -->
+<div id="sectionFile2" style="display: none;">
+<h2>Cargar Archivo de Juicios Evaluativos (XLS/XLSX)</h2>
+<p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular o Instructor) ›
             Ejecucion de la formacion › Reportes › Reportes de Juicio de Evaluacion.</em></p>
-        <input type="file" id="excelFile2" accept=".xls,.xlsx" />
-        <br /><br />
-        <button id="btnProcesar2" class="btnEstilo" disabled>Procesar Archivo 2</button>
-        <div id="mensajeArchivo2" class="mensaje-archivo"></div>
-        <div id="mensajeError" class="error"></div>
-      </div>
-
-      <!-- ARCHIVO 3 -->
-      <div id="sectionFile3" style="display: none;">
-        <h2>Cargar Archivo de Horas Diseño (XLS/XLSX)</h2>
-        <input type="file" id="archivoDiseno" accept=".xls,.xlsx" />
-        <br /><br />
-        <button id="btnCargarDiseno" class="btnEstilo">Procesar Archivo 3</button>
-        <p class="nota-archivo"><em>Descargar desde: <a href="https://acortar.link/p1cWdD" target="_blank"
-              rel="noopener noreferrer">https://acortar.link/p1cWdD</a></em></p>
-        <div id="mensajeArchivo3" class="mensaje-archivo"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ENCABEZADO DE LA FICHA (Se muestra después de File1) -->
-  <div class="contenedor" id="headerInfo" style="display:none;">
-
-    <!-- Cabecera del acordeón -->
-    <button type="button" id="accordionInfoToggle" class="acordeon-header">
-      <span>ℹ️ Información General de la Ficha</span>
-      <span id="accordionInfoIcon" class="acordeon-icon">▾</span>
-    </button>
-    <!-- Cuerpo del acordeón: INICIA ABIERTO -->
-    <div id="accordionInfoBody" class="acordeon-body">
-
-      <!-- Tarjetas superiores: código ficha, nombre programa, código programa -->
-      <div class="ficha-layout">
-        <div class="ficha-grid-top">
-          <!-- Código Ficha -->
-          <div class="ficha-card ficha-card-small">
-            <span class="ficha-card-label">CÓDIGO FICHA</span>
-            <span class="ficha-card-value" id="codigoFicha"></span>
-          </div>
-
-          <!-- Nombre del programa -->
-          <div class="ficha-card ficha-card-programa">
-            <span class="ficha-card-label">NOMBRE DEL PROGRAMA</span>
-            <span class="ficha-card-programa-value" id="nombrePrograma"></span>
-          </div>
-
-          <!-- Código del programa -->
-          <div class="ficha-card ficha-card-small">
-            <span class="ficha-card-label">CÓDIGO DEL PROGRAMA</span>
-            <span class="ficha-card-value" id="codigoPrograma"></span>
-          </div>
-
-          <!-- Modalidad de Formación -->
-          <div class="ficha-card ficha-card-small">
-            <span class="ficha-card-label">MODALIDAD DE FORMACIÓN</span>
-            <span class="ficha-card-value" id="modalidadFormacion"></span>
-          </div>
-
-          <!-- Municipio -->
-        </div>
-
-        <!-- Tarjetas inferiores: etapa lectiva / productiva -->
-        <div class="ficha-grid-bottom">
-          <!-- Etapa lectiva -->
-          <div class="ficha-card ficha-card-fechas">
-            <span class="ficha-badge ficha-badge-lectiva">ETAPA LECTIVA</span>
-
-            <div class="ficha-fechas-row">
-              <div class="ficha-fecha">
-                <span class="ficha-fecha-label">FECHA INICIO</span>
-                <span class="ficha-fecha-value">
-                  <span class="ficha-fecha-icon" aria-hidden="true">📅</span>
-                  <span id="fechaInicioLectiva"></span>
-                </span>
-              </div>
-
-              <div class="ficha-fecha-divider"></div>
-
-              <div class="ficha-fecha">
-                <span class="ficha-fecha-label">FECHA FIN</span>
-                <span class="ficha-fecha-value">
-                  <span class="ficha-fecha-icon" aria-hidden="true">📅</span>
-                  <span id="fechaFinLectiva"></span>
-                </span>
-              </div>
-            </div>
-
-            <div class="ficha-tiempo-restante">
-              <span class="ficha-tiempo-label">Tiempo restante</span>
-              <span class="ficha-tiempo-value" id="tiempoRestanteLectiva">-</span>
-            </div>
-          </div>
-
-          <!-- Etapa productiva -->
-          <div class="ficha-card ficha-card-fechas">
-            <span class="ficha-badge ficha-badge-productiva">ETAPA PRODUCTIVA</span>
-
-            <div class="ficha-fechas-row">
-              <div class="ficha-fecha">
-                <span class="ficha-fecha-label">FECHA INICIO</span>
-                <span class="ficha-fecha-value">
-                  <span class="ficha-fecha-icon" aria-hidden="true">👥</span>
-                  <span id="fechaInicioProductiva"></span>
-                </span>
-              </div>
-
-              <div class="ficha-fecha-divider"></div>
-
-              <div class="ficha-fecha">
-                <span class="ficha-fecha-label">FECHA FIN</span>
-                <span class="ficha-fecha-value">
-                  <span class="ficha-fecha-icon" aria-hidden="true">🚩</span>
-                  <span id="fechaFinProductiva"></span>
-                </span>
-              </div>
-            </div>
-
-            <div class="ficha-tiempo-restante">
-              <span class="ficha-tiempo-label">Tiempo restante</span>
-              <span class="ficha-tiempo-value" id="tiempoRestanteProductiva">-</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Línea de tiempo compacta (debajo de fechas) -->
-      <div class="timeline-card timeline-compact">
-        <div class="timeline-header">
-          <div class="timeline-title"><span class="icon">🕒</span>Cronograma de Formación</div>
-          <div class="timeline-status" id="estadoEtapaMini">-</div>
-        </div>
-        <div class="timeline-track compact" id="timelineTrackMini">
-          <div class="timeline-fill" id="timelineFillMini"></div>
-          <div class="timeline-point" id="pMiniInicioLectiva"><span class="timeline-point-label">Inicio
-              Lectiva<br><small id="dMiniInicioLectiva"></small></span></div>
-          <div class="timeline-point alt" id="pMiniFinLectiva"><span class="timeline-point-label">Fin Lectiva<br><small
-                id="dMiniFinLectiva"></small></span></div>
-          <div class="timeline-point" id="pMiniInicioProd"><span class="timeline-point-label">Inicia
-              Productiva<br><small id="dMiniInicioProd"></small></span></div>
-          <div class="timeline-point alt" id="pMiniFinProd"><span class="timeline-point-label">Fin Programa<br><small
-                id="dMiniFinProd"></small></span></div>
-          <div class="timeline-point today" id="pMiniHoy"><span class="timeline-point-label">HOY<br><small
-                id="dMiniHoy"></small></span></div>
-        </div>
-      </div>
-
-      <!-- Resumen numérico de la ficha -->
-      <!-- Resumen numérico de la ficha -->
-      <div class="ficha-summary-row">
-
-        <!-- Fila 1: KPIs principales -->
-        <div class="ficha-summary-top">
-          <div class="ficha-kpi-card ficha-kpi-aprendices">
-            <div class="ficha-kpi-icon">📋</div>
-            <div class="ficha-kpi-info">
-              <span class="ficha-kpi-label">APRENDICES MATRICULADOS</span>
-              <span class="ficha-kpi-value" id="numMatriculadosHeader">0</span>
-
-            </div>
-          </div>
-
-          <div class="ficha-kpi-card ficha-kpi-aprendices">
-            <div class="ficha-kpi-icon">🎓</div>
-            <div class="ficha-kpi-info">
-              <span class="ficha-kpi-label">APRENDICES EN FORMACION</span>
-              <span class="ficha-kpi-value" id="numAprendicesHeader">0</span>
-            </div>
-          </div>
-
-          <div class="ficha-kpi-card ficha-kpi-instructores">
-            <div class="ficha-kpi-icon">📡</div>
-            <div class="ficha-kpi-info">
-              <span class="ficha-kpi-label">INSTRUCTORES</span>
-              <span class="ficha-kpi-value" id="numInstructoresHeader">0</span>
-            </div>
-          </div>
-
-          <div class="ficha-kpi-card ficha-kpi-competencias">
-            <div class="ficha-kpi-icon">🧩</div>
-            <div class="ficha-kpi-info">
-              <span class="ficha-kpi-label">COMPETENCIAS</span>
-              <span class="ficha-kpi-value" id="numCompetenciasHeader">0</span>
-            </div>
-          </div>
-
-          <!-- NUEVA TARJETA: Resultados de Aprendizaje -->
-          <div class="ficha-kpi-card ficha-kpi-resultados">
-            <div class="ficha-kpi-icon">📚</div>
-            <div class="ficha-kpi-info">
-              <span class="ficha-kpi-label">RESULTADOS DE APRENDIZAJE</span>
-              <span class="ficha-kpi-value" id="numResultadosHeader">0</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Fila 2: Instructor y Coordinador -->
-        <div class="ficha-summary-middle">
-
-          <!-- NUEVO: Aprendiz Vocero -->
-          <div class="ficha-secondary-card ficha-secondary-vocero">
-            <div class="ficha-secondary-title">
-              <span class="ficha-secondary-icon">🗣️</span>
-              <span>Aprendiz Vocero</span>
-            </div>
-            <div class="ficha-secondary-value" id="aprendizVoceroHeader">-</div>
-          </div>
-
-          <!-- EXISTENTE: Instructor Gerente de Proyecto -->
-          <div class="ficha-secondary-card ficha-secondary-instructor">
-            <div class="ficha-secondary-title">
-              <span class="ficha-secondary-icon">👨‍🏫</span>
-              <span>Instructor Gerente de Proyecto</span>
-            </div>
-            <div class="ficha-secondary-value" id="instructorMasHorasHeader">-</div>
-          </div>
-
-          <!-- EXISTENTE: Coordinador Académico -->
-          <div class="ficha-secondary-card ficha-secondary-coordinador">
-            <div class="ficha-secondary-title">
-              <span class="ficha-secondary-icon">📋</span>
-              <span>Coordinador Académico</span>
-            </div>
-            <div class="ficha-secondary-value" id="coordinadorAcademicoHeader">-</div>
-          </div>
-
-        </div>
-
-      <!-- Fila 3: Análisis de rendimiento -->
-      <div class="ficha-analisis-card">
-        <div class="ficha-analisis-header">
-          <span class="ficha-analisis-icon">📊</span>
-          <span>ANÁLISIS DE RENDIMIENTO</span>
-        </div>
-
-        <div class="ficha-analisis-main">
-          <div class="ficha-analisis-circular-wrap">
-            <div class="ficha-analisis-circular" id="avancePromedioCircular">
-              <div class="ficha-analisis-circular-inner">
-                <span class="ficha-analisis-circular-title">Avance Promedio del Grupo</span>
-                <span class="ficha-analisis-circular-value" id="avancePromedioGrupoHeader">0 %</span>
-                <span class="ficha-analisis-circular-sub">Total competencias</span>
-              </div>
-            </div>
-          </div>
-          <div class="ficha-analisis-right">
-            <div class="ficha-analisis-summary-grid">
-              <div class="ficha-analisis-summary-card card-verde">
-                <span class="summary-title">Listos etapa productiva</span>
-                <span class="summary-value" id="numAprendicesListosProductivaHeader">0</span>
-                <span class="summary-note">Aprobados</span>
-              </div>
-              <div class="ficha-analisis-summary-card card-rojo">
-                <span class="summary-title">No listos etapa productiva</span>
-                <span class="summary-value" id="numAprendicesNoListosProductivaHeader">0</span>
-                <span class="summary-note">Requieren atención</span>
-              </div>
-            </div>
-            <div class="ficha-analisis-metricas-grid">
-            <div class="ficha-analisis-metrica">
-              <div class="ficha-analisis-metrica-header">
-                <span class="ficha-analisis-metrica-badge">🧠</span>
-                <span>Competencias sobrecargadas</span>
-              </div>
-              <div class="ficha-analisis-metrica-valor" id="numCompetenciasSobrecargadasHeader">0</div>
-              <div class="ficha-analisis-metrica-note">Competencias</div>
-            </div>
-            <div class="ficha-analisis-metrica">
-              <div class="ficha-analisis-metrica-header">
-                <span class="ficha-analisis-metrica-badge">🚫</span>
-                <span>Competencias NO aprobados</span>
-              </div>
-              <div class="ficha-analisis-metrica-valor" id="numCompetenciasNoAprobadasHeader">0</div>
-              <div class="ficha-analisis-metrica-note">Competencias</div>
-            </div>
-            <div class="ficha-analisis-metrica">
-              <div class="ficha-analisis-metrica-header">
-                <span class="ficha-analisis-metrica-badge">📉</span>
-                <span>Raps NO aprobados</span>
-              </div>
-                <div class="ficha-analisis-metrica-valor" id="numResultadosNoAprobadosHeader">0</div>
-                <div class="ficha-analisis-metrica-note">RAPs</div>
-              </div>
-              <div class="ficha-analisis-metrica">
-                <div class="ficha-analisis-metrica-header">
-                  <span class="ficha-analisis-metrica-badge">⚠️</span>
-                  <span>Total RAPs pendientes por evaluar(visto)</span>
-                </div>
-                <div class="ficha-analisis-metrica-valor" id="numRapsPendientesVistoHeader">0</div>
-                <div class="ficha-analisis-metrica-note">RAPs</div>
-              </div>
-            <div class="ficha-analisis-metrica">
-              <div class="ficha-analisis-metrica-header">
-                <span class="ficha-analisis-metrica-badge">👩‍🎓🚫</span>
-                <span>Aprendices con competencias NO aprobadas</span>
-              </div>
-              <div class="ficha-analisis-metrica-valor" id="numAprendicesConCompetenciasNoAprobadasHeader">0</div>
-              <div class="ficha-analisis-metrica-note">Aprendices</div>
-            </div>
-            <div class="ficha-analisis-metrica">
-                <div class="ficha-analisis-metrica-header">
-                  <span class="ficha-analisis-metrica-badge">🧾</span>
-                  <span>Aprendices con competencias por evaluar</span>
-                </div>
-                <div class="ficha-analisis-metrica-valor" id="numAprendicesConCompetenciasPorEvaluarHeader">0</div>
-              <div class="ficha-analisis-metrica-note">Aprendices</div>
-            </div>
-            <div class="ficha-analisis-metrica">
-              <div class="ficha-analisis-metrica-header">
-                <span class="ficha-analisis-metrica-badge">🚩</span>
-                <span>Aprendices con avance &lt; 75%</span>
-              </div>
-                <div class="ficha-analisis-metrica-valor" id="numAprendicesRiesgoHeader">0</div>
-                <div class="ficha-analisis-metrica-note">Aprendices</div>
-              </div>
-             
-            
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-
-
-      <!-- Tabla de Estado -->
-      <!-- Tarjeta Detalle de Aprendices -->
-      <div class="detalle-aprendices-card">
-        <div class="detalle-aprendices-card-header">
-          <div class="detalle-aprendices-title">
-            <span class="detalle-aprendices-icon">👥</span>
-            <span>Detalle de Aprendices</span>
-          </div>
-          <div class="detalle-aprendices-total">
-            <span>Total Aprendices Matriculados:</span>
-            <span id="totalAprendicesEstado">0</span>
-          </div>
-        </div>
-
-        <table id="tablaEstado">
-          <thead>
-            <tr>
-              <th>Estado</th>
-              <th>Aprendices (Nombres)</th>
-              <th>Cant.</th>
-              <th>%</th>
-            </tr>
-          </thead>
-          <tbody id="tbodyEstado"></tbody>
-        </table>
-      </div>
-
-      <!-- Gráfica Circular de Estados de Aprendices -->
-      <div class="estado-chart-card">
-        <h3 class="estado-chart-title">Distribución de Estados de Aprendices</h3>
-        <div class="estado-chart-wrapper">
-          <!-- Contenedor para CanvasJS -->
-          <div id="estadoChartContainer" style="height: 370px; width: 100%;"></div>
-        </div>
-      </div>
-
-
-    </div>
-
-
-
-
-
-  </div>
-    <!-- REPORTES EN PESTAÑAS -->
-    <div id="reportes" class="contenedor" style="display: none;">
-      <!-- Cabecera del acordeón -->
-      <button type="button" id="accordionReportesToggle" class="acordeon-header">
-        <span>📊 Reportes de la formacion</span>
-        <span id="accordionReportesIcon" class="acordeon-icon">▾</span>
-      </button>
-
-      <!-- Cuerpo del acordeón: aquí van las pestañas y todo su contenido -->
-      <div id="accordionReportesBody" class="acordeon-body">
-
-        <ul class="tabs">
-          <!-- REPORTE 1 – tab1 -->
-          <li>
-            <a href="#tab1" class="active">
-              <span class="tab-icon">👥</span>
-              <span class="tab-label">REPORTE 1</span>
-              <span class="tab-title">Instructores y Competencias</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 2 – tab2 -->
-          <li>
-            <a href="#tab2">
-              <span class="tab-icon">📊</span>
-              <span class="tab-label">REPORTE 2</span>
-              <span class="tab-title">% Competencias</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 3 – tab4 -->
-          <li>
-            <a href="#tab4">
-              <span class="tab-icon">📅</span>
-              <span class="tab-label">REPORTE 3</span>
-              <span class="tab-title">Competencias programadas</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 4 – tab5 -->
-          <li>
-            <a href="#tab5">
-              <span class="tab-icon">❗</span>
-              <span class="tab-label">REPORTE 4</span>
-              <span class="tab-title">Raps por evaluar</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 5 – tab6 -->
-          <li>
-            <a href="#tab6">
-              <span class="tab-icon">✅</span>
-              <span class="tab-label">REPORTE 5</span>
-              <span class="tab-title">Raps Aprobado / Por evaluar / No aprobado</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 6 – tab7 -->
-          <li>
-            <a href="#tab7">
-              <span class="tab-icon">📈</span>
-              <span class="tab-label">REPORTE 6</span>
-              <span class="tab-title">% Avance Aprendiz</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 7 – tab8 -->
-          <li>
-            <a href="#tab8">
-              <span class="tab-icon">👤</span>
-              <span class="tab-label">REPORTE 7</span>
-              <span class="tab-title">Aprendices pendientes por evaluar</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-
-          <!-- REPORTE 8 – tab3 -->
-          <li>
-            <a href="#tab3">
-              <span class="tab-icon">📡</span>
-              <span class="tab-label">REPORTE 8</span>
-              <span class="tab-title">Instructores</span>
-              <span class="tab-arrow"></span>
-            </a>
-          </li>
-        </ul>
-
-        <!-- TAB 1 -->
-        <div id="tab1" class="tab-content active">
-          <div id="reporte1">
-            <h2>Instructores y Competencias</h2>
-            <p class="descripcion-reporte">
+<input accept=".xls,.xlsx" id="excelFile2" type="file"/>
+<br/><br/>
+<button class="btnEstilo" disabled="" id="btnProcesar2">Procesar Archivo 2</button>
+<div class="mensaje-archivo" id="mensajeArchivo2"></div>
+<div class="error" id="mensajeError"></div>
+</div>
+<!-- ARCHIVO 3 -->
+<div id="sectionFile3" style="display: none;">
+<h2>Cargar Archivo de Horas Diseño (XLS/XLSX)</h2>
+<input accept=".xls,.xlsx" id="archivoDiseno" type="file"/>
+<br/><br/>
+<button class="btnEstilo" id="btnCargarDiseno">Procesar Archivo 3</button>
+<p class="nota-archivo"><em>Descargar desde: <a href="https://acortar.link/p1cWdD" rel="noopener noreferrer" target="_blank">https://acortar.link/p1cWdD</a></em></p>
+<div class="mensaje-archivo" id="mensajeArchivo3"></div>
+</div>
+</div>
+</div>
+<!-- ENCABEZADO DE LA FICHA (Se muestra después de File1) -->
+<div class="contenedor" id="headerInfo" style="display:none;">
+<!-- Cabecera del acordeón -->
+<button class="acordeon-header" id="accordionInfoToggle" type="button">
+<span>ℹ️ Información General de la Ficha</span>
+<span class="acordeon-icon" id="accordionInfoIcon">▾</span>
+</button>
+<!-- Cuerpo del acordeón: INICIA ABIERTO -->
+<div class="acordeon-body" id="accordionInfoBody">
+<!-- Tarjetas superiores: código ficha, nombre programa, código programa -->
+<div class="ficha-layout ficha-layout-sena">
+<section aria-label="Información General de la Ficha" class="ficha-panel">
+<div class="ficha-hero">
+<div class="ficha-hero-top">
+<div class="ficha-hero-kicker">
+<span class="icon" role="img" aria-label="Programa">🎓</span>
+<span>PROGRAMA DE FORMACIÓN</span>
+</div>
+<div class="ficha-mode-pill" title="Modalidad de formación">
+<span class="icon" role="img" aria-label="Modalidad">👥</span>
+<span id="modalidadFormacion">PRESENCIAL</span>
+</div>
+</div>
+<h3 class="ficha-hero-title" id="nombrePrograma"></h3>
+<div class="ficha-hero-divider" role="presentation"></div>
+<div class="ficha-hero-codes">
+<div class="ficha-code-card">
+<div class="ficha-code-icon" role="img" aria-label="Código ficha">📋</div>
+<div class="ficha-code-text">
+<div class="ficha-code-label">CÓDIGO FICHA</div>
+<div class="ficha-code-value" id="codigoFicha"></div>
+</div>
+</div>
+<div class="ficha-code-card">
+<div class="ficha-code-icon alt" role="img" aria-label="Código del programa">🔢</div>
+<div class="ficha-code-text">
+<div class="ficha-code-label">CÓDIGO DEL PROGRAMA</div>
+<div class="ficha-code-value" id="codigoPrograma"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ficha-panel-body">
+<div class="ficha-stages">
+<!-- ETAPA LECTIVA -->
+<article class="stage-card lectiva" style="--progress: 70%;">
+<header class="stage-header">
+<span class="stage-badge lectiva">
+<span class="icon" role="img" aria-label="Etapa lectiva">📚</span>
+              ETAPA LECTIVA
+            </span>
+<span class="stage-status on">En Curso</span>
+</header>
+<div class="stage-dates">
+<div class="stage-date-box">
+<span class="stage-date-label">Fecha Inicio</span>
+<span class="stage-date-value">
+<span class="icon" role="img" aria-label="Fecha">📅</span>
+<span id="fechaInicioLectiva"></span>
+</span>
+</div>
+<div class="stage-date-box">
+<span class="stage-date-label">Fecha Fin</span>
+<span class="stage-date-value">
+<span class="icon" role="img" aria-label="Fecha">📅</span>
+<span id="fechaFinLectiva"></span>
+</span>
+</div>
+</div>
+<div class="stage-progress">
+<div class="stage-progress-meta">
+<span class="stage-progress-label">TIEMPO RESTANTE</span>
+<span class="stage-progress-value green" id="tiempoRestanteLectiva">-</span>
+</div>
+<div class="stage-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+<div class="stage-progress-fill"></div>
+</div>
+</div>
+</article>
+<div class="stage-arrow" role="img" aria-label="Siguiente etapa">➜</div>
+<!-- ETAPA PRODUCTIVA -->
+<article class="stage-card productiva" style="--progress: 0%;">
+<header class="stage-header">
+<span class="stage-badge productiva">
+<span class="icon" role="img" aria-label="Etapa productiva">🧰</span>
+              ETAPA PRODUCTIVA
+            </span>
+<span class="stage-status">Pendiente</span>
+</header>
+<div class="stage-dates">
+<div class="stage-date-box">
+<span class="stage-date-label">Fecha Inicio</span>
+<span class="stage-date-value">
+<span class="icon" role="img" aria-label="Fecha">📅</span>
+<span id="fechaInicioProductiva"></span>
+</span>
+</div>
+<div class="stage-date-box">
+<span class="stage-date-label">Fecha Fin</span>
+<span class="stage-date-value">
+<span class="icon" role="img" aria-label="Fecha">📅</span>
+<span id="fechaFinProductiva"></span>
+</span>
+</div>
+</div>
+<div class="stage-progress">
+<div class="stage-progress-meta">
+<span class="stage-progress-label">TIEMPO RESTANTE</span>
+<span class="stage-progress-value orange" id="tiempoRestanteProductiva">-</span>
+</div>
+<div class="stage-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+<div class="stage-progress-fill"></div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+</div>
+<!-- Línea de tiempo compacta (debajo de fechas) -->
+<div class="timeline-card timeline-compact">
+<div class="timeline-header">
+<div class="timeline-title"><span class="icon">🕒</span>Cronograma de Formación</div>
+<div class="timeline-status" id="estadoEtapaMini">-</div>
+</div>
+<div class="timeline-track compact" id="timelineTrackMini">
+<div class="timeline-fill" id="timelineFillMini"></div>
+<div class="timeline-point" id="pMiniInicioLectiva"><span class="timeline-point-label">Inicio
+              Lectiva<br/><small id="dMiniInicioLectiva"></small></span></div>
+<div class="timeline-point alt" id="pMiniFinLectiva"><span class="timeline-point-label">Fin Lectiva<br/><small id="dMiniFinLectiva"></small></span></div>
+<div class="timeline-point" id="pMiniInicioProd"><span class="timeline-point-label">Inicia
+              Productiva<br/><small id="dMiniInicioProd"></small></span></div>
+<div class="timeline-point alt" id="pMiniFinProd"><span class="timeline-point-label">Fin Programa<br/><small id="dMiniFinProd"></small></span></div>
+<div class="timeline-point today" id="pMiniHoy"><span class="timeline-point-label">HOY<br/><small id="dMiniHoy"></small></span></div>
+</div>
+</div>
+<!-- Resumen numérico de la ficha -->
+<!-- Resumen numérico de la ficha -->
+<div class="ficha-summary-row">
+<!-- Fila 1: KPIs principales -->
+<div class="ficha-summary-top">
+<div class="ficha-kpi-card ficha-kpi-aprendices">
+<div class="ficha-kpi-icon">📋</div>
+<div class="ficha-kpi-info">
+<span class="ficha-kpi-label">APRENDICES MATRICULADOS</span>
+<span class="ficha-kpi-value" id="numMatriculadosHeader">0</span>
+</div>
+</div>
+<div class="ficha-kpi-card ficha-kpi-aprendices">
+<div class="ficha-kpi-icon">🎓</div>
+<div class="ficha-kpi-info">
+<span class="ficha-kpi-label">APRENDICES EN FORMACION</span>
+<span class="ficha-kpi-value" id="numAprendicesHeader">0</span>
+</div>
+</div>
+<div class="ficha-kpi-card ficha-kpi-instructores">
+<div class="ficha-kpi-icon">📡</div>
+<div class="ficha-kpi-info">
+<span class="ficha-kpi-label">INSTRUCTORES</span>
+<span class="ficha-kpi-value" id="numInstructoresHeader">0</span>
+</div>
+</div>
+<div class="ficha-kpi-card ficha-kpi-competencias">
+<div class="ficha-kpi-icon">🧩</div>
+<div class="ficha-kpi-info">
+<span class="ficha-kpi-label">COMPETENCIAS</span>
+<span class="ficha-kpi-value" id="numCompetenciasHeader">0</span>
+</div>
+</div>
+<!-- NUEVA TARJETA: Resultados de Aprendizaje -->
+<div class="ficha-kpi-card ficha-kpi-resultados">
+<div class="ficha-kpi-icon">📚</div>
+<div class="ficha-kpi-info">
+<span class="ficha-kpi-label">RESULTADOS DE APRENDIZAJE</span>
+<span class="ficha-kpi-value" id="numResultadosHeader">0</span>
+</div>
+</div>
+</div>
+<!-- Fila 2: Instructor y Coordinador -->
+<div class="ficha-summary-middle">
+<!-- NUEVO: Aprendiz Vocero -->
+<div class="ficha-secondary-card ficha-secondary-vocero">
+<div class="ficha-secondary-title">
+<span class="ficha-secondary-icon">🗣️</span>
+<span>Aprendiz Vocero</span>
+</div>
+<div class="ficha-secondary-value" id="aprendizVoceroHeader">-</div>
+</div>
+<!-- EXISTENTE: Instructor Gerente de Proyecto -->
+<div class="ficha-secondary-card ficha-secondary-instructor">
+<div class="ficha-secondary-title">
+<span class="ficha-secondary-icon">👨‍🏫</span>
+<span>Instructor Gerente de Proyecto</span>
+</div>
+<div class="ficha-secondary-value" id="instructorMasHorasHeader">-</div>
+</div>
+<!-- EXISTENTE: Coordinador Académico -->
+<div class="ficha-secondary-card ficha-secondary-coordinador">
+<div class="ficha-secondary-title">
+<span class="ficha-secondary-icon">📋</span>
+<span>Coordinador Académico</span>
+</div>
+<div class="ficha-secondary-value" id="coordinadorAcademicoHeader">-</div>
+</div>
+</div>
+<!-- Fila 3: Análisis de rendimiento -->
+<div class="ficha-analisis-card">
+<div class="ficha-analisis-header">
+<span class="ficha-analisis-icon">📊</span>
+<span>ANÁLISIS DE RENDIMIENTO</span>
+</div>
+<div class="ficha-analisis-main">
+<div class="ficha-analisis-circular-wrap">
+<div class="ficha-analisis-circular" id="avancePromedioCircular">
+<div class="ficha-analisis-circular-inner">
+<span class="ficha-analisis-circular-title">Avance Promedio del Grupo</span>
+<span class="ficha-analisis-circular-value" id="avancePromedioGrupoHeader">0 %</span>
+<span class="ficha-analisis-circular-sub">Total competencias</span>
+</div>
+</div>
+</div>
+<div class="ficha-analisis-right">
+<div class="ficha-analisis-summary-grid">
+<div class="ficha-analisis-summary-card card-verde">
+<span class="summary-title">Listos etapa productiva</span>
+<span class="summary-value" id="numAprendicesListosProductivaHeader">0</span>
+<span class="summary-note">Aprobados</span>
+</div>
+<div class="ficha-analisis-summary-card card-rojo">
+<span class="summary-title">No listos etapa productiva</span>
+<span class="summary-value" id="numAprendicesNoListosProductivaHeader">0</span>
+<span class="summary-note">Requieren atención</span>
+</div>
+</div>
+<div class="ficha-analisis-metricas-grid">
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">🧠</span>
+<span>Competencias sobrecargadas</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numCompetenciasSobrecargadasHeader">0</div>
+<div class="ficha-analisis-metrica-note">Competencias</div>
+</div>
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">🚫</span>
+<span>Competencias NO aprobados</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numCompetenciasNoAprobadasHeader">0</div>
+<div class="ficha-analisis-metrica-note">Competencias</div>
+</div>
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">📉</span>
+<span>Raps NO aprobados</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numResultadosNoAprobadosHeader">0</div>
+<div class="ficha-analisis-metrica-note">RAPs</div>
+</div>
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">⚠️</span>
+<span>Total RAPs pendientes por evaluar(visto)</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numRapsPendientesVistoHeader">0</div>
+<div class="ficha-analisis-metrica-note">RAPs</div>
+</div>
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">👩‍🎓🚫</span>
+<span>Aprendices con competencias NO aprobadas</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numAprendicesConCompetenciasNoAprobadasHeader">0</div>
+<div class="ficha-analisis-metrica-note">Aprendices</div>
+</div>
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">🧾</span>
+<span>Aprendices con competencias por evaluar</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numAprendicesConCompetenciasPorEvaluarHeader">0</div>
+<div class="ficha-analisis-metrica-note">Aprendices</div>
+</div>
+<div class="ficha-analisis-metrica">
+<div class="ficha-analisis-metrica-header">
+<span class="ficha-analisis-metrica-badge">🚩</span>
+<span>Aprendices con avance &lt; 75%</span>
+</div>
+<div class="ficha-analisis-metrica-valor" id="numAprendicesRiesgoHeader">0</div>
+<div class="ficha-analisis-metrica-note">Aprendices</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tabla de Estado -->
+<!-- Tarjeta Detalle de Aprendices -->
+<div class="detalle-aprendices-card">
+<div class="detalle-aprendices-card-header">
+<div class="detalle-aprendices-title">
+<span class="detalle-aprendices-icon">👥</span>
+<span>Detalle de Aprendices</span>
+</div>
+<div class="detalle-aprendices-total">
+<span>Total Aprendices Matriculados:</span>
+<span id="totalAprendicesEstado">0</span>
+</div>
+</div>
+<table id="tablaEstado">
+<thead>
+<tr>
+<th>Estado</th>
+<th>Aprendices (Nombres)</th>
+<th>Cant.</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody id="tbodyEstado"></tbody>
+</table>
+</div>
+<!-- Gráfica Circular de Estados de Aprendices -->
+<div class="estado-chart-card">
+<h3 class="estado-chart-title">Distribución de Estados de Aprendices</h3>
+<div class="estado-chart-wrapper">
+<!-- Contenedor para CanvasJS -->
+<div id="estadoChartContainer" style="height: 370px; width: 100%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- REPORTES EN PESTAÑAS -->
+<div class="contenedor" id="reportes" style="display: none;">
+<!-- Cabecera del acordeón -->
+<button class="acordeon-header" id="accordionReportesToggle" type="button">
+<span>📊 Reportes de la formacion</span>
+<span class="acordeon-icon" id="accordionReportesIcon">▾</span>
+</button>
+<!-- Cuerpo del acordeón: aquí van las pestañas y todo su contenido -->
+<div class="acordeon-body" id="accordionReportesBody">
+<ul class="tabs">
+<!-- REPORTE 1 – tab1 -->
+<li>
+<a class="active" href="#tab1">
+<span class="tab-icon">👥</span>
+<span class="tab-label">REPORTE 1</span>
+<span class="tab-title">Instructores y Competencias</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 2 – tab2 -->
+<li>
+<a href="#tab2">
+<span class="tab-icon">📊</span>
+<span class="tab-label">REPORTE 2</span>
+<span class="tab-title">% Competencias</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 3 – tab4 -->
+<li>
+<a href="#tab4">
+<span class="tab-icon">📅</span>
+<span class="tab-label">REPORTE 3</span>
+<span class="tab-title">Competencias programadas</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 4 – tab5 -->
+<li>
+<a href="#tab5">
+<span class="tab-icon">❗</span>
+<span class="tab-label">REPORTE 4</span>
+<span class="tab-title">Raps por evaluar</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 5 – tab6 -->
+<li>
+<a href="#tab6">
+<span class="tab-icon">✅</span>
+<span class="tab-label">REPORTE 5</span>
+<span class="tab-title">Raps Aprobado / Por evaluar / No aprobado</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 6 – tab7 -->
+<li>
+<a href="#tab7">
+<span class="tab-icon">📈</span>
+<span class="tab-label">REPORTE 6</span>
+<span class="tab-title">% Avance Aprendiz</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 7 – tab8 -->
+<li>
+<a href="#tab8">
+<span class="tab-icon">👤</span>
+<span class="tab-label">REPORTE 7</span>
+<span class="tab-title">Aprendices pendientes por evaluar</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+<!-- REPORTE 8 – tab3 -->
+<li>
+<a href="#tab3">
+<span class="tab-icon">📡</span>
+<span class="tab-label">REPORTE 8</span>
+<span class="tab-title">Instructores</span>
+<span class="tab-arrow"></span>
+</a>
+</li>
+</ul>
+<!-- TAB 1 -->
+<div class="tab-content active" id="tab1">
+<div id="reporte1">
+<h2>Instructores y Competencias</h2>
+<p class="descripcion-reporte">
               Presenta el detalle de cada competencia programada con su instructor y las horas asignadas.
               Permite identificar qué instructores atienden cada competencia y validar la distribución de la carga
               académica.
               Cuenta con barra de búsqueda y filtros por estado del instructor, tipo de competencia transversal,
               Tecnicas, Ingles para ubicar rápidamente la información.
             </p>
-
-            <!-- Filtros para Reporte 1 -->
-            <div class="filtros-reporte1">
-              <!-- 1. Caja de texto para buscar -->
-              <div class="filtro-busqueda-reporte1">
-                <span class="filtro-busqueda-icono">🔍</span>
-                <input type="text" id="busquedaReporte1" placeholder="Buscar instructor, competencia o ficha..." />
-              </div>
-
-              <!-- 2. Chips / checkboxes de categorías -->
-              <div class="filtros-categorias-reporte1">
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte1" data-cat="Transversales" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Transversales</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte1" data-cat="Técnicas" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Técnicas</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte1" data-cat="Inglés" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Inglés</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte1" data-cat="Práctica" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Práctica</span>
-                  </span>
-                </label>
-              </div>
-
-            <div class="filtros-colores-dias" data-table="tablaReporte1">
-              <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-              <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-            </div>
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#14b8a6;">
-                <span class="tabla-total-label">Total Horas programada</span>
-                <strong id="totalHorasProgramadasReporte1" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosReporte1" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-          </div>
-
-          <table id="tablaReporte1">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nombre Instructor</th>
-                  <th>Apellido Instructor</th>
-                  <th>Fecha de inicio</th>
-                  <th>Fecha fin</th>
-                  <th>Diferencia de Días</th>
-                  <th>Competencia</th>
-                  <th>Tipo</th>
-                  <th>Horas Programadas</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyReporte1"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- TAB 2 -->
-        <div id="tab2" class="tab-content">
-          <div id="reporte2">
-            <h2>% Competencias con Horas</h2>
-            <p class="descripcion-reporte">
+<!-- Filtros para Reporte 1 -->
+<div class="filtros-reporte1">
+<!-- 1. Caja de texto para buscar -->
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaReporte1" placeholder="Buscar instructor, competencia o ficha..." type="text"/>
+</div>
+<!-- 2. Chips / checkboxes de categorías -->
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte1" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte1" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte1" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte1" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+<div class="filtros-colores-dias" data-table="tablaReporte1">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#14b8a6;">
+<span class="tabla-total-label">Total Horas programada</span>
+<strong class="tabla-total-value" id="totalHorasProgramadasReporte1">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosReporte1">0</strong>
+</div>
+</div>
+</div>
+<table id="tablaReporte1">
+<thead>
+<tr>
+<th>#</th>
+<th>Nombre Instructor</th>
+<th>Apellido Instructor</th>
+<th>Fecha de inicio</th>
+<th>Fecha fin</th>
+<th>Diferencia de Días</th>
+<th>Competencia</th>
+<th>Tipo</th>
+<th>Horas Programadas</th>
+</tr>
+</thead>
+<tbody id="tbodyReporte1"></tbody>
+</table>
+</div>
+</div>
+<!-- TAB 2 -->
+<div class="tab-content" id="tab2">
+<div id="reporte2">
+<h2>% Competencias con Horas</h2>
+<p class="descripcion-reporte">
               Muestra, por competencia, las horas programadas frente a las horas de diseño curricular y el porcentaje de
               ejecución.
               Resalta las competencias que superan el diseño e incluye un cronograma Gantt con los meses de
@@ -4008,316 +4255,288 @@
               Cuenta con barra de búsqueda y filtros por tipo de competencia transversal, Tecnicas, Ingles para ubicar
               rápidamente la información.
             </p>
-
-            <!-- Nota sobre competencias que superan el diseño -->
-            <p id="notaCompetenciasHoras" style="display:none; font-size:0.9rem; color:#7f1d1d; margin:4px 0 8px 0;">
+<!-- Nota sobre competencias que superan el diseño -->
+<p id="notaCompetenciasHoras" style="display:none; font-size:0.9rem; color:#7f1d1d; margin:4px 0 8px 0;">
               Las competencias resaltadas en rojo es porque superaron la cantidad de horas
               establecidas en el diseño curricular, favor no programar más.
             </p>
-
-            <!-- Filtros para Reporte 2 (mismo diseño que Reporte 1) -->
-            <div class="filtros-reporte1 filtros-reporte2">
-              <!-- Caja de texto para buscar -->
-              <div class="filtro-busqueda-reporte1">
-                <span class="filtro-busqueda-icono">🔍</span>
-                <input type="text" id="busquedaReporte2" placeholder="Buscar competencia..." />
-              </div>
-
-              <!-- Chips / checkboxes de categorías -->
-              <div class="filtros-categorias-reporte1">
-                <label class="chip-reporte2 chip-tipo" data-tipo="Transversales">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Transversales</span>
-                </label>
-
-                <label class="chip-reporte2 chip-tipo" data-tipo="Técnicas">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Técnicas</span>
-                </label>
-
-                <label class="chip-reporte2 chip-tipo" data-tipo="Inglés">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Inglés</span>
-                </label>
-
-                <label class="chip-reporte2 chip-tipo" data-tipo="Práctica">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Práctica</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="filtros-colores-dias" data-table="tablaReporte2">
-              <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-              <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-              <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
-            </div>
-
-            <div class="mes-selector-wrap">
-            <div class="mes-selector-panel">
-              <span class="mes-selector-icon">Mes</span>
-                <span>Filtrar por mes de formación</span>
-                <select id="mesSelectReporte2">
-                  <option value="ALL">Periodo completo</option>
-                </select>
-              </div>
-            </div>
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
-                <span class="tabla-total-label">Total Horas</span>
-                <strong id="totalHorasReporte2" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
-                <span class="tabla-total-label">Total Horas diseño</span>
-                <strong id="totalHorasDisenoReporte2" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#2563eb;">
-                <span class="tabla-total-label">Total %</span>
-                <strong id="totalPorcentajeReporte2" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#6366f1;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosReporte2" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-
-            <table id="tablaReporte2">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Competencia</th>
-                  <th>Tipo</th>
-                  <th>Fecha de inicio</th>
-                  <th>Fecha fin</th>
-                  <th>Diferencia de Días</th>
-                  <th>Total de Horas</th>
-                  <th>Horas Diseño</th>
-                  <th>%</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyReporte2"></tbody>
-              <tfoot id="tfootReporte2"></tfoot>
-            </table>
-
-            <!-- Gráfica -->
-            <h3>% Competencias con Horas (Total vs Diseño)</h3>
-
-            <div class="chart-container">
-              <div id="chartCompetenciasHorasContainer" style="width: 100%;"></div>
-            </div>
-
-            <!-- Gantt en contenedor independiente -->
-            <div class="detalle-gantt-card">
-              <h3>Cronograma Gantt Detallado</h3>
-              <div class="detalle-gantt-controls">
-                <div class="detalle-gantt-search">
-                  <span class="icono-buscar">🔎</span>
-                  <input type="text" id="ganttSearchInput" placeholder="Buscar competencia o instructor..." />
-                </div>
-                <div class="detalle-gantt-filtros">
-                    <button type="button" class="gantt-filter-button active" data-target="detalle" data-cat="transversales">
+<!-- Filtros para Reporte 2 (mismo diseño que Reporte 1) -->
+<div class="filtros-reporte1 filtros-reporte2">
+<!-- Caja de texto para buscar -->
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaReporte2" placeholder="Buscar competencia..." type="text"/>
+</div>
+<!-- Chips / checkboxes de categorías -->
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte2 chip-tipo" data-tipo="Transversales">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</label>
+<label class="chip-reporte2 chip-tipo" data-tipo="Técnicas">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</label>
+<label class="chip-reporte2 chip-tipo" data-tipo="Inglés">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</label>
+<label class="chip-reporte2 chip-tipo" data-tipo="Práctica">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</label>
+</div>
+</div>
+<div class="filtros-colores-dias" data-table="tablaReporte2">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+<button class="btn-filtro-dias btn-morado" data-color="pendiente" type="button">Pendiente</button>
+</div>
+<div class="mes-selector-wrap">
+<div class="mes-selector-panel">
+<span class="mes-selector-icon">Mes</span>
+<span>Filtrar por mes de formación</span>
+<select id="mesSelectReporte2">
+<option value="ALL">Periodo completo</option>
+</select>
+</div>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
+<span class="tabla-total-label">Total Horas</span>
+<strong class="tabla-total-value" id="totalHorasReporte2">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
+<span class="tabla-total-label">Total Horas diseño</span>
+<strong class="tabla-total-value" id="totalHorasDisenoReporte2">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#2563eb;">
+<span class="tabla-total-label">Total %</span>
+<strong class="tabla-total-value" id="totalPorcentajeReporte2">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#6366f1;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosReporte2">0</strong>
+</div>
+</div>
+<table id="tablaReporte2">
+<thead>
+<tr>
+<th>#</th>
+<th>Competencia</th>
+<th>Tipo</th>
+<th>Fecha de inicio</th>
+<th>Fecha fin</th>
+<th>Diferencia de Días</th>
+<th>Total de Horas</th>
+<th>Horas Diseño</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody id="tbodyReporte2"></tbody>
+<tfoot id="tfootReporte2"></tfoot>
+</table>
+<!-- Gráfica -->
+<h3>% Competencias con Horas (Total vs Diseño)</h3>
+<div class="chart-container">
+<div id="chartCompetenciasHorasContainer" style="width: 100%;"></div>
+</div>
+<!-- Gantt en contenedor independiente -->
+<div class="detalle-gantt-card">
+<h3>Cronograma Gantt Detallado</h3>
+<div class="detalle-gantt-controls">
+<div class="detalle-gantt-search">
+<span class="icono-buscar">🔎</span>
+<input id="ganttSearchInput" placeholder="Buscar competencia o instructor..." type="text"/>
+</div>
+<div class="detalle-gantt-filtros">
+<button class="gantt-filter-button active" data-cat="transversales" data-target="detalle" type="button">
                       Transversales
                     </button>
-                    <button type="button" class="gantt-filter-button active" data-target="detalle" data-cat="tecnicas">
+<button class="gantt-filter-button active" data-cat="tecnicas" data-target="detalle" type="button">
                       Técnicas
                     </button>
-                    <button type="button" class="gantt-filter-button active" data-target="detalle" data-cat="ingles">
+<button class="gantt-filter-button active" data-cat="ingles" data-target="detalle" type="button">
                       Inglés
                     </button>
-                    <button type="button" class="gantt-filter-button active" data-target="detalle" data-cat="practica">
+<button class="gantt-filter-button active" data-cat="practica" data-target="detalle" type="button">
                       Práctica
                     </button>
-                </div>
-              </div>
-              <div id="anychartGanttContainer" class="detalle-gantt-container"></div>
-            </div>
-
-
-          </div>
-        </div>
-
-        <!-- TAB 3 -->
-        <div id="tab3" class="tab-content">
-          <div id="reporte3">
-            <h2>Listado de Instructores (Total de Horas Programadas)</h2>
-            <p class="descripcion-reporte">
+</div>
+</div>
+<div class="detalle-gantt-container" id="anychartGanttContainer"></div>
+</div>
+</div>
+</div>
+<!-- TAB 3 -->
+<div class="tab-content" id="tab3">
+<div id="reporte3">
+<h2>Listado de Instructores (Total de Horas Programadas)</h2>
+<p class="descripcion-reporte">
               Lista todos los instructores del programa con el total de horas programadas y un gráfico de barras que
               resume la distribución de la carga.
               Permite detectar sobrecargas o brechas de asignación.
               Cuenta con barra de búsqueda y filtros por instructor, ficha y tipo de competencia.
             </p>
-            <!-- Barra de búsqueda para el listado de instructores -->
-          <div class="filtros-reporte1">
-            <div class="filtro-busqueda-reporte1">
-              <span class="filtro-busqueda-icono">🔍</span>
-              <input type="text" id="busquedaInstructoresHoras" placeholder="Buscar instructor..." />
-            </div>
-            <div class="filtros-categorias-reporte1">
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte3" data-cat="Transversales" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Transversales</span>
-                </span>
-              </label>
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte3" data-cat="Técnicas" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Técnicas</span>
-                </span>
-              </label>
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte3" data-cat="Inglés" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Inglés</span>
-                </span>
-              </label>
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte3" data-cat="Práctica" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Práctica</span>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <div class="filtros-colores-dias" data-table="tablaInstructoresHoras">
-            <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-            <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-          </div>
-
-          <div class="mes-selector-wrap">
-          <div class="mes-selector-panel">
-            <span class="mes-selector-icon">Mes</span>
-            <span>Filtrar por mes de formación</span>
-            <select id="mesSelectReporte3">
-              <option value="ALL">Periodo completo</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="tabla-total">
-          <div class="tabla-total-card" style="--tabla-total-accent:#0ea5e9;">
-            <span class="tabla-total-label">Total Horas programadas</span>
-            <strong id="totalHorasReporte3" class="tabla-total-value">0</strong>
-          </div>
-          <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-            <span class="tabla-total-label">Cantidad registros</span>
-            <strong id="totalRegistrosReporte3" class="tabla-total-value">0</strong>
-          </div>
-        </div>
-
-        <table id="tablaInstructoresHoras">
-          <thead>
-            <tr>
-              <th>#</th>
-                <th>Nombre Instructor</th>
-                <th>Apellido Instructor</th>
-                <th>Tipo</th>
-                <th>Fecha de inicio</th>
-                <th>Fecha fin</th>
-                <th>Diferencia de Días</th>
-                <th>Horas Programadas</th>
-              </tr>
-            </thead>
-            <tbody id="tbodyReporte3"></tbody>
-            <tfoot id="tfootReporte3"></tfoot>
-          </table>
-
-            <!-- Contenedor del gráfico, ocupando el 100% del TAB -->
-            <div class="chart-container">
-              <h3 style="margin: 0 0 12px 0;">
+<!-- Barra de búsqueda para el listado de instructores -->
+<div class="filtros-reporte1">
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaInstructoresHoras" placeholder="Buscar instructor..." type="text"/>
+</div>
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte3" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte3" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte3" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte3" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+</div>
+<div class="filtros-colores-dias" data-table="tablaInstructoresHoras">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+</div>
+<div class="mes-selector-wrap">
+<div class="mes-selector-panel">
+<span class="mes-selector-icon">Mes</span>
+<span>Filtrar por mes de formación</span>
+<select id="mesSelectReporte3">
+<option value="ALL">Periodo completo</option>
+</select>
+</div>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#0ea5e9;">
+<span class="tabla-total-label">Total Horas programadas</span>
+<strong class="tabla-total-value" id="totalHorasReporte3">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosReporte3">0</strong>
+</div>
+</div>
+<table id="tablaInstructoresHoras">
+<thead>
+<tr>
+<th>#</th>
+<th>Nombre Instructor</th>
+<th>Apellido Instructor</th>
+<th>Tipo</th>
+<th>Fecha de inicio</th>
+<th>Fecha fin</th>
+<th>Diferencia de Días</th>
+<th>Horas Programadas</th>
+</tr>
+</thead>
+<tbody id="tbodyReporte3"></tbody>
+<tfoot id="tfootReporte3"></tfoot>
+</table>
+<!-- Contenedor del gráfico, ocupando el 100% del TAB -->
+<div class="chart-container">
+<h3 style="margin: 0 0 12px 0;">
                 Total de Horas Programadas por Instructor
               </h3>
-              <div id="chartInstructoresHorasContainer" style="width: 100%;"></div>
-            </div>
-          </div>
-
-
-
-          <!-- Listado de Instructores con aprendices pendientes por emitir Juicio -->
-          <div id="listado-instructores-pendientes-juicio" class="reporte-exportable">
-          <h3 id="tituloListadoPendientesR8" style="margin-top: 8px;">
+<div id="chartInstructoresHorasContainer" style="width: 100%;"></div>
+</div>
+</div>
+<!-- Listado de Instructores con aprendices pendientes por emitir Juicio -->
+<div class="reporte-exportable" id="listado-instructores-pendientes-juicio">
+<h3 id="tituloListadoPendientesR8" style="margin-top: 8px;">
             Listado de Instructores Aprendices pendientes por emitir Juicio
           </h3>
-
-          <!-- Barra de búsqueda para pendientes por emitir juicio -->
-          <div class="filtros-reporte1">
-            <div class="filtro-busqueda-reporte1">
-              <span class="filtro-busqueda-icono">🔍</span>
-              <input type="text" id="busquedaPendientesJuicio"
-                placeholder="Buscar instructor, competencia o aprendiz..." />
-            </div>
-            <div class="filtros-categorias-reporte1">
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-pendientes-juicio" data-cat="Transversales" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Transversales</span>
-                </span>
-              </label>
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-pendientes-juicio" data-cat="Técnicas" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Técnicas</span>
-                </span>
-              </label>
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-pendientes-juicio" data-cat="Inglés" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Inglés</span>
-                </span>
-              </label>
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-pendientes-juicio" data-cat="Práctica" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Práctica</span>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <div class="filtros-colores-dias" data-table="tablaPendientesInstructorReporte8">
-            <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-            <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-          </div>
-
-          <div class="tabla-total">
-            <div class="tabla-total-card" style="--tabla-total-accent:#14b8a6;">
-              <span class="tabla-total-label">Total cantidad de aprendices</span>
-              <strong id="totalAprendicesPendientesReporte8" class="tabla-total-value">0</strong>
-            </div>
-          </div>
-
-          <table id="tablaPendientesInstructorReporte8">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Nombre instructor o instructores programados</th>
-              <th>Competencia</th>
-              <th>Tipo</th>
-              <th>Fecha de inicio</th>
-              <th>Fecha Terminación</th>
-              <th>Dias</th>
-              <th>Nombre aprendices</th>
-              <th>Cantidad de Aprendices</th>
-            </tr>
-          </thead>
-            <tbody id="tbodyPendientesInstructorReporte8"></tbody>
-          </table>
-          </div>
-        </div>
-        <!-- TAB 4 -->
-        <div id="tab4" class="tab-content">
-          <div id="reporte4">
-            <h2>Competencias del Programa (Programada: Sí/No)</h2>
-            <p class="descripcion-reporte">
+<!-- Barra de búsqueda para pendientes por emitir juicio -->
+<div class="filtros-reporte1">
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaPendientesJuicio" placeholder="Buscar instructor, competencia o aprendiz..." type="text"/>
+</div>
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-pendientes-juicio" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-pendientes-juicio" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-pendientes-juicio" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-pendientes-juicio" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+</div>
+<div class="filtros-colores-dias" data-table="tablaPendientesInstructorReporte8">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#14b8a6;">
+<span class="tabla-total-label">Total cantidad de aprendices</span>
+<strong class="tabla-total-value" id="totalAprendicesPendientesReporte8">0</strong>
+</div>
+</div>
+<table id="tablaPendientesInstructorReporte8">
+<thead>
+<tr>
+<th>#</th>
+<th>Nombre instructor o instructores programados</th>
+<th>Competencia</th>
+<th>Tipo</th>
+<th>Fecha de inicio</th>
+<th>Fecha Terminación</th>
+<th>Dias</th>
+<th>Nombre aprendices</th>
+<th>Cantidad de Aprendices</th>
+</tr>
+</thead>
+<tbody id="tbodyPendientesInstructorReporte8"></tbody>
+</table>
+</div>
+</div>
+<!-- TAB 4 -->
+<div class="tab-content" id="tab4">
+<div id="reporte4">
+<h2>Competencias del Programa (Programada: Sí/No)</h2>
+<p class="descripcion-reporte">
               Muestra todas las competencias del programa indicando si están programadas o no (Sí/No), integrando la
               lógica de programación, diseño y asignación a instructores.
               Permite visualizar en conjunto la cobertura del plan de estudios y su programación en el tiempo mediante
@@ -4330,113 +4549,103 @@
               aparecera con 1/2 lo cual significa que falta programar la competencia de DE PROTECCIÓN AMBIENTAL o
               SEGURIDAD Y SALUD EN EL TRABAJO
             </p>
-              <!-- Filtros para Reporte 4 (mismo diseño verde) -->
-              <div class="filtros-reporte1 filtros-reporte4">
-                <!-- Caja de texto para buscar -->
-                <div class="filtro-busqueda-reporte1">
-                  <span class="filtro-busqueda-icono">🔍</span>
-                  <input type="text" id="busquedaReporte4" placeholder="Buscar competencia..." />
-                </div>
-
-                <!-- Chips / checkboxes de categorías -->
-                <div class="filtros-categorias-reporte1">
-                  <label class="chip-reporte1">
-                    <input type="checkbox" class="chk-cat-reporte4" data-cat="Transversales" checked />
-                    <span class="chip-reporte1-inner">
-                      <span class="chip-check">✔</span>
-                      <span class="chip-text">Transversales</span>
-                    </span>
-                  </label>
-
-                  <label class="chip-reporte1">
-                    <input type="checkbox" class="chk-cat-reporte4" data-cat="Técnicas" checked />
-                    <span class="chip-reporte1-inner">
-                      <span class="chip-check">✔</span>
-                      <span class="chip-text">Técnicas</span>
-                    </span>
-                  </label>
-
-                  <label class="chip-reporte1">
-                    <input type="checkbox" class="chk-cat-reporte4" data-cat="Inglés" checked />
-                    <span class="chip-reporte1-inner">
-                      <span class="chip-check">✔</span>
-                      <span class="chip-text">Inglés</span>
-                    </span>
-                  </label>
-
-                  <label class="chip-reporte1">
-                    <input type="checkbox" class="chk-cat-reporte4" data-cat="Práctica" checked />
-                    <span class="chip-reporte1-inner">
-                      <span class="chip-check">✔</span>
-                      <span class="chip-text">Práctica</span>
-                    </span>
-                  </label>
-                </div>
-
-              <div class="filtros-colores-dias" data-table="tablaReporte4">
-                <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-                <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-                <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
-              </div>
-            </div>
-
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosReporte4" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-
-            <table id="tablaReporte4">
-              <thead>
-                <tr>
-                  <th>#</th>
-                    <th>Competencia</th>
-                    <th>Tipo</th>
-                    <th>Fecha de inicio</th>
-                    <th>Fecha fin</th>
-                    <th>Diferencia de Días</th>
-                    <th>Programada</th>
-                  </tr>
-                </thead>
-                <tbody id="tbodyReporte4"></tbody>
-              </table>
-
-             <div class="detalle-gantt-card">
-                <h3>Cronograma Gantt de Competencias (Pendientes)</h3>
-                <div class="detalle-gantt-controls">
-                  <div class="detalle-gantt-search">
-                    <span class="icono-buscar">🔍</span>
-                    <input type="text" id="ganttPendientesSearchInput" placeholder="Buscar competencia pendiente..." />
-                  </div>
-                  <div class="detalle-gantt-filtros">
-                    <button type="button" class="gantt-filter-button active" data-target="pendientes" data-cat="transversales">
+<!-- Filtros para Reporte 4 (mismo diseño verde) -->
+<div class="filtros-reporte1 filtros-reporte4">
+<!-- Caja de texto para buscar -->
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaReporte4" placeholder="Buscar competencia..." type="text"/>
+</div>
+<!-- Chips / checkboxes de categorías -->
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte4" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte4" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte4" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte4" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+<div class="filtros-colores-dias" data-table="tablaReporte4">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+<button class="btn-filtro-dias btn-morado" data-color="pendiente" type="button">Pendiente</button>
+</div>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosReporte4">0</strong>
+</div>
+</div>
+<table id="tablaReporte4">
+<thead>
+<tr>
+<th>#</th>
+<th>Competencia</th>
+<th>Tipo</th>
+<th>Fecha de inicio</th>
+<th>Fecha fin</th>
+<th>Diferencia de Días</th>
+<th>Programada</th>
+</tr>
+</thead>
+<tbody id="tbodyReporte4"></tbody>
+</table>
+<div class="detalle-gantt-card">
+<h3>Cronograma Gantt de Competencias (Pendientes)</h3>
+<div class="detalle-gantt-controls">
+<div class="detalle-gantt-search">
+<span class="icono-buscar">🔍</span>
+<input id="ganttPendientesSearchInput" placeholder="Buscar competencia pendiente..." type="text"/>
+</div>
+<div class="detalle-gantt-filtros">
+<button class="gantt-filter-button active" data-cat="transversales" data-target="pendientes" type="button">
                       Transversales
                     </button>
-                    <button type="button" class="gantt-filter-button active" data-target="pendientes" data-cat="tecnicas">
+<button class="gantt-filter-button active" data-cat="tecnicas" data-target="pendientes" type="button">
                       Técnicas
                     </button>
-                    <button type="button" class="gantt-filter-button active" data-target="pendientes" data-cat="ingles">
+<button class="gantt-filter-button active" data-cat="ingles" data-target="pendientes" type="button">
                       Inglés
                     </button>
-                    <button type="button" class="gantt-filter-button active" data-target="pendientes" data-cat="practica">
+<button class="gantt-filter-button active" data-cat="practica" data-target="pendientes" type="button">
                       Práctica
                     </button>
-                  </div>
-                </div>
-                <div id="ganttContainerPendientes" class="detalle-gantt-container"></div>
-              </div>
-          </div>
-        </div>
-
-
-        <!-- TAB 5 -->
-        <div id="tab5" class="tab-content">
-          <div id="reporte5">
-            <h2>
+</div>
+</div>
+<div class="detalle-gantt-container" id="ganttContainerPendientes"></div>
+</div>
+</div>
+</div>
+<!-- TAB 5 -->
+<div class="tab-content" id="tab5">
+<div id="reporte5">
+<h2>
               Raps por evaluar
                </h2>
-            <p class="descripcion-reporte">
+<p class="descripcion-reporte">
               Presenta los resultados de aprendizaje (RAPs) pendientes de evaluación, diferenciando entre competencias
               ya programadas y competencias aún no vistas.
               Permite identificar rápidamente qué RAPs, competencias y aprendices requieren registro de juicios
@@ -4444,90 +4653,83 @@
               Cuenta con barra de búsqueda y filtros por tipo de competencia transversal, Tecnicas, Ingles para ubicar
               rápidamente la información.
             </p>
-                        <!-- Filtros para Competencias ya programadas (mismo diseño verde) -->
-          <div class="filtros-reporte1 filtros-reporte5-programadas">
-            <!-- Caja de texto para buscar -->
-            <div class="filtro-busqueda-reporte1">
-              <span class="filtro-busqueda-icono">🔍</span>
-              <input type="text" id="busquedaProgramadas" placeholder="Buscar competencia, RAP o aprendiz." />
-            </div>
-
-            <!-- Chips / checkboxes de categorías -->
-            <div class="filtros-categorias-reporte1">
-                  <label class="chip-reporte1">
-                    <input type="checkbox" class="chk-cat-programadas" data-cat="Transversales" checked />
-                    <span class="chip-reporte1-inner">
-                      <span class="chip-check">✔</span>
-                      <span class="chip-text">Transversales</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-programadas" data-cat="Técnicas" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Técnicas</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-programadas" data-cat="Inglés" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Inglés</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                    <input type="checkbox" class="chk-cat-programadas" data-cat="Práctica" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Práctica</span>
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <div class="filtros-colores-dias" data-table="tablaProgramadas">
-              <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-              <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-              <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
-            </div>
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#a855f7;">
-                <span class="tabla-total-label">Total Cantidad de aprendices</span>
-                <strong id="totalCantAprendicesProgramadas" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosProgramadas" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-
-              <table id="tablaProgramadas">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Competencia</th>
-                    <th>Tipo</th>
-                    <th>Fecha de inicio</th>
-                    <th>Fecha Terminación</th>
-                    <th>Dias</th>
-                    <th>RAP</th>
-                    <th>Aprendices</th>
-                    <th>Cantidad de Aprendices</th>
-                  </tr>
-                </thead>
-                <tbody id="tbodyProgramadas"></tbody>
-              </table>
-
-          </div>
-        </div>
-        <!-- TAB 6 -->
-        <div id="tab6" class="tab-content">
-          <div id="reporte6">
-            <h2>Raps Aprobados - Por evaluar y No aprobados</h2>
-            <p class="descripcion-reporte">
+<!-- Filtros para Competencias ya programadas (mismo diseño verde) -->
+<div class="filtros-reporte1 filtros-reporte5-programadas">
+<!-- Caja de texto para buscar -->
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaProgramadas" placeholder="Buscar competencia, RAP o aprendiz." type="text"/>
+</div>
+<!-- Chips / checkboxes de categorías -->
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-programadas" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-programadas" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-programadas" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-programadas" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+</div>
+<div class="filtros-colores-dias" data-table="tablaProgramadas">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+<button class="btn-filtro-dias btn-morado" data-color="pendiente" type="button">Pendiente</button>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#a855f7;">
+<span class="tabla-total-label">Total Cantidad de aprendices</span>
+<strong class="tabla-total-value" id="totalCantAprendicesProgramadas">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosProgramadas">0</strong>
+</div>
+</div>
+<table id="tablaProgramadas">
+<thead>
+<tr>
+<th>#</th>
+<th>Competencia</th>
+<th>Tipo</th>
+<th>Fecha de inicio</th>
+<th>Fecha Terminación</th>
+<th>Dias</th>
+<th>RAP</th>
+<th>Aprendices</th>
+<th>Cantidad de Aprendices</th>
+</tr>
+</thead>
+<tbody id="tbodyProgramadas"></tbody>
+</table>
+</div>
+</div>
+<!-- TAB 6 -->
+<div class="tab-content" id="tab6">
+<div id="reporte6">
+<h2>Raps Aprobados - Por evaluar y No aprobados</h2>
+<p class="descripcion-reporte">
               Resume el estado de los RAPs por competencia (Aprobado, Por evaluar, No aprobado) e incluye el nombre del
               funcionario o instructor que registró la evaluación.
 
@@ -4538,196 +4740,177 @@
               Cuenta con barra de búsqueda y filtros por tipo de competencia transversal, Tecnicas, Ingles para ubicar
               rápidamente la información.
             </p>
-
-            <!-- Filtros para Reporte 6 (mismo diseño que Reporte 1) -->
-            <div class="filtros-reporte1 filtros-reporte6">
-              <!-- Caja de texto para buscar -->
-              <div class="filtro-busqueda-reporte1">
-                <span class="filtro-busqueda-icono">🔍</span>
-                <input type="text" id="busquedaReporte6" placeholder="Buscar competencia, RAP o funcionario..." />
-              </div>
-
-              <!-- Chips / checkboxes de categorías -->
-              <div class="filtros-categorias-reporte1">
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte6" data-cat="Transversales" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Transversales</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte6" data-cat="Técnicas" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Técnicas</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte6" data-cat="Inglés" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Inglés</span>
-                  </span>
-                </label>
-
-                <label class="chip-reporte1">
-                  <input type="checkbox" class="chk-cat-reporte6" data-cat="Práctica" checked />
-                  <span class="chip-reporte1-inner">
-                    <span class="chip-check">✔</span>
-                    <span class="chip-text">Práctica</span>
-                  </span>
-                </label>
-                              </div>
-            </div>
-
-            <div class="filtros-colores-dias" data-table="tablaReporte6">
-              <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-              <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-              <button type="button" class="btn-filtro-dias btn-morado" data-color="pendiente">Pendiente</button>
-              <button type="button" class="btn-filtro-dias btn-negro" data-color="no-aprobado">No aprobado</button>
-              <div class="filtros-raps-botones">
-                <label class="chip-reporte1 chip-raps-btn chip-amarillo">
-                  <input type="checkbox" id="chkSoloRapsOtro" />
-           <span class="chip-text">Raps Aprobados por otro Instructor</span>
-
-                </label>
-
-                <label class="chip-reporte1 chip-raps-btn chip-naranja">
-                  <input type="checkbox" id="chkSoloRapsNoProgramados" />
-                 <span class="chip-text">Raps Aprobados y no programados</span>
-
-                </label>
-              </div>
-            </div>
-
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
-                <span class="tabla-total-label">Total Aprobado</span>
-                <strong id="totalAprobadoReporte6" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
-                <span class="tabla-total-label">Total Por evaluar</span>
-                <strong id="totalPorEvaluarReporte6" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#ef4444;">
-                <span class="tabla-total-label">Total No aprobado</span>
-                <strong id="totalNoAprobadoReporte6" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosReporte6" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-
-            <p id="notaCompetenciasHoras" style="display:none; font-size:0.9rem; color:#7f1d1d; margin:4px 0 8px 0;">
+<!-- Filtros para Reporte 6 (mismo diseño que Reporte 1) -->
+<div class="filtros-reporte1 filtros-reporte6">
+<!-- Caja de texto para buscar -->
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaReporte6" placeholder="Buscar competencia, RAP o funcionario..." type="text"/>
+</div>
+<!-- Chips / checkboxes de categorías -->
+<div class="filtros-categorias-reporte1">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte6" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte6" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte6" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte6" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+</div>
+<div class="filtros-colores-dias" data-table="tablaReporte6">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+<button class="btn-filtro-dias btn-morado" data-color="pendiente" type="button">Pendiente</button>
+<button class="btn-filtro-dias btn-negro" data-color="no-aprobado" type="button">No aprobado</button>
+<div class="filtros-raps-botones">
+<label class="chip-reporte1 chip-raps-btn chip-amarillo">
+<input id="chkSoloRapsOtro" type="checkbox"/>
+<span class="chip-text">Raps Aprobados por otro Instructor</span>
+</label>
+<label class="chip-reporte1 chip-raps-btn chip-naranja">
+<input id="chkSoloRapsNoProgramados" type="checkbox"/>
+<span class="chip-text">Raps Aprobados y no programados</span>
+</label>
+</div>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
+<span class="tabla-total-label">Total Aprobado</span>
+<strong class="tabla-total-value" id="totalAprobadoReporte6">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
+<span class="tabla-total-label">Total Por evaluar</span>
+<strong class="tabla-total-value" id="totalPorEvaluarReporte6">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#ef4444;">
+<span class="tabla-total-label">Total No aprobado</span>
+<strong class="tabla-total-value" id="totalNoAprobadoReporte6">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosReporte6">0</strong>
+</div>
+</div>
+<p id="notaCompetenciasHoras" style="display:none; font-size:0.9rem; color:#7f1d1d; margin:4px 0 8px 0;">
               Las filas resaltadas en amarillo son instructores que evaluaron la competencia al aprendiz sin estar
               programado en la misma.
             </p>
-
-            <table id="tablaReporte6">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Competencia</th>
-                  <th>Tipo</th>
-                  <th>Fecha de inicio</th>
-                  <th>Fecha fin</th>
-                  <th>Diferencia de Días</th>
-                  <th>RAP</th>
-                  <th>Funcionario que evaluó</th>
-                  <th>APROBADO</th>
-                  <th>POR EVALUAR</th>
-                  <th>NO APROBADO</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyReporte6"></tbody>
-            </table>
-          </div>
-
-        </div>
-        <!-- TAB 7 -->
-        <div id="tab7" class="tab-content">
-          <div id="reporte7">
-            <h2>% Avance por Aprendiz</h2>
-            <p class="descripcion-reporte">
+<table id="tablaReporte6">
+<thead>
+<tr>
+<th>#</th>
+<th>Competencia</th>
+<th>Tipo</th>
+<th>Fecha de inicio</th>
+<th>Fecha fin</th>
+<th>Diferencia de Días</th>
+<th>RAP</th>
+<th>Funcionario que evaluó</th>
+<th>APROBADO</th>
+<th>POR EVALUAR</th>
+<th>NO APROBADO</th>
+</tr>
+</thead>
+<tbody id="tbodyReporte6"></tbody>
+</table>
+</div>
+</div>
+<!-- TAB 7 -->
+<div class="tab-content" id="tab7">
+<div id="reporte7">
+<h2>% Avance por Aprendiz</h2>
+<p class="descripcion-reporte">
               Muestra, por aprendiz, el porcentaje de avance global en las competencias e integra el consolidado de
               inasistencias cuando se carga el archivo de fallas.
               Permite identificar riesgos académicos combinando avance y fallas.
               Cuenta con barra de búsqueda y filtros por aprendiz, ficha, rangos de avance y condiciones de riesgo.
             </p>
-
-            <!-- Carga del consolidado de inasistencias -->
-            <div id="sectionFallas" style="margin: 10px 0 15px 0;">
-              <label for="excelFallas" style="font-weight: 500; display:block; margin-bottom:6px;">
+<!-- Carga del consolidado de inasistencias -->
+<div id="sectionFallas" style="margin: 10px 0 15px 0;">
+<label for="excelFallas" style="font-weight: 500; display:block; margin-bottom:6px;">
                 Cargar consolidado de inasistencias (XLS/XLSX)
               </label>
-              <p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular) › Gestion de
+<p class="nota-archivo"><em>Obtener en Sofia Plus: Rol (Gestion de Desarrollo Curricular) › Gestion de
                   Tiempos › Consultar consolidado de tiempos › Consolidado Inasistencias por Ficha</em></p>
-              <input type="file" id="excelFallas" accept=".xls,xlsx" />
-              <button id="btnProcesarFallas" class="btnEstilo" style="margin-left:10px;">
+<input accept=".xls,xlsx" id="excelFallas" type="file"/>
+<button class="btnEstilo" id="btnProcesarFallas" style="margin-left:10px;">
                 Cargar reporte de fallas
               </button>
-              <div id="mensajeFallas" class="mensaje-archivo" style="display:none; margin-top:10px;"></div>
-            </div>
-
-            <!-- Barra de búsqueda para % Avance por Aprendiz -->
-            <div class="filtros-reporte1">
-              <div class="filtro-busqueda-reporte1">
-                <span class="filtro-busqueda-icono">🔍</span>
-                <input type="text" id="busquedaAvanceAprendiz" placeholder="Buscar por documento, nombre o estado." />
-              </div>
-            </div>
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
-                <span class="tabla-total-label">Total Aprobado</span>
-                <strong id="totalAprobadoAvanceAprendiz" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
-                <span class="tabla-total-label">Total Por evaluar</span>
-                <strong id="totalPorEvaluarAvanceAprendiz" class="tabla-total-value">0</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#2563eb;">
-                <span class="tabla-total-label">Promedio % Avance</span>
-                <strong id="promedioPorcentajeAvanceAprendiz" class="tabla-total-value">0%</strong>
-              </div>
-              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosAvanceAprendiz" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-
-            <table>
-              <thead>
-                <tr style="background-color: #f3f4f6;">
-                  <th>#</th>
-                  <th>Documento</th>
-                  <th>Nombre del Aprendiz</th>
-                  <th>Fallas</th>
-                  <th>Detalles</th>
-                  <th>Aprobado</th>
-                  <th>Por Evaluar</th>
-                  <th>% Avance</th>
-                </tr>
-              </thead>
-
-              <tbody id="pivotAvanceContainer"></tbody>
-            </table>
-
-            <!-- Gráfica de fallas para el reporte 7 (se llena al cargar fallas) -->
-            <div id="graficoFallasReporte7Container" class="tabla-acta-wrap"
-              style="display:none; text-align:center; margin-top:12px; height:320px;"></div>
-          </div>
-        </div>
-        <!-- TAB 8 -->
-        <div id="tab8" class="tab-content">
-          <div id="reporte8">
-            <h2>
+<div class="mensaje-archivo" id="mensajeFallas" style="display:none; margin-top:10px;"></div>
+</div>
+<!-- Barra de búsqueda para % Avance por Aprendiz -->
+<div class="filtros-reporte1">
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaAvanceAprendiz" placeholder="Buscar por documento, nombre o estado." type="text"/>
+</div>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#22c55e;">
+<span class="tabla-total-label">Total Aprobado</span>
+<strong class="tabla-total-value" id="totalAprobadoAvanceAprendiz">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#f97316;">
+<span class="tabla-total-label">Total Por evaluar</span>
+<strong class="tabla-total-value" id="totalPorEvaluarAvanceAprendiz">0</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#2563eb;">
+<span class="tabla-total-label">Promedio % Avance</span>
+<strong class="tabla-total-value" id="promedioPorcentajeAvanceAprendiz">0%</strong>
+</div>
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosAvanceAprendiz">0</strong>
+</div>
+</div>
+<table>
+<thead>
+<tr style="background-color: #f3f4f6;">
+<th>#</th>
+<th>Documento</th>
+<th>Nombre del Aprendiz</th>
+<th>Fallas</th>
+<th>Detalles</th>
+<th>Aprobado</th>
+<th>Por Evaluar</th>
+<th>% Avance</th>
+</tr>
+</thead>
+<tbody id="pivotAvanceContainer"></tbody>
+</table>
+<!-- Gráfica de fallas para el reporte 7 (se llena al cargar fallas) -->
+<div class="tabla-acta-wrap" id="graficoFallasReporte7Container" style="display:none; text-align:center; margin-top:12px; height:320px;"></div>
+</div>
+</div>
+<!-- TAB 8 -->
+<div class="tab-content" id="tab8">
+<div id="reporte8">
+<h2>
               Competencias Pendientes por Aprendiz e Instructor
              </h2>
-            <p class="descripcion-reporte">
+<p class="descripcion-reporte">
               Lista los aprendices que tienen competencias pendientes por evaluar, especialmente la competencia
               “RESULTADOS DE APRENDIZAJE ETAPA PRÁCTICA”.
               Desde este reporte se puede generar y descargar el Paz y Salvo académico para quienes ya finalizaron todas
@@ -4736,223 +4919,195 @@
               Agrupa por aprendiz las competencias pendientes y los instructores involucrados, y cuenta con barra de
               búsqueda y filtros por aprendiz, competencia, estado y elegibilidad para Paz y Salvo.
             </p>
-            <!-- Barra de búsqueda para Competencias Pendientes por Aprendiz e Instructor -->
-            <div class="filtros-reporte1">
-              <div class="filtro-busqueda-reporte1">
-                <span class="filtro-busqueda-icono">🔍</span>
-                <input type="text" id="busquedaPendientesAprendiz"
-                  placeholder="Buscar documento, aprendiz, competencia o instructor." />
-              </div>
-            </div>
-            <div class="filtros-categorias-reporte1 filtros-categorias-reporte8">
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte8" data-cat="Transversales" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Transversales</span>
-                </span>
-              </label>
-
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte8" data-cat="Técnicas" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Técnicas</span>
-                </span>
-              </label>
-
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte8" data-cat="Inglés" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Inglés</span>
-                </span>
-              </label>
-
-              <label class="chip-reporte1">
-                <input type="checkbox" class="chk-cat-reporte8" data-cat="Práctica" checked />
-                <span class="chip-reporte1-inner">
-                  <span class="chip-check">✔</span>
-                  <span class="chip-text">Práctica</span>
-                </span>
-              </label>
-            </div>
-
-            <div class="filtros-colores-dias" data-table="tablaReporte8Visible">
-              <button type="button" class="btn-filtro-dias btn-verde" data-color="verde">En formacion</button>
-              <button type="button" class="btn-filtro-dias btn-rojo" data-color="rojo">Visto</button>
-            </div>
-            <div class="tabla-total">
-              <div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
-                <span class="tabla-total-label">Cantidad registros</span>
-                <strong id="totalRegistrosReporte8" class="tabla-total-value">0</strong>
-              </div>
-            </div>
-            <!-- Contenedor de las tablas visibles (una por aprendiz) -->
-            <div id="contenedorTablasReporte8"></div>
-
-          </div>
-          <!-- Tabla RESUMEN (visible) la llenamos por JS dentro de este contenedor -->
-          <div id="contenedorResumenPracticaReporte8"></div>
-
-
-          <!-- Tabla OCULTA solo para exportar a Excel -->
-          <table id="tablaReporte8Export" style="display:none; font-size:10px; border-collapse:collapse;">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Documento</th>
-                <th>Nombre del Aprendiz</th>
-                <th>Tipo</th>
-                <th>Competencias Pendientes por Evaluar</th>
-                <th>Fecha Terminación</th>
-                <th>Dias</th>
-                <th>Instructor que impartió la competencia</th>
-              </tr>
-            </thead>
-            <tbody id="tbodyReporte8"></tbody>
-          </table>
-
-          <!-- Tabla RESUMEN (visible) la llenamos por JS dentro de este contenedor -->
-          <div id="contenedorResumenPracticaReporte8"></div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div id="export-section" class="contenedor export-section" style="display: none;">
-      <!-- Cabecera del acordeón Centro de Reportes -->
-      <button type="button" id="accordionCentroToggle" class="acordeon-header">
-        <span>📊 Centro de Reportes</span>
-        <span id="accordionCentroIcon" class="acordeon-icon">▾</span>
-      </button>
-
-      <!-- Cuerpo del acordeón Centro de Reportes -->
-      <div id="accordionCentroBody" class="acordeon-body">
-        <div class="reportes-main">
-          <div class="reportes-header">
-            <div>
-              <h2>Generación de Reportes</h2>
-              <p>Seleccione los datos que desea incluir y el formato de exportación.</p>
-            </div>
-          </div>
-
-          <div class="reportes-grid">
-            <section class="report-card card-aprendices">
-              <header>
-                <span class="report-card-icon">🎓</span>
-                <div>
-                  <h3>Detalle de Aprendices</h3>
-                </div>
-                <label class="report-card-todos">
-                  <span>TODOS</span>
-                  <input type="checkbox" class="report-card-toggle" data-group="aprendices">
-                </label>
-              </header>
-              <div class="report-card-list">
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="avance-fallas" data-reporte-key="avance-fallas"> Porcentaje de avance de aprendices y fallas</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="competencias-pendientes-aprendiz" data-reporte-key="competencias-pendientes-aprendiz"> Competencias pendientes por evaluar por cada aprendiz</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="aprendices-listos-productiva" data-reporte-key="aprendices-listos-productiva"> Aprendices listos para ir a etapa productiva</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="alternativa-etapa-productiva" data-reporte-key="alternativa-etapa-productiva"> Alternativa de etapa productiva</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="aprendices" value="cursos-complementarios" data-reporte-key="cursos-complementarios"> Cursos Complementarios</label>
-                </div>
-            </section>
-
-            <section class="report-card card-instructores">
-              <header>
-                <span class="report-card-icon">👩‍🏫</span>
-                <div>
-                  <h3>Instructores</h3>
-                </div>
-              </header>
-              <div class="report-card-list">
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="instructores" value="listado-instructores-pendientes-juicio" data-reporte-key="listado-instructores-pendientes-juicio"> Instructores con aprendices pendientes por emitir juicio</label>
-              </div>
-            </section>
-
-            <section class="report-card card-competencias">
-              <header>
-                <span class="report-card-icon">📊</span>
-                <div>
-                  <h3>Análisis y Competencias</h3>
-                </div>
-                <label class="report-card-todos">
-                  <span>TODOS</span>
-                  <input type="checkbox" class="report-card-toggle" data-group="competencias">
-                </label>
-              </header>
-              <div class="report-card-list">
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-avance-diseno" data-reporte-key="competencias-avance-diseno"> Competencias y % de avance vs diseño</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="cronograma-gantt" data-reporte-key="cronograma-gantt"> Cronograma de programación de competencias (Gantt)</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-sobre-ejecutadas" data-reporte-key="competencias-sobre-ejecutadas"> Competencias sobre ejecutadas</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-pendientes" data-reporte-key="competencias-pendientes"> Competencias pendientes</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-evaluadas-sin-programar" data-reporte-key="competencias-evaluadas-sin-programar"> Competencias Evaluadas sin estar programadas</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="competencias-raps-instructor-no-programado" data-reporte-key="competencias-raps-instructor-no-programado"> Competencias y RAPs evaluados por instructor no programado</label>
-                <label><input type="checkbox" class="reporte-checkbox" data-report-group="competencias" value="raps-por-evaluar" data-reporte-key="raps-por-evaluar"> Raps por evaluar</label>
-              </div>
-            </section>
-          </div>
-
-          <div class="reportes-actions">
-            <div class="reportes-actions-header">
-              <h3>Acciones de Exportación</h3>
-            </div>
-            <div class="reportes-actions-grid">
-              <button id="btnExportarPDF" class="btnExportarPDF export-card">
-                <div class="export-card-icon pdf">PDF</div>
-                <div class="export-card-text">
-                  <strong>Exportar a PDF</strong>
-                  <span>Formato listo para imprimir</span>
-                </div>
-                <span class="export-card-arrow">></span>
-              </button>
-
-              <button id="btnExportarExcel" class="btnExportarExcel export-card">
-                <div class="export-card-icon excel">XLS</div>
-                <div class="export-card-text">
-                  <strong>Exportar a Excel</strong>
-                  <span>Datos listos para análisis</span>
-                </div>
-                <span class="export-card-arrow">></span>
-              </button>
-
-              <button id="btnActaComite" class="btnActaComite export-card">
-                <div class="export-card-icon acta">ACT</div>
-                <div class="export-card-text">
-                  <strong>Acta Comité</strong>
-                  <span>Plantilla en Word del comité</span>
-                </div>
-                 </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-    
-    <footer class="footer-disenador">
-      <div class="footer-disenador-title">
+<!-- Barra de búsqueda para Competencias Pendientes por Aprendiz e Instructor -->
+<div class="filtros-reporte1">
+<div class="filtro-busqueda-reporte1">
+<span class="filtro-busqueda-icono">🔍</span>
+<input id="busquedaPendientesAprendiz" placeholder="Buscar documento, aprendiz, competencia o instructor." type="text"/>
+</div>
+</div>
+<div class="filtros-categorias-reporte1 filtros-categorias-reporte8">
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte8" data-cat="Transversales" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Transversales</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte8" data-cat="Técnicas" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Técnicas</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte8" data-cat="Inglés" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Inglés</span>
+</span>
+</label>
+<label class="chip-reporte1">
+<input checked="" class="chk-cat-reporte8" data-cat="Práctica" type="checkbox"/>
+<span class="chip-reporte1-inner">
+<span class="chip-check">✔</span>
+<span class="chip-text">Práctica</span>
+</span>
+</label>
+</div>
+<div class="filtros-colores-dias" data-table="tablaReporte8Visible">
+<button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
+<button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
+</div>
+<div class="tabla-total">
+<div class="tabla-total-card" style="--tabla-total-accent:#0f172a;">
+<span class="tabla-total-label">Cantidad registros</span>
+<strong class="tabla-total-value" id="totalRegistrosReporte8">0</strong>
+</div>
+</div>
+<!-- Contenedor de las tablas visibles (una por aprendiz) -->
+<div id="contenedorTablasReporte8"></div>
+</div>
+<!-- Tabla RESUMEN (visible) la llenamos por JS dentro de este contenedor -->
+<div id="contenedorResumenPracticaReporte8"></div>
+<!-- Tabla OCULTA solo para exportar a Excel -->
+<table id="tablaReporte8Export" style="display:none; font-size:10px; border-collapse:collapse;">
+<thead>
+<tr>
+<th>#</th>
+<th>Documento</th>
+<th>Nombre del Aprendiz</th>
+<th>Tipo</th>
+<th>Competencias Pendientes por Evaluar</th>
+<th>Fecha Terminación</th>
+<th>Dias</th>
+<th>Instructor que impartió la competencia</th>
+</tr>
+</thead>
+<tbody id="tbodyReporte8"></tbody>
+</table>
+<!-- Tabla RESUMEN (visible) la llenamos por JS dentro de este contenedor -->
+<div id="contenedorResumenPracticaReporte8"></div>
+</div>
+</div>
+</div>
+<div class="contenedor export-section" id="export-section" style="display: none;">
+<!-- Cabecera del acordeón Centro de Reportes -->
+<button class="acordeon-header" id="accordionCentroToggle" type="button">
+<span>📊 Centro de Reportes</span>
+<span class="acordeon-icon" id="accordionCentroIcon">▾</span>
+</button>
+<!-- Cuerpo del acordeón Centro de Reportes -->
+<div class="acordeon-body" id="accordionCentroBody">
+<div class="reportes-main">
+<div class="reportes-header">
+<div>
+<h2>Generación de Reportes</h2>
+<p>Seleccione los datos que desea incluir y el formato de exportación.</p>
+</div>
+</div>
+<div class="reportes-grid">
+<section class="report-card card-aprendices">
+<header>
+<span class="report-card-icon">🎓</span>
+<div>
+<h3>Detalle de Aprendices</h3>
+</div>
+<label class="report-card-todos">
+<span>TODOS</span>
+<input class="report-card-toggle" data-group="aprendices" type="checkbox"/>
+</label>
+</header>
+<div class="report-card-list">
+<label><input class="reporte-checkbox" data-report-group="aprendices" data-reporte-key="avance-fallas" type="checkbox" value="avance-fallas"/> Porcentaje de avance de aprendices y fallas</label>
+<label><input class="reporte-checkbox" data-report-group="aprendices" data-reporte-key="competencias-pendientes-aprendiz" type="checkbox" value="competencias-pendientes-aprendiz"/> Competencias pendientes por evaluar por cada aprendiz</label>
+<label><input class="reporte-checkbox" data-report-group="aprendices" data-reporte-key="aprendices-listos-productiva" type="checkbox" value="aprendices-listos-productiva"/> Aprendices listos para ir a etapa productiva</label>
+<label><input class="reporte-checkbox" data-report-group="aprendices" data-reporte-key="alternativa-etapa-productiva" type="checkbox" value="alternativa-etapa-productiva"/> Alternativa de etapa productiva</label>
+<label><input class="reporte-checkbox" data-report-group="aprendices" data-reporte-key="cursos-complementarios" type="checkbox" value="cursos-complementarios"/> Cursos Complementarios</label>
+</div>
+</section>
+<section class="report-card card-instructores">
+<header>
+<span class="report-card-icon">👩‍🏫</span>
+<div>
+<h3>Instructores</h3>
+</div>
+</header>
+<div class="report-card-list">
+<label><input class="reporte-checkbox" data-report-group="instructores" data-reporte-key="listado-instructores-pendientes-juicio" type="checkbox" value="listado-instructores-pendientes-juicio"/> Instructores con aprendices pendientes por emitir juicio</label>
+</div>
+</section>
+<section class="report-card card-competencias">
+<header>
+<span class="report-card-icon">📊</span>
+<div>
+<h3>Análisis y Competencias</h3>
+</div>
+<label class="report-card-todos">
+<span>TODOS</span>
+<input class="report-card-toggle" data-group="competencias" type="checkbox"/>
+</label>
+</header>
+<div class="report-card-list">
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="competencias-avance-diseno" type="checkbox" value="competencias-avance-diseno"/> Competencias y % de avance vs diseño</label>
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="cronograma-gantt" type="checkbox" value="cronograma-gantt"/> Cronograma de programación de competencias (Gantt)</label>
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="competencias-sobre-ejecutadas" type="checkbox" value="competencias-sobre-ejecutadas"/> Competencias sobre ejecutadas</label>
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="competencias-pendientes" type="checkbox" value="competencias-pendientes"/> Competencias pendientes</label>
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="competencias-evaluadas-sin-programar" type="checkbox" value="competencias-evaluadas-sin-programar"/> Competencias Evaluadas sin estar programadas</label>
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="competencias-raps-instructor-no-programado" type="checkbox" value="competencias-raps-instructor-no-programado"/> Competencias y RAPs evaluados por instructor no programado</label>
+<label><input class="reporte-checkbox" data-report-group="competencias" data-reporte-key="raps-por-evaluar" type="checkbox" value="raps-por-evaluar"/> Raps por evaluar</label>
+</div>
+</section>
+</div>
+<div class="reportes-actions">
+<div class="reportes-actions-header">
+<h3>Acciones de Exportación</h3>
+</div>
+<div class="reportes-actions-grid">
+<button class="btnExportarPDF export-card" id="btnExportarPDF">
+<div class="export-card-icon pdf">PDF</div>
+<div class="export-card-text">
+<strong>Exportar a PDF</strong>
+<span>Formato listo para imprimir</span>
+</div>
+<span class="export-card-arrow">&gt;</span>
+</button>
+<button class="btnExportarExcel export-card" id="btnExportarExcel">
+<div class="export-card-icon excel">XLS</div>
+<div class="export-card-text">
+<strong>Exportar a Excel</strong>
+<span>Datos listos para análisis</span>
+</div>
+<span class="export-card-arrow">&gt;</span>
+</button>
+<button class="btnActaComite export-card" id="btnActaComite">
+<div class="export-card-icon acta">ACT</div>
+<div class="export-card-text">
+<strong>Acta Comité</strong>
+<span>Plantilla en Word del comité</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="footer-disenador">
+<div class="footer-disenador-title">
         DISEÑO Y DESARROLLO
       </div>
-
-      <div class="footer-disenador-card">
-        <div class="footer-disenador-avatar">✕</div>
-
-        <div class="footer-disenador-info">
-          <span class="footer-disenador-label">Instructor Diseñador</span>
-          <span class="footer-disenador-name">Yeison Castellanos Gordillo</span>
-        </div>
-
-        <div class="footer-disenador-settings">⚙</div>
-      </div>
-    </footer>
-
-
-    <!-- Incluir script AL FINAL -->
-    <script>
+<div class="footer-disenador-card">
+<div class="footer-disenador-avatar">✕</div>
+<div class="footer-disenador-info">
+<span class="footer-disenador-label">Instructor Diseñador</span>
+<span class="footer-disenador-name">Yeison Castellanos Gordillo</span>
+</div>
+<div class="footer-disenador-settings">⚙</div>
+</div>
+</footer>
+<!-- Incluir script AL FINAL -->
+<script>
       // Variable global para guardar el coordinador seleccionado
       let coordinadorAcademicoSeleccionado = "";
       let validarRolesActivos = true;
@@ -5950,15 +6105,100 @@
           return "Programa finalizado";
         })();
 
-        const setTiempoRestante = (el, fechaObjetivo) => {
+        const setTiempoRestante = (el, fechaObjetivo, sufijo = "") => {
           if (!el) return;
-          el.textContent = formatearTiempoRestante(hoyPlano, fechaObjetivo);
+          const base = formatearTiempoRestante(hoyPlano, fechaObjetivo);
+          if (base === "-" || !base) {
+            el.textContent = "-";
+            return;
+          }
+          el.textContent = sufijo ? `${base} ${sufijo}` : base;
         };
 
-        setTiempoRestante(tiempoLectivaEl, fechas.finLectiva);
-        setTiempoRestante(tiempoProductivaEl, fechas.finProd);
+        const lectivaCard = document.querySelector(".stage-card.lectiva");
+        const productivaCard = document.querySelector(".stage-card.productiva");
+        const lectivaStatusEl = lectivaCard ? lectivaCard.querySelector(".stage-status") : null;
+        const productivaStatusEl = productivaCard ? productivaCard.querySelector(".stage-status") : null;
 
-        timelines.forEach((t) => {
+        const progreso = (inicio, fin, hoy) => {
+          if (!(inicio instanceof Date) || isNaN(inicio) || !(fin instanceof Date) || isNaN(fin)) return 0;
+          const total = fin.getTime() - inicio.getTime();
+          if (total <= 0) return 0;
+          return clamp(((hoy.getTime() - inicio.getTime()) / total) * 100);
+        };
+
+        // Lectiva: si aún no inicia, mostrar cuenta regresiva al inicio; si está en curso, al fin.
+        if (fechas.inicioLectiva instanceof Date && !isNaN(fechas.inicioLectiva) &&
+            fechas.finLectiva instanceof Date && !isNaN(fechas.finLectiva)) {
+
+          const hoyMs = hoyPlano.getTime();
+          const iL = fechas.inicioLectiva.getTime();
+          const fL = fechas.finLectiva.getTime();
+
+          if (hoyMs < iL) {
+            if (lectivaStatusEl) {
+              lectivaStatusEl.textContent = "Sin iniciar";
+              lectivaStatusEl.classList.remove("on");
+            }
+            setTiempoRestante(tiempoLectivaEl, fechas.inicioLectiva, "para iniciar");
+          } else if (hoyMs <= fL) {
+            if (lectivaStatusEl) {
+              lectivaStatusEl.textContent = "En Curso";
+              lectivaStatusEl.classList.add("on");
+            }
+            setTiempoRestante(tiempoLectivaEl, fechas.finLectiva);
+          } else {
+            if (lectivaStatusEl) {
+              lectivaStatusEl.textContent = "Finalizada";
+              lectivaStatusEl.classList.remove("on");
+            }
+            if (tiempoLectivaEl) tiempoLectivaEl.textContent = "0 días";
+          }
+
+          if (lectivaCard) {
+            const pL = progreso(fechas.inicioLectiva, fechas.finLectiva, hoyPlano);
+            lectivaCard.style.setProperty("--progress", `${pL}%`);
+            const barL = lectivaCard.querySelector(".stage-progress-bar");
+            if (barL) barL.setAttribute("aria-valuenow", String(Math.round(pL)));
+          }
+        }
+
+        // Productiva: si está pendiente, mostrar cuenta regresiva al inicio; si está en curso, al fin.
+        if (fechas.inicioProd instanceof Date && !isNaN(fechas.inicioProd) &&
+            fechas.finProd instanceof Date && !isNaN(fechas.finProd)) {
+
+          const hoyMs = hoyPlano.getTime();
+          const iP = fechas.inicioProd.getTime();
+          const fP = fechas.finProd.getTime();
+
+          if (hoyMs < iP) {
+            if (productivaStatusEl) {
+              productivaStatusEl.textContent = "Pendiente";
+              productivaStatusEl.classList.remove("on");
+            }
+            setTiempoRestante(tiempoProductivaEl, fechas.inicioProd, "para iniciar");
+          } else if (hoyMs <= fP) {
+            if (productivaStatusEl) {
+              productivaStatusEl.textContent = "En Curso";
+              productivaStatusEl.classList.add("on");
+            }
+            setTiempoRestante(tiempoProductivaEl, fechas.finProd);
+          } else {
+            if (productivaStatusEl) {
+              productivaStatusEl.textContent = "Finalizada";
+              productivaStatusEl.classList.remove("on");
+            }
+            if (tiempoProductivaEl) tiempoProductivaEl.textContent = "0 días";
+          }
+
+          if (productivaCard) {
+            const pP = progreso(fechas.inicioProd, fechas.finProd, hoyPlano);
+            productivaCard.style.setProperty("--progress", `${pP}%`);
+            const barP = productivaCard.querySelector(".stage-progress-bar");
+            if (barP) barP.setAttribute("aria-valuenow", String(Math.round(pP)));
+          }
+        }
+timelines.forEach((t) => {
           if (t.estado) t.estado.textContent = estadoTexto;
 
           const aplicarPunto = (clave, fecha) => {
@@ -13490,94 +13730,157 @@ ${incluyeActa("cursos-complementarios") ? `
       </tr>
 
       <tr>
-        <td colspan="4" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
-          ESTABLECIMIENTO Y ACEPTACIÓN DE COMPROMISOS
-        </td>
-      </tr>
-      <tr>
-        <td style="width:38%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">ACTIVIDAD / DECISIÓN</td>
-        <td style="width:15%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FECHA</td>
-        <td style="width:22%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">RESPONSABLE</td>
-        <td style="width:25%; padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
-      </tr>
-      <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
-      <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
-      <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
-      <tr><td style="height:28px; border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td><td style="border:1px solid #000;"></td></tr>
+  <td colspan="4" style="padding:0; border:none;">
+    <!-- Tabla unificada (20 columnas base) -->
+    <table class="tabla-maestra" style="width:100%; border-collapse:collapse; table-layout:fixed; border:1px solid #000; margin-top:-1px;">
+      <colgroup>
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+  <col style="width:5%;">
+      </colgroup>
 
-      </table>
+      <thead>
+        <tr>
+          <td colspan="20" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
+            ESTABLECIMIENTO Y ACEPTACIÓN DE COMPROMISOS
+          </td>
+        </tr>
+        <tr>
+          <td colspan="8" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">ACTIVIDAD / DECISIÓN</td>
+          <td colspan="3" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FECHA</td>
+          <td colspan="5" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">RESPONSABLE</td>
+          <td colspan="4" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
+        </tr>
+      </thead>
 
-      <table class="acta-encabezado" style="width:100%; border-collapse:collapse; margin-top:-1px;">
-      <tr>
-        <td colspan="5" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
-          DE: ASISTENTES Y APROBACIÓN DECISIONES
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:6px; border:1px solid #000; width:24%; font-weight:700; text-align:center;">NOMBRE</td>
-        <td style="padding:6px; border:1px solid #000; width:22%; font-weight:700; text-align:center;">DEPENDENCIA/ EMPRESA</td>
-        <td style="padding:6px; border:1px solid #000; width:12%; font-weight:700; text-align:center;">APRUEBA (SI/NO)</td>
-        <td style="padding:6px; border:1px solid #000; width:24%; font-weight:700; text-align:center;">OBSERVACIÓN</td>
-        <td style="padding:6px; border:1px solid #000; width:18%; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
-      </tr>
-      <tr>
-        <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${coordinadorAcademico}</td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-      </tr>
-      <tr>
-        <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${instructorGerente}</td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-      </tr>
-      <tr>
-        <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${aprendizVocero}</td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-      </tr>
-      <tr>
-        <td style="padding:8px; border:1px solid #000;color:#00324D; font-weight:700;">PSICOLOGA DE BIENESTAR:</td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-      </tr>
-      <tr>
-        <td style="height:28px; border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-        <td style="border:1px solid #000;"></td>
-      </tr>
+      <tbody>
+        <tr>
+          <td colspan="8" style="height:28px; border:1px solid #000;"></td>
+          <td colspan="3" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="8" style="height:28px; border:1px solid #000;"></td>
+          <td colspan="3" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="8" style="height:28px; border:1px solid #000;"></td>
+          <td colspan="3" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="8" style="height:28px; border:1px solid #000;"></td>
+          <td colspan="3" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+      </tbody>
 
-      <tr>
-        <td colspan="5" style="border:1px solid #000; padding:8px; text-align:justify;">
-          De acuerdo con La Ley 1581 de 2012, Protección de Datos Personales, el Servicio Nacional de
-          Aprendizaje SENA, se compromete a garantizar la seguridad y protección de los datos personales
-          que se encuentran almacenados en este documento, y les dará el tratamiento correspondiente en
-          cumplimiento de lo establecido legalmente.
-        </td>
-      </tr>
-      <tr>
-        <td colspan="5" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
-          ANEXOS
-        </td>
-        <div style="mso-element:header" id="h1">
-      <p class="MsoHeader">
-        <img src="${senaLogoUrl}" alt="Logo SENA" style="height:24px; width:auto; display:block; margin:0 auto;">
-      </p>
-    </div>
- <div style="mso-element:footer" id="f1">
-      <p class="MsoFooter" style="text-align:center;"><span style="font-size:9pt;">GOR-F-084V02</span></p>
-    </div>
-      </tr>
-      </table>
+      <thead>
+        <tr>
+          <td colspan="20" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
+            DE: ASISTENTES Y APROBACIÓN DECISIONES
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">NOMBRE</td>
+          <td colspan="4" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">DEPENDENCIA/ EMPRESA</td>
+          <td colspan="2" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">APRUEBA (SI/NO)</td>
+          <td colspan="5" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">OBSERVACIÓN</td>
+          <td colspan="4" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td colspan="5" style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${coordinadorAcademico}</td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+          <td colspan="2" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="5" style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${instructorGerente}</td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+          <td colspan="2" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="5" style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${aprendizVocero}</td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+          <td colspan="2" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="5" style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">PSICOLOGA DE BIENESTAR:</td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+          <td colspan="2" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+        <tr>
+          <td colspan="5" style="height:28px; border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+          <td colspan="2" style="border:1px solid #000;"></td>
+          <td colspan="5" style="border:1px solid #000;"></td>
+          <td colspan="4" style="border:1px solid #000;"></td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="20" style="border:1px solid #000; padding:8px; text-align:justify; font-size:9pt;">
+            De acuerdo con La Ley 1581 de 2012, Protección de Datos Personales, el Servicio Nacional de
+            Aprendizaje SENA, se compromete a garantizar la seguridad y protección de los datos personales
+            que se encuentran almacenados en este documento, y les dará el tratamiento correspondiente en
+            cumplimiento de lo establecido legalmente.
+          </td>
+        </tr>
+        <tr>
+          <td colspan="20" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
+            ANEXOS
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </td>
+  <!-- Encabezado y pie de página Word -->
+<div style="mso-element:header" id="h1">
+  <p class="MsoHeader">
+    <img src="${senaLogoUrl}" alt="Logo SENA" style="height:24px; width:auto; display:block; margin:0 auto;">
+  </p>
+</div>
+<div style="mso-element:footer" id="f1">
+  <p class="MsoFooter" style="text-align:center;"><span style="font-size:9pt;">GOR-F-084V02</span></p>
+</div>
+</tr>
+</table>
+
+
+
 
      
     </div>
@@ -16011,6 +16314,4 @@ ${incluyeActa("cursos-complementarios") ? `
 document.addEventListener("DOMContentLoaded", inicializarTogglesReportes);
     </script>
 </body>
-
 </html>
-  
