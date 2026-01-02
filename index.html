@@ -7616,17 +7616,22 @@ header{
 
       // Fin etapa lectiva = fin programa - 6 meses - 1 día
       function calcularFechaFinLectiva(fechaFinLectivaStr) {
-        let fechaFinPrograma = parseFecha(fechaFinLectivaStr);
-        fechaFinPrograma.setMonth(fechaFinPrograma.getMonth() - 6);
-        fechaFinPrograma.setDate(fechaFinPrograma.getDate() - 1);
-        return fechaFinPrograma;
+        
+let fechaFinPrograma = parseFecha(fechaFinLectivaStr);
+  fechaFinPrograma.setMonth(fechaFinPrograma.getMonth() - 6);
+  // Se elimina el -1 día para sumar 1 día al resultado que venías obteniendo
+  return fechaFinPrograma;
+
       }
 
       // Inicio etapa productiva = fin programa - 6 meses
       function calcularFechaInicioProductiva(fechaFinLectivaStr) {
-        let fechaFinPrograma = parseFecha(fechaFinLectivaStr);
-        fechaFinPrograma.setMonth(fechaFinPrograma.getMonth() - 6);
-        return fechaFinPrograma;
+        
+let fechaFinPrograma = parseFecha(fechaFinLectivaStr);
+  fechaFinPrograma.setMonth(fechaFinPrograma.getMonth() - 6);
+  fechaFinPrograma.setDate(fechaFinPrograma.getDate() + 1); // +1 día
+  return fechaFinPrograma;
+
       }
 
       // Fin etapa productiva = fin programa (la fecha original)
@@ -13137,11 +13142,14 @@ function construirSeccionAprendicesListosProductivaPDF() {
             .trim()
             .replace(/[^0-9]/g, "") || "SENA";
         };
+
         const ahora = new Date();
-        const dia = String(ahora.getDate()).padStart(2, "0");
-        const mes = String(ahora.getMonth() + 1).padStart(2, "0");
-        const anio = ahora.getFullYear();
-        return `Acta de Comite - ${obtenerCodigoFicha()}-${dia}-${mes}-${anio}`;
+        const yyyy = String(ahora.getFullYear());
+        const mm = String(ahora.getMonth() + 1).padStart(2, "0");
+        const dd = String(ahora.getDate()).padStart(2, "0");
+        const fecha = `${yyyy}${mm}${dd}`;
+
+        return `AC_${fecha}_${obtenerCodigoFicha()}`;
       }
 
       function abrirVentanaParaImprimirPDF(htmlContenido) {
@@ -16537,6 +16545,10 @@ const colgroup = cloneGantt.querySelector("colgroup");
 
         mso-header: h1;
         mso-header-margin: 8mm;
+        mso-footer: f1;
+        mso-footer-margin: 8mm;
+        mso-title-page: no;
+        mso-paper-source: 0;
       }
 
       
@@ -17103,9 +17115,33 @@ const colgroup = cloneGantt.querySelector("colgroup");
   cursor: not-allowed;
 }
 
+
+      /* ===== Header/Footer del acta: ocultos en pantalla, visibles solo al imprimir ===== */
+      /* (Ajuste) Se elimina @media screen que ocultaba encabezado/pie en Word */
+      }
+
+      @media print {
+        /* Al imprimir/exportar PDF: mostrar como encabezado y pie fijos */
+        @page { size: Letter; margin: 20mm 15mm 20mm 15mm; }
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          margin-top: 30mm;
+          margin-bottom: 20mm;
+        }
+        #h1, #f1 {
+          display: block !important;
+          position: fixed;
+          left: 0;
+          right: 0;
+        }
+        #h1 { top: 0; }
+        #f1 { bottom: 0; }
+      }
 </style>
     </head>
   <body>
+    
     <div class="Section1">
 
 
@@ -17510,24 +17546,22 @@ ${incluyeActa("cursos-complementarios") ? `
     cumplimiento de lo establecido legalmente.
   </td>
 </tr>
-<tr>
-  <td colspan="4" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
+<td colspan="4" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
     ANEXOS
     <div style="margin-top:8px;">${anexosHtml}</div>
   </td>
-   <!-- Encabezado y pie de página Word -->
-<div style="mso-element:header" id="h1">
-  <p class="MsoHeader">
-    <img src="${senaLogoUrl}" alt="Logo SENA" style="height:24px; width:auto; display:block; margin:0 auto;">
-  </p>
-</div>
-<div style="mso-element:footer" id="f1">
-  <p class="MsoFooter" style="text-align:center;"><span style="font-size:9pt;">GOR-F-084V02</span></p>
-</div>
-</tr>
-
-    </table>
- 
+           <!--[if gte mso 9]>
+    <div style=\"mso-element:header\" id=\"h1\">
+      <p class=\"MsoHeader\" style=\"margin:0; text-align:center;\">
+        <img src=\"${senaLogoUrl}\" alt=\"Logo SENA\" style=\"height:24px; display:block; margin:0 auto;\">
+      </p>
+    </div>
+    <div style=\"mso-element:footer\" id=\"f1\">
+      <p class=\"MsoFooter\" style=\"margin:0; text-align:center;\"><span style=\"font-size:9pt;\">GOR-F-084V02</span></p>
+    </div>
+    <![endif]-->
+                </tr>
+              </table>
 
 
 
@@ -17686,8 +17720,8 @@ ${incluyeActa("cursos-complementarios") ? `
             return html;
           }
         }
-
-        contenidoHTML = normalizarDesarrolloActaSinListas(contenidoHTML);
+        // (Ajuste) Se desactiva normalizarDesarrolloActaSinListas para NO romper el HTML de Word (header/footer).
+        // contenidoHTML = normalizarDesarrolloActaSinListas(contenidoHTML);
 
 // Crear y descargar el archivo .doc
         const blob = new Blob(['\ufeff', contenidoHTML], { type: "application/msword" });
