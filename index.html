@@ -1260,6 +1260,232 @@
 
     /* ================= TABLAS ================= */
 
+    /* ================= LEYENDA + ALERTAS + BÚSQUEDA ================= */
+    .leyenda-global{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      padding:10px 12px;
+      border:1px solid var(--gris-borde);
+      border-radius:14px;
+      background:#ffffff;
+      box-shadow:0 8px 18px rgba(15,23,42,0.05);
+      margin: 10px 0 14px;
+    }
+    .leyenda-fija{
+      position: sticky;
+      top: 8px;
+      z-index: 50;
+    }
+    .leyenda-item{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      font-size:12px;
+      color: var(--texto-secundario);
+      white-space: nowrap;
+    }
+    .leyenda-chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 44px;
+      height: 22px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:11px;
+      padding:0 10px;
+      border:1px solid transparent;
+      box-sizing:border-box;
+      color:#0f172a;
+    }
+    .leyenda-chip.chip-ok{ background:#ecfdf3; border-color:#22c55e; color:#15803d; }
+    .leyenda-chip.chip-no{ background:#fee2e2; border-color:#ef4444; color:#991b1b; }
+    .leyenda-chip.chip-pend{ background:#ffe4e6; border-color:#fb7185; color:#9f1239; }
+    .leyenda-chip.chip-over{ background:#7f1d1d; border-color:#7f1d1d; color:#ffffff; }
+    .leyenda-chip.chip-low{ background:#fff7cc; border-color:#f9be00; color:#7c4a00; }
+
+    .panel-alertas{
+      border:1px solid var(--gris-borde);
+      background:#ffffff;
+      border-radius:16px;
+      padding:12px 12px 14px;
+      box-shadow:0 10px 22px rgba(15,23,42,0.05);
+      margin: 10px 0 12px;
+    }
+    .panel-alertas-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .panel-alertas-header h4{
+      margin:0;
+      font-size:12px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color: var(--texto-secundario);
+    }
+    .btn-link{
+      border:none;
+      background:transparent;
+      color:#2563eb;
+      cursor:pointer;
+      font-weight:600;
+      font-size:12px;
+      padding:6px 8px;
+      border-radius:10px;
+    }
+    .btn-link:hover{ background: rgba(37,99,235,0.08); }
+    .panel-alertas-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:10px;
+    }
+    .alerta-card{
+      border:1px solid var(--gris-borde);
+      border-radius:14px;
+      padding:10px 10px;
+      background:#fff;
+      text-align:left;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .alerta-card:hover{
+      transform: translateY(-1px);
+      box-shadow:0 12px 24px rgba(15,23,42,0.10);
+      border-color:#cbd5e1;
+    }
+    .alerta-titulo{
+      font-size:11px;
+      font-weight:700;
+      color: var(--texto-secundario);
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    .alerta-valor{
+      font-size:24px;
+      font-weight:800;
+      line-height:1;
+      color: var(--texto-principal);
+      margin-bottom:4px;
+    }
+    .alerta-sub{
+      font-size:11px;
+      color: var(--texto-secundario);
+    }
+    .alerta-over{ background: rgba(127,29,29,0.06); border-color: rgba(127,29,29,0.25); }
+    .alerta-low{ background: rgba(249,190,0,0.12); border-color: rgba(249,190,0,0.35); }
+    .alerta-pend{ background: rgba(251,113,133,0.10); border-color: rgba(251,113,133,0.35); }
+    .alerta-incons{ background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.25); }
+
+    .tabla-toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin: 10px 0 8px;
+      flex-wrap:wrap;
+    }
+    .tabla-search{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--gris-borde);
+      border-radius:14px;
+      background:#fff;
+      min-width: 280px;
+      box-shadow: 0 8px 18px rgba(15,23,42,0.04);
+    }
+    .tabla-search input{
+      border:none;
+      outline:none;
+      width: 320px;
+      max-width: 100%;
+      font-size:13px;
+      background:transparent;
+    }
+    .tabla-toolbar-meta{
+      font-size:12px;
+      color: var(--texto-secundario);
+    }
+    mark.mark-highlight{
+      background: rgba(249,190,0,0.35);
+      padding: 0 2px;
+      border-radius: 4px;
+    }
+
+    /* ================= TABLAS (MEJORAS VISUALES) ================= */
+    .reportes-main table{
+      border:1px solid var(--gris-borde);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow: 0 10px 22px rgba(15,23,42,0.04);
+      background:#fff;
+    }
+    .reportes-main thead th{
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .reportes-main th, .reportes-main td{
+      border-bottom: 1px solid rgba(226,232,240,0.9);
+    }
+
+    /* Alineación numérica (reportes clave) */
+    #tablaReporte2 td:nth-child(1),
+    #tablaReporte2 td:nth-child(6),
+    #tablaReporte2 td:nth-child(7),
+    #tablaReporte2 td:nth-child(8),
+    #tablaReporte2 td:nth-child(9){
+      text-align:right;
+      font-variant-numeric: tabular-nums;
+    }
+    #tablaAvanceAprendizReporte7 td:nth-child(1),
+    #tablaAvanceAprendizReporte7 td:nth-child(2),
+    #tablaAvanceAprendizReporte7 td:nth-child(4),
+    #tablaAvanceAprendizReporte7 td:nth-child(6),
+    #tablaAvanceAprendizReporte7 td:nth-child(7),
+    #tablaAvanceAprendizReporte7 td:nth-child(8),
+    #tablaAvanceAprendizReporte7 td:nth-child(9){
+      text-align:right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Badges métricos: consistencia */
+    .ficha-analisis-metrica-note{
+      font-size:11px;
+      color: var(--texto-secundario);
+      margin-top:3px;
+    }
+    .word-mode-toggle{
+      margin-top: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--gris-borde);
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 8px 18px rgba(15,23,42,0.04);
+    }
+    .word-mode-check{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      font-size:13px;
+      color: var(--texto-principal);
+    }
+    .word-mode-sub{
+      font-size:12px;
+      color: var(--texto-secundario);
+      margin-left: 30px;
+      margin-top: 4px;
+    }
+
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -3851,7 +4077,50 @@
       /* rojo claro para avance < 75% */
     }
 
-    /* Competencias no programadas o programadas a 1/2 en el Reporte 4 */
+    
+    /* ===== Reporte 2: Semáforo por % (Competencias con Horas) ===== */
+    tr.fila-pendiente-sin-programar td {
+      background-color: #fee2e2 !important; /* rojo claro */
+    }
+    td.pct-sobreejecutada {
+      background-color: #7f1d1d !important; /* rojo oscuro */
+      color: #ffffff !important;
+      font-weight: 700 !important;
+    }
+    td.pct-baja-ejecucion {
+      background-color: #fef08a !important; /* amarillo */
+      color: #111827 !important;
+      font-weight: 700 !important;
+    }
+
+    /* Botones extra Reporte 2 */
+    .btn-filtro-dias.btn-rojo-oscuro {
+      background: linear-gradient(to right, #7f1d1d, #991b1b);
+      border-color: #7f1d1d;
+      color: #ffffff;
+    }
+    .btn-filtro-dias.btn-rojo-oscuro:hover {
+      border-color: #7f1d1d;
+    }
+    .btn-filtro-dias.btn-rojo-oscuro.active {
+      background: linear-gradient(to right, #991b1b, #7f1d1d);
+      border-color: #7f1d1d !important;
+      color: #ffffff !important;
+    }
+    .btn-filtro-dias.btn-amarillo {
+      background: #f9be00;
+      border-color: #f59e0b;
+      color: #111827;
+    }
+    .btn-filtro-dias.btn-amarillo:hover {
+      border-color: #f59e0b;
+    }
+    .btn-filtro-dias.btn-amarillo.active {
+      background: #f59e0b;
+      border-color: #f59e0b !important;
+      color: #111827 !important;
+    }
+/* Competencias no programadas o programadas a 1/2 en el Reporte 4 */
     tr.no-programada td {
       background-color: #fee2e2 !important;
       /* rojo claro */
@@ -5305,7 +5574,7 @@ header{
 
 </div>
 <div class="dropzone-actions">
-<button class="btnEstilo" disabled="" id="btnProcesarTodos" type="button"><span aria-hidden="true" class="btn-icon">🤖</span> PROCESAR Y GENERAR DASHBOARD</button>
+<button class="btnEstilo" disabled="" id="btnProcesarTodos" type="button"><span aria-hidden="true" class="btn-icon">🤖</span> PROCESAR Y GENERAR</button>
 <button class="btnEstilo btn-negativo" id="btnLimpiarCarga" type="button">Limpiar</button>
 </div>
 <div class="mensaje-archivo" id="dzMensaje" style="display:none;"></div>
@@ -5591,10 +5860,10 @@ header{
 </div>
 <div class="ficha-analisis-metrica">
 <div class="ficha-analisis-metrica-header">
-<span class="ficha-analisis-metrica-badge">🚫</span>
-<span>Competencias NO aprobados</span>
+<span class="ficha-analisis-metrica-badge">🟨</span>
+<span>Competencias &lt;60% programado</span>
 </div>
-<div class="ficha-analisis-metrica-valor" id="numCompetenciasNoAprobadasHeader">0</div>
+<div class="ficha-analisis-metrica-valor" id="numCompetenciasBajaProgramadaHeader">0</div>
 <div class="ficha-analisis-metrica-note">Competencias</div>
 </div>
 <div class="ficha-analisis-metrica">
@@ -5890,6 +6159,8 @@ header{
 <button class="btn-filtro-dias btn-verde" data-color="verde" type="button">En formacion</button>
 <button class="btn-filtro-dias btn-rojo" data-color="rojo" type="button">Visto</button>
 <button class="btn-filtro-dias btn-morado" data-color="pendiente" type="button">Pendiente</button>
+<button class="btn-filtro-dias btn-rojo-oscuro" data-color="sobreejecutadas" type="button">Sobreejecutadas</button>
+<button class="btn-filtro-dias btn-amarillo" data-color="pendiente-horas" type="button">Pendiente horas</button>
 </div>
 <div class="mes-selector-wrap">
 <div class="mes-selector-panel">
@@ -5918,6 +6189,36 @@ header{
 <strong class="tabla-total-value" id="totalRegistrosReporte2">0</strong>
 </div>
 </div>
+
+<div class="panel-alertas" id="panelAlertasReporte2">
+  <div class="panel-alertas-header">
+    <h4>Alertas (según filtros actuales)</h4>
+    <button type="button" class="btn-link" id="btnLimpiarAlertaReporte2">Limpiar</button>
+  </div>
+  <div class="panel-alertas-grid">
+    <button type="button" class="alerta-card alerta-over" data-alerta="sobreejecutadas" title="Filtrar competencias con % &gt; 100">
+      <div class="alerta-titulo">Sobreejecutadas</div>
+      <div class="alerta-valor" id="alertaSobreejecutadasReporte2">0</div>
+      <div class="alerta-sub">% &gt; 100</div>
+    </button>
+    <button type="button" class="alerta-card alerta-low" data-alerta="pendiente-horas" title="Filtrar competencias con % &lt; 60">
+      <div class="alerta-titulo">&lt;60% programado</div>
+      <div class="alerta-valor" id="alertaBajaProgramadaReporte2">0</div>
+      <div class="alerta-sub">% &lt; 60</div>
+    </button>
+    <button type="button" class="alerta-card alerta-pend" data-alerta="sin-horas" title="Filtrar competencias sin horas programadas">
+      <div class="alerta-titulo">Pendientes sin horas</div>
+      <div class="alerta-valor" id="alertaPendientesSinHorasReporte2">0</div>
+      <div class="alerta-sub">Horas = 0</div>
+    </button>
+    <button type="button" class="alerta-card alerta-incons" data-alerta="inconsistencias" title="Filtrar inconsistencias: horas &gt; 0 y % vacío">
+      <div class="alerta-titulo">Inconsistencias</div>
+      <div class="alerta-valor" id="alertaInconsistenciasReporte2">0</div>
+      <div class="alerta-sub">Revisar</div>
+    </button>
+  </div>
+</div>
+
 <table id="tablaReporte2">
 <thead>
 <tr>
@@ -6636,7 +6937,15 @@ header{
 <p class="nota-archivo" style="margin: 2px 0 10px 0;">
 <em>Clasificación semáforo basada en % avance, pendientes (Por evaluar), fallas (cuando se carga el consolidado) y % avance de Cursos Complementarios.</em>
 </p>
-<table>
+
+<div class="tabla-toolbar">
+  <div class="tabla-search">
+    <span class="icono-buscar">🔎</span>
+    <input id="buscarAprendizReporte7" type="text" placeholder="Buscar aprendiz..." autocomplete="off"/>
+  </div>
+  <div class="tabla-toolbar-meta"><span id="metaBuscarAprendizReporte7"></span></div>
+</div>
+<table id="tablaAvanceAprendizReporte7">
 <thead>
 <tr style="background-color: #f3f4f6;">
 <th>#</th>
@@ -6769,6 +7078,15 @@ header{
 <p>Seleccione los datos que desea incluir y el formato de exportación.</p>
 </div>
 </div>
+
+<div class="leyenda-global leyenda-fija" id="leyendaGlobal">
+  <div class="leyenda-item"><span class="leyenda-chip chip-ok">✓</span><span>Aprobado</span></div>
+  <div class="leyenda-item"><span class="leyenda-chip chip-no">✗</span><span>No aprobado</span></div>
+  <div class="leyenda-item"><span class="leyenda-chip chip-pend">Pend.</span><span>Pendiente / sin programar</span></div>
+  <div class="leyenda-item"><span class="leyenda-chip chip-over">&gt;100%</span><span>Sobreejecutada</span></div>
+  <div class="leyenda-item"><span class="leyenda-chip chip-low">&lt;60%</span><span>&lt;60% programado</span></div>
+</div>
+
 <div class="reportes-grid">
 <section class="report-card card-aprendices">
 <header>
@@ -6825,9 +7143,6 @@ header{
 </section>
 </div>
 <div class="reportes-actions">
-<div class="reportes-actions-header">
-<h3>Acciones de Exportación</h3>
-</div>
 <div class="reportes-actions-grid">
 <button class="btnExportarPDF export-card" id="btnExportarPDF">
 <div class="export-card-icon pdf">PDF</div>
@@ -8483,7 +8798,7 @@ timelines.forEach((t) => {
 
             actualizarEstados();
 
-            // Procesamiento manual: el usuario debe presionar "PROCESAR Y GENERAR DASHBOARD".
+            // Procesamiento manual: el usuario debe presionar "PROCESAR Y GENERAR".
 if (dzMsg) { dzMsg.style.display = "none"; dzMsg.textContent = ""; }
           } catch (err) {
             setError("No fue posible leer/validar el archivo. Verifique que sea un Excel válido.");
@@ -9293,6 +9608,13 @@ if (btnProcesar.disabled) {
             <td></td> <!-- Horas Diseño, se llenan luego -->
             <td></td> <!-- % -->
           `;
+
+            // NUEVO: pendientes / sin programar (rojo claro)
+            if ((diasColor || "").toLowerCase() === "pendiente") {
+              tr.classList.add("fila-pendiente-sin-programar");
+            } else {
+              tr.classList.remove("fila-pendiente-sin-programar");
+            }
             tbody2.appendChild(tr);
           });
         });
@@ -10421,6 +10743,7 @@ if (btnProcesar.disabled) {
 
         let haySuperadas = false;
         let numeroCompetenciasSobrecargadas = 0;  // NUEVO
+        let numeroCompetenciasBajaProgramada = 0;  // NUEVO
         for (let i = 0; i < filas.length; i++) {
           const filaHtml = filas[i];
           const celdas = filaHtml.getElementsByTagName("td");
@@ -10440,14 +10763,23 @@ if (btnProcesar.disabled) {
 
             celdas[7].textContent = horasDiseno.toFixed(2);
             celdas[8].textContent = porcentajeTexto;
+            filaHtml.dataset.pctEjecucion = (horasDiseno > 0 ? porcentajeNumero.toString() : "");
 
-            // Resaltar en rojo claro las filas que superen el 100 %
+            // Semáforo por % (solo en la celda de %)
+            const tdPct = celdas[8];
+            if (tdPct) {
+              tdPct.classList.remove("pct-sobreejecutada", "pct-baja-ejecucion");
+            }
+            // limpieza (legado)
+            filaHtml.classList.remove("textoRojo");
+
             if (porcentajeNumero > 100) {
-              filaHtml.classList.add("textoRojo");
+              if (tdPct) tdPct.classList.add("pct-sobreejecutada");
               haySuperadas = true;
               numeroCompetenciasSobrecargadas++;   // NUEVO
-            } else {
-              filaHtml.classList.remove("textoRojo");
+            } else if (porcentajeNumero > 0 && porcentajeNumero < 60) {
+              if (tdPct) tdPct.classList.add("pct-baja-ejecucion");
+              numeroCompetenciasBajaProgramada++;  // NUEVO
             }
 
           }
@@ -10458,7 +10790,18 @@ if (btnProcesar.disabled) {
           spanCompSobrecargadas.textContent = numeroCompetenciasSobrecargadas.toString();
         }
 
-        // Mostrar / ocultar la nota debajo del título del gráfico
+        
+        const spanCompBajaProgramada = document.getElementById("numCompetenciasBajaProgramadaHeader");
+        if (spanCompBajaProgramada) {
+          spanCompBajaProgramada.textContent = numeroCompetenciasBajaProgramada.toString();
+        }
+
+        // Mantener notas y alertas consistentes
+        try { actualizarNotasMetricaHeader(); } catch(e) {}
+        try { actualizarPanelAlertasReporte2(); } catch(e) {}
+
+
+// Mostrar / ocultar la nota debajo del título del gráfico
         const nota = document.getElementById("notaCompetenciasHoras");
         if (nota) {
           if (haySuperadas) {
@@ -13930,71 +14273,127 @@ if (nombresSoloPractica.size === 0) return null;
         return ["✓", "si", "sí", "s", "1", "true", "ok", "cumple"].includes(s);
       }
 
-      function construirHTMLCursosComplementariosDesdeModelo(modelo) {
+      function construirHTMLCursosComplementariosDesdeModelo(modelo, opts) {
         if (!modelo || !Array.isArray(modelo.filas)) return "";
-const preparatorios = Array.isArray(modelo.columnas?.preparatorios) ? modelo.columnas.preparatorios : [];
+        opts = opts || {};
+        const forWord = !!opts.forWord;
+
+        const preparatorios = Array.isArray(modelo.columnas?.preparatorios) ? modelo.columnas.preparatorios : [];
         const habilidades = Array.isArray(modelo.columnas?.habilidades) ? modelo.columnas.habilidades : [];
         const emprendimiento = Array.isArray(modelo.columnas?.emprendimiento) ? modelo.columnas.emprendimiento : [];
         const otros = Array.isArray(modelo.columnas?.otros) ? modelo.columnas.otros : [];
         const totalCursos = preparatorios.length + habilidades.length + emprendimiento.length + otros.length;
 
-        // Columnas: Nombre + % + cursos
-        const totalColumnas = 2 + totalCursos;
+        // === Anchos (WEB) ===
+        const anchoNombrePct = 22;
+        const anchoPctPct = 6;
+        const anchoCursosPct = totalCursos > 0 ? ((100 - anchoNombrePct - anchoPctPct) / totalCursos) : 0;
 
-        const anchoNombre = 22;
-        const anchoPct = 6;
-const anchoCursos = totalCursos > 0 ? ((100 - anchoNombre - anchoPct) / totalCursos) : 0;
+        // === Anchos (WORD) ===
+        // Nota: Word tiende a ignorar colgroup en %, por eso fijamos en puntos + mso-*
+        const WORD_TABLE_CM = 16.0;   // ancho total de tabla
+        const WORD_NOMBRE_CM = 3.3;   // columna "Nombre" (más angosta)
+        const WORD_PCT_CM = 0.85;      // columna "%"
+        const cmToPt = (cm) => cm * 28.3464567;
+        const wordTablePt = cmToPt(WORD_TABLE_CM);
+        const wordNombrePt = cmToPt(WORD_NOMBRE_CM);
+        const wordPctPt = cmToPt(WORD_PCT_CM);
+        const wordCursoPt = totalCursos > 0 ? ((wordTablePt - wordNombrePt - wordPctPt) / totalCursos) : 0;
 
-        const colgroupCols = [
-          `<col style="width:${anchoNombre}%;">`,
-          `<col style="width:${anchoPct}%;">`,
-          ...Array(totalCursos).fill(`<col style="width:${anchoCursos.toFixed(4)}%;">`)
-        ].join("");
+        const fmtPt = (pt) => `${pt.toFixed(2)}pt`;
+        const twips = (pt) => Math.max(0, Math.round(pt * 20)); // 1pt = 20 twips
+
+        const colgroupCols = (forWord ? [
+          `<col style="width:${fmtPt(wordNombrePt)};mso-width-source:userset;mso-width-alt:${twips(wordNombrePt)};">`,
+          `<col style="width:${fmtPt(wordPctPt)};mso-width-source:userset;mso-width-alt:${twips(wordPctPt)};">`,
+          ...Array(totalCursos).fill(`<col style="width:${fmtPt(wordCursoPt)};mso-width-source:userset;mso-width-alt:${twips(wordCursoPt)};">`)
+        ] : [
+          `<col style="width:${anchoNombrePct}%;">`,
+          `<col style="width:${anchoPctPct}%;">`,
+          ...Array(totalCursos).fill(`<col style="width:${anchoCursosPct.toFixed(4)}%;">`)
+        ]).join("");
+
+        const styleNombre = forWord ? `width:${fmtPt(wordNombrePt)};mso-width-source:userset;mso-width-alt:${twips(wordNombrePt)};` : "";
+        const stylePct = forWord ? `width:${fmtPt(wordPctPt)};mso-width-source:userset;mso-width-alt:${twips(wordPctPt)};` : "";
+        const styleCurso = forWord ? `width:${fmtPt(wordCursoPt)};mso-width-source:userset;mso-width-alt:${twips(wordCursoPt)};` : "";
 
         const simboloHtml = (v) => {
           if (v) return '<span style="color:#1e8a37; font-weight:700;">✓</span>';
           return '<span style="color:#b91c1c; font-weight:700;">X</span>';
         };
 
+        const labelWord = (label) => {
+          if (!forWord) return label;
+          const map = {
+            "Lectura Crítica": "Lectura<br>Crítica",
+            "Competencias Ciudadanas": "Competencias<br>Ciudadanas",
+            "Razonamiento Cuantitativo": "Razonamiento<br>Cuantitativo",
+            "Experiencias Seguras en Línea": "Experiencias<br>Seguras<br>en Línea",
+            "Comunicación y Colaboración": "Comunicación<br>y Colaboración",
+            "Contenido Digital": "Contenido<br>Digital",
+            "Gestión del Conocimiento": "Gestión del<br>Conocimiento",
+            "Comportamiento Emprendedor": "Comportamiento<br>Emprendedor",
+            "Emprendimiento Digital": "Emprendimiento<br>Digital",
+            "Derechos Fundamentales para el Trabajo": "Derechos Fundamentales<br>para el Trabajo"
+          };
+          if (map[label]) return map[label];
+
+          // Fallback: si el título es largo, permitir quiebres
+          if ((label || "").length > 18) return (label || "").replace(/\s+/g, "<br>");
+          return label;
+        };
+
         let html = '';
         html += '<h4 style="text-align:center; margin-top:8px; margin-bottom:4px;">Cursos complementarios por aprendiz</h4>';
         html += '<div style="font-size:8pt; margin:0 0 6px; text-align:justify;">✓ Marque cada celda cuando el aprendiz cumpla con los certificados de cada curso; las evidencias están disponibles en https://certificados.sena.edu.co/. Use la casilla correspondiente de cada aprendiz para registrar observaciones adicionales.</div>';
         html += '<div class="tabla-acta-wrap" style="margin:4px auto;">';
-        html += '<table class="tabla-acta" style="width:100%; border-collapse:collapse; margin:0 auto; table-layout:fixed; font-size:8pt;">';
+
+        const tableClass = forWord ? 'tabla-acta acta-table-18cm' : 'tabla-acta';
+        const tableWidthStyle = forWord
+          ? `width:${WORD_TABLE_CM}cm; max-width:${WORD_TABLE_CM}cm; mso-table-width-alt:${WORD_TABLE_CM}cm;`
+          : 'width:100%;';
+
+        html += '<table class="' + tableClass + '" style="' + tableWidthStyle + ' border-collapse:collapse; margin:0 auto; table-layout:fixed; mso-table-layout-alt:fixed; font-size:' + (forWord ? '7pt' : '8pt') + ';">';
         html += colgroupCols;
         html += '<thead>';
 
         // Encabezado por grupos
         html += '<tr>';
-        html += '<th rowspan="2" style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:8pt;">Nombre del aprendiz</th>';
-        html += '<th rowspan="2" style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:8pt;">%</th>';
+        html += '<th rowspan="2" style="' + styleNombre + ' border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + '; white-space:normal; word-break:break-word; overflow-wrap:break-word;">Nombre del aprendiz</th>';
+        html += '<th rowspan="2" style="' + stylePct + ' border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + ';">%</th>';
         if (preparatorios.length) {
-          html += '<th colspan="' + preparatorios.length + '" style="border:1px solid #000; background-color:#d1d5db; font-weight:bold; text-align:center; padding:4px;">Preparatorios para pruebas saber TYT</th>';
+          html += '<th colspan="' + preparatorios.length + '" style="border:1px solid #000; background-color:#d1d5db; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + ';">Preparatorios para pruebas saber TYT</th>';
         }
         if (habilidades.length) {
-          html += '<th colspan="' + habilidades.length + '" style="border:1px solid #000; background-color:#bfdbfe; font-weight:bold; text-align:center; padding:4px;">Desarrollo de Habilidades Digitales</th>';
+          html += '<th colspan="' + habilidades.length + '" style="border:1px solid #000; background-color:#bfdbfe; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + ';">Desarrollo de Habilidades Digitales</th>';
         }
         if (emprendimiento.length) {
-          html += '<th colspan="' + emprendimiento.length + '" style="border:1px solid #000; background-color:#d1d5db; font-weight:bold; text-align:center; padding:4px;">Emprendimiento y DDHH</th>';
+          html += '<th colspan="' + emprendimiento.length + '" style="border:1px solid #000; background-color:#d1d5db; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + ';">Emprendimiento y DDHH</th>';
         }
         if (otros.length) {
-          html += '<th colspan="' + otros.length + '" style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:8pt;">Otros</th>';
+          html += '<th colspan="' + otros.length + '" style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + ';">Otros</th>';
         }
         html += '</tr>';
 
         // Sub-encabezados
         html += '<tr>';
+        const thCursoStyle = (bg) => (
+          styleCurso +
+          ' border:1px solid #000; background-color:' + bg + '; font-weight:bold; text-align:center; padding:' + (forWord ? '2px' : '4px') +
+          '; font-size:' + (forWord ? '6pt' : '5pt') + '; white-space:normal; word-break:break-word; overflow-wrap:anywhere; line-height:1.05;'
+        );
+
         preparatorios.forEach(label => {
-          html += '<th style="border:1px solid #000; background-color:#f3f4f6; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + label + '</th>';
+          html += '<th style="' + thCursoStyle('#f3f4f6') + '">' + labelWord(label) + '</th>';
         });
         habilidades.forEach(label => {
-          html += '<th style="border:1px solid #000; background-color:#f3f4f6; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + label + '</th>';
+          html += '<th style="' + thCursoStyle('#f3f4f6') + '">' + labelWord(label) + '</th>';
         });
         emprendimiento.forEach(label => {
-          html += '<th style="border:1px solid #000; background-color:#f3f4f6; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + label + '</th>';
+          html += '<th style="' + thCursoStyle('#f3f4f6') + '">' + labelWord(label) + '</th>';
         });
         otros.forEach(label => {
-          html += '<th style="border:1px solid #000; background-color:#f3f4f6; font-weight:bold; text-align:center; padding:4px; font-size:5pt; word-wrap:break-word;">' + label + '</th>';
+          html += '<th style="' + thCursoStyle('#f3f4f6') + '">' + labelWord(label) + '</th>';
         });
         html += '</tr>';
 
@@ -14004,14 +14403,14 @@ const anchoCursos = totalCursos > 0 ? ((100 - anchoNombre - anchoPct) / totalCur
 
         modelo.filas.forEach(row => {
           html += '<tr>';
-          html += '<td style="border:1px solid #000; padding:4px; word-wrap:break-word; font-size:8pt;">' + (row.nombre || '') + '</td>';
+          html += '<td style="' + styleNombre + ' border:1px solid #000; padding:' + (forWord ? '2px' : '4px') + '; white-space:normal; word-break:break-word; overflow-wrap:break-word; font-size:' + (forWord ? '7pt' : '8pt') + ';">' + (row.nombre || '') + '</td>';
           const checks = row.checks || {};
           const cumplidos = allColsCursos.reduce((acc, label) => acc + (checks[label] ? 1 : 0), 0);
           const pct = totalCursos ? Math.round((cumplidos / totalCursos) * 100) : 0;
           const bgPct = (pct >= 100) ? "#bbf7d0" : (pct >= 50 ? "#fef08a" : "#fecaca");
-          html += '<td style="border:1px solid #000; text-align:center; padding:4px; font-weight:bold; font-size:8pt; background-color:' + bgPct + ';">' + pct + '%</td>';
+          html += '<td style="' + stylePct + ' border:1px solid #000; text-align:center; padding:' + (forWord ? '2px' : '4px') + '; font-weight:bold; font-size:' + (forWord ? '7pt' : '8pt') + '; background-color:' + bgPct + ';">' + pct + '%</td>';
           allColsCursos.forEach(label => {
-            html += '<td style="border:1px solid #000; text-align:center; padding:4px; font-size:8pt;">' + simboloHtml(!!checks[label]) + '</td>';
+            html += '<td style="' + styleCurso + ' border:1px solid #000; text-align:center; padding:' + (forWord ? '1px' : '4px') + '; font-size:' + (forWord ? '7pt' : '8pt') + ';">' + simboloHtml(!!checks[label]) + '</td>';
           });
           html += '</tr>';
         });
@@ -14023,7 +14422,7 @@ const anchoCursos = totalCursos > 0 ? ((100 - anchoNombre - anchoPct) / totalCur
       function construirTablaCursosComplementariosActaActual() {
         const modelo = cursosComplementariosModeloPersonalizado || construirModeloCursosComplementariosBase();
         if (!modelo || !Array.isArray(modelo.filas) || !modelo.filas.length) return "";
-        return construirHTMLCursosComplementariosDesdeModelo(modelo);
+        return construirHTMLCursosComplementariosDesdeModelo(modelo, { forWord: true });
       }
 
       
@@ -14529,6 +14928,9 @@ const anchoCursos = totalCursos > 0 ? ((100 - anchoNombre - anchoPct) / totalCur
         let graficoCursosHabilidadesResumenHTML = "";
         let graficoCursosEmprendimientoResumenHTML = "";
         let isTecnologoActa = false;
+        // (Ajuste) Modo Word: mejora compatibilidad (padding/fuentes/saltos) al exportar
+        const modoWord = true;
+
 
 
         // Logo institucional para encabezado Word
@@ -14568,7 +14970,7 @@ const anchoCursos = totalCursos > 0 ? ((100 - anchoNombre - anchoPct) / totalCur
             : "";
 
           return `
-            <div class="acta-chart-wrap" style="text-align:center; margin:6px auto 10px;">
+            <div class="acta-chart-wrap" style="text-align:center; margin:6px auto 10px; width:${wCm}; max-width:${wCm};">
               ${img}
               ${cap}
             </div>
@@ -16001,7 +16403,7 @@ const colgroup = cloneGantt.querySelector("colgroup");
                   dataUrl,
                   tituloGrafico || "Gráfica de avance (%)",
                   "<em>(No se pudo generar la gráfica de avance para este bloque.)</em>",
-                  "18cm"
+                  "16cm"
                 );
               } catch (e) {
                 graficoHtml = "<em>(No se pudo generar la gráfica de avance para este bloque.)</em>";
@@ -16495,24 +16897,36 @@ const colgroup = cloneGantt.querySelector("colgroup");
         const bloqueCursosComplementariosDetalleActaHTML = `
           <div style="margin-top:6px;">
             ${isTecnologoActa ? `
-              <div style="text-align:center; font-weight:700; font-style:italic; margin:10px 0 6px 0;">
-                1.&nbsp;&nbsp;Cursos Preparatorios para pruebas saber TYT
+              <div class="acta-section">
+                <div class="acta-section-title">
+                  1.&nbsp;&nbsp;Cursos Preparatorios para pruebas saber TYT
+                </div>
+                <div class="acta-keep">
+                  ${graficoCursosPreparatoriosResumenHTML}
+                  <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosPreparatoriosResumenHTML}</div>
+                </div>
               </div>
-              ${graficoCursosPreparatoriosResumenHTML}
-              <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosPreparatoriosResumenHTML}</div>
             ` : ""}
 
-            <div style="text-align:center; font-weight:700; font-style:italic; margin:12px 0 6px 0;">
-              ${numDigitalActa}.&nbsp;&nbsp;Cursos Habilidades Digitales
+            <div class="acta-section">
+              <div class="acta-section-title">
+                ${numDigitalActa}.&nbsp;&nbsp;Cursos Habilidades Digitales
+              </div>
+              <div class="acta-keep">
+                ${graficoCursosHabilidadesResumenHTML}
+                <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosHabilidadesResumenHTML}</div>
+              </div>
             </div>
-            ${graficoCursosHabilidadesResumenHTML}
-            <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosHabilidadesResumenHTML}</div>
 
-            <div style="text-align:center; font-weight:700; font-style:italic; margin:12px 0 6px 0;">
-              ${numEmprActa}.&nbsp;&nbsp;Cursos Emprendimiento y Derechos Fundamentales
+            <div class="acta-section">
+              <div class="acta-section-title">
+                ${numEmprActa}.&nbsp;&nbsp;Cursos Emprendimiento y Derechos Fundamentales
+              </div>
+              <div class="acta-keep">
+                ${graficoCursosEmprendimientoResumenHTML}
+                <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosEmprendimientoResumenHTML}</div>
+              </div>
             </div>
-            ${graficoCursosEmprendimientoResumenHTML}
-            <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosEmprendimientoResumenHTML}</div>
           </div>
         `;
 
@@ -16554,6 +16968,53 @@ const colgroup = cloneGantt.querySelector("colgroup");
       
 
       .Section1 { page: Section1; }
+
+/* ================= MODO WORD (EXPORTACIÓN ROBUSTA) ================= */
+      body.modo-word, body.modo-word .Section1{
+        font-family: Calibri, Arial, sans-serif;
+        font-size: 9.5pt;
+        line-height: 1.25;
+        widows: 3;
+        orphans: 3;
+      }
+      body.modo-word p{
+        margin-top: 0;
+        margin-bottom: 6pt;
+        widows: 3;
+        orphans: 3;
+      }
+      body.modo-word table td, body.modo-word table th{
+        padding: 4px 5px;
+        font-size: 9pt;
+        line-height: 1.15;
+      }
+      body.modo-word h1, body.modo-word h2, body.modo-word h3, body.modo-word h4{
+        page-break-after: avoid;
+      }
+      .acta-keep{
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+      .acta-chart-wrap, .tabla-acta-wrap{
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+      .acta-section{
+        margin-top: 10px;
+        page-break-inside: avoid;
+        break-inside: avoid-page;
+      }
+      body.modo-word .acta-section + .acta-section{
+        page-break-before: always;
+      }
+      .acta-section-title{
+        text-align:center;
+        font-weight:700;
+        font-style:italic;
+        margin: 10px 0 6px 0;
+        page-break-after: avoid;
+      }
+
 /* Estilos de títulos para DESARROLLO DE LA REUNIÓN (después de normalizar listas) */
       .acta-title1,
       .acta-title2,
@@ -17140,7 +17601,7 @@ const colgroup = cloneGantt.querySelector("colgroup");
       }
 </style>
     </head>
-  <body>
+  <body class="${modoWord ? 'modo-word' : ''}">
     
     <div class="Section1">
 
@@ -18509,14 +18970,29 @@ ${incluyeActa("cursos-complementarios") ? `
       const tbody = document.getElementById("tbodyReporte2");
       if (!tbody) return;
 
-      // Filtro por color (días) - AND con filtros anteriores
+      // Filtro por estado (AND con filtros anteriores)
       const coloresActivos = obtenerColoresActivos("tablaReporte2");
-      if (coloresActivos.length > 0) {
+      const filtroEstado = coloresActivos.length ? coloresActivos[0] : "";
+
+      if (filtroEstado) {
         Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
           if (tr.style.display === "none") return;
+
+          // Filtros basados en la columna % (ejecución)
+          if (filtroEstado === "sobreejecutadas" || filtroEstado === "pendiente-horas") {
+            const pct = parseFloat(tr.dataset.pctEjecucion || "");
+            if (filtroEstado === "sobreejecutadas" && !(pct > 100)) {
+              tr.style.display = "none";
+            } else if (filtroEstado === "pendiente-horas" && !(pct < 60)) {
+              tr.style.display = "none";
+            }
+            return;
+          }
+
+          // Filtros basados en la columna de días (verde/rojo/pendiente)
           const diasTd = tr.querySelector("td.col-dias");
           const color = (diasTd?.getAttribute("data-color") || "").toLowerCase();
-          if (!coloresActivos.includes(color)) {
+          if (color !== filtroEstado) {
             tr.style.display = "none";
           }
         });
@@ -18551,8 +19027,11 @@ ${incluyeActa("cursos-complementarios") ? `
         }
       });
 
+      aplicarFiltroAlertasReporte2(tbody);
+
       renumerarFilasTabla(tbody);
       actualizarTotalesReporte2();
+      actualizarPanelAlertasReporte2();
       }
 
       function aplicarFiltrosReporte3() {
@@ -19580,9 +20059,9 @@ ${incluyeActa("cursos-complementarios") ? `
               const color = (this.getAttribute("data-color") || "").toLowerCase();
               if (!tableId || !color) return;
 
-              const estado = filtroColorTabla[tableId] || (filtroColorTabla[tableId] = { verde: false, rojo: false });
+              const estado = filtroColorTabla[tableId] || (filtroColorTabla[tableId] = { verde: false, rojo: false, pendiente: false, "no-aprobado": false, sobreejecutadas: false, "pendiente-horas": false });
               const estabaActivo = !!estado[color];
-              ["verde", "rojo", "pendiente", "no-aprobado"].forEach(col => {
+              ["verde", "rojo", "pendiente", "no-aprobado", "sobreejecutadas", "pendiente-horas"].forEach(col => {
                 estado[col] = false;
               });
               if (!estabaActivo) estado[color] = true;
@@ -21814,6 +22293,208 @@ document.addEventListener("DOMContentLoaded", function () {
           console.error(e);
         }
       });
+
+
+// =========================
+// Mejoras: Alertas Reporte 2 + Búsqueda Aprendiz Reporte 7 + Notas KPI consistentes
+// =========================
+let filtroAlertaReporte2 = ""; // '', 'sin-horas', 'inconsistencias'
+
+function setFiltroColorTablaExclusivo(tableId, color) {
+  if (!tableId) return;
+  const estado = filtroColorTabla[tableId] || (filtroColorTabla[tableId] = { verde: false, rojo: false, pendiente: false, "no-aprobado": false, sobreejecutadas: false, "pendiente-horas": false });
+  ["verde","rojo","pendiente","no-aprobado","sobreejecutadas","pendiente-horas"].forEach(k => estado[k] = false);
+  if (color && estado.hasOwnProperty(color)) estado[color] = true;
+
+  document.querySelectorAll(`.filtros-colores-dias[data-table="${tableId}"] .btn-filtro-dias`).forEach(btn => {
+    const c = (btn.getAttribute("data-color") || "").toLowerCase();
+    btn.classList.toggle("active", !!estado[c]);
+  });
+}
+
+function aplicarFiltroAlertasReporte2(tbody) {
+  if (!tbody) return;
+  if (!filtroAlertaReporte2) return;
+
+  Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
+    if (tr.style.display === "none") return;
+    const celdas = tr.getElementsByTagName("td");
+    if (!celdas || celdas.length < 9) return;
+
+    const horas = parseNumeroDesdeTexto(celdas[6]?.textContent);
+    const pctRaw = (tr.dataset.pctEjecucion || "").trim();
+    const pct = pctRaw ? parseFloat(pctRaw) : NaN;
+
+    if (filtroAlertaReporte2 === "sin-horas") {
+      if (!(horas <= 0)) tr.style.display = "none";
+    } else if (filtroAlertaReporte2 === "inconsistencias") {
+      // Ejemplo: % vacío pero horas > 0
+      if (!(horas > 0 && (!pctRaw || isNaN(pct)))) tr.style.display = "none";
+    }
+  });
+}
+
+function actualizarPanelAlertasReporte2() {
+  const tbody = document.getElementById("tbodyReporte2");
+  const outOver = document.getElementById("alertaSobreejecutadasReporte2");
+  const outLow = document.getElementById("alertaBajaProgramadaReporte2");
+  const outSinHoras = document.getElementById("alertaPendientesSinHorasReporte2");
+  const outInc = document.getElementById("alertaInconsistenciasReporte2");
+  if (!tbody) {
+    if (outOver) outOver.textContent = "0";
+    if (outLow) outLow.textContent = "0";
+    if (outSinHoras) outSinHoras.textContent = "0";
+    if (outInc) outInc.textContent = "0";
+    return;
+  }
+
+  let cntOver = 0, cntLow = 0, cntSinHoras = 0, cntInc = 0;
+
+  Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
+    if (tr.style.display === "none") return;
+    const tds = tr.getElementsByTagName("td");
+    if (!tds || tds.length < 9) return;
+
+    const horas = parseNumeroDesdeTexto(tds[6]?.textContent);
+    const pctRaw = (tr.dataset.pctEjecucion || "").trim();
+    const pct = pctRaw ? parseFloat(pctRaw) : NaN;
+
+    if (!isNaN(pct) && pct > 100) cntOver++;
+    if (!isNaN(pct) && pct > 0 && pct < 60) cntLow++;
+    if (horas <= 0) cntSinHoras++;
+    if (horas > 0 && (!pctRaw || isNaN(pct))) cntInc++;
+  });
+
+  if (outOver) outOver.textContent = String(cntOver);
+  if (outLow) outLow.textContent = String(cntLow);
+  if (outSinHoras) outSinHoras.textContent = String(cntSinHoras);
+  if (outInc) outInc.textContent = String(cntInc);
+}
+
+function activarFiltroDesdeAlertaReporte2(tipo) {
+  const tbody = document.getElementById("tbodyReporte2");
+  if (!tbody) return;
+
+  // Limpiar filtro alerta previo
+  filtroAlertaReporte2 = "";
+
+  if (tipo === "sobreejecutadas") {
+    setFiltroColorTablaExclusivo("tablaReporte2", "sobreejecutadas");
+  } else if (tipo === "pendiente-horas") {
+    setFiltroColorTablaExclusivo("tablaReporte2", "pendiente-horas");
+  } else if (tipo === "sin-horas") {
+    // Sin horas: no obliga estado, pero normalmente corresponde a pendientes
+    setFiltroColorTablaExclusivo("tablaReporte2", "");
+    filtroAlertaReporte2 = "sin-horas";
+  } else if (tipo === "inconsistencias") {
+    setFiltroColorTablaExclusivo("tablaReporte2", "");
+    filtroAlertaReporte2 = "inconsistencias";
+  }
+  aplicarFiltrosReporte2();
+}
+
+function limpiarAlertaReporte2() {
+  filtroAlertaReporte2 = "";
+  aplicarFiltrosReporte2();
+}
+
+function escapeHtmlSafe(str){
+  if (typeof escapeHtml === "function") return escapeHtml(str);
+  return (str || "").replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function aplicarBusquedaAprendizReporte7() {
+  const input = document.getElementById("buscarAprendizReporte7");
+  const tbody = document.getElementById("pivotAvanceContainer");
+  const meta = document.getElementById("metaBuscarAprendizReporte7");
+  if (!input || !tbody) return;
+
+  const q = (input.value || "").trim().toLowerCase();
+  let total = 0;
+  let visibles = 0;
+
+  Array.from(tbody.querySelectorAll("tr")).forEach(tr => {
+    const tds = tr.getElementsByTagName("td");
+    if (!tds || tds.length < 3) return;
+    total++;
+
+    const tdNombre = tds[2];
+    if (!tdNombre.dataset.originalText) tdNombre.dataset.originalText = tdNombre.textContent || "";
+
+    const nombreOriginal = tdNombre.dataset.originalText;
+    const nombreLower = nombreOriginal.toLowerCase();
+
+    const match = !q || nombreLower.includes(q);
+
+    tr.style.display = match ? "" : "none";
+    if (match) visibles++;
+
+    // Restaurar + resaltar
+    if (!q || !match) {
+      tdNombre.textContent = nombreOriginal;
+    } else {
+      const idx = nombreLower.indexOf(q);
+      if (idx >= 0) {
+        const before = escapeHtmlSafe(nombreOriginal.slice(0, idx));
+        const mid = escapeHtmlSafe(nombreOriginal.slice(idx, idx + q.length));
+        const after = escapeHtmlSafe(nombreOriginal.slice(idx + q.length));
+        tdNombre.innerHTML = `${before}<mark class="mark-highlight">${mid}</mark>${after}`;
+      } else {
+        tdNombre.textContent = nombreOriginal;
+      }
+    }
+  });
+
+  if (typeof renumerarFilasTabla === "function") renumerarFilasTabla(tbody);
+  if (meta) meta.textContent = `Mostrando ${visibles} de ${total}`;
+}
+
+function actualizarNotasMetricaHeader() {
+  const totalCompetencias = parseInt((document.getElementById("numCompetenciasHeader")?.textContent || "0").replace(/\D/g,""), 10) || 0;
+  const totalRaps = parseInt((document.getElementById("numResultadosHeader")?.textContent || "0").replace(/\D/g,""), 10) || 0;
+  const totalAprendices = parseInt((document.getElementById("numMatriculadosHeader")?.textContent || "0").replace(/\D/g,""), 10) || 0;
+
+  const setNote = (valorId, texto) => {
+    const elValor = document.getElementById(valorId);
+    if (!elValor) return;
+    const wrap = elValor.closest(".ficha-analisis-metrica");
+    const note = wrap ? wrap.querySelector(".ficha-analisis-metrica-note") : null;
+    if (note) note.textContent = texto;
+  };
+
+  setNote("numCompetenciasSobrecargadasHeader", totalCompetencias ? `sobre ${totalCompetencias} competencias` : "Competencias");
+  setNote("numCompetenciasBajaProgramadaHeader", totalCompetencias ? `sobre ${totalCompetencias} competencias` : "Competencias");
+  setNote("numResultadosNoAprobadosHeader", totalRaps ? `sobre ${totalRaps} RAPs` : "RAPs");
+  setNote("numRapsPendientesVistoHeader", totalRaps ? `sobre ${totalRaps} RAPs` : "RAPs");
+  setNote("numAprendicesConCompetenciasNoAprobadasHeader", totalAprendices ? `sobre ${totalAprendices} aprendices` : "Aprendices");
+  setNote("numAprendicesConCompetenciasPorEvaluarHeader", totalAprendices ? `sobre ${totalAprendices} aprendices` : "Aprendices");
+  setNote("numAprendicesRiesgoHeader", totalAprendices ? `sobre ${totalAprendices} aprendices` : "Aprendices");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Alertas Reporte 2
+  const panel = document.getElementById("panelAlertasReporte2");
+  if (panel) {
+    panel.querySelectorAll(".alerta-card").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tipo = btn.getAttribute("data-alerta") || "";
+        if (tipo) activarFiltroDesdeAlertaReporte2(tipo);
+      });
+    });
+    const btnClear = document.getElementById("btnLimpiarAlertaReporte2");
+    if (btnClear) btnClear.addEventListener("click", limpiarAlertaReporte2);
+  }
+
+  // Búsqueda Aprendiz Reporte 7
+  const input = document.getElementById("buscarAprendizReporte7");
+  if (input) {
+    input.addEventListener("input", aplicarBusquedaAprendizReporte7);
+    aplicarBusquedaAprendizReporte7();
+  }
+
+  // KPI notes
+  actualizarNotasMetricaHeader();
+});
 
 </script>
 </body>
