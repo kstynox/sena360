@@ -5240,6 +5240,234 @@ header{
 }
 
 
+/* === Modal personalizado para LUGAR Y/O ENLACE del acta === */
+#lugarActaOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.9));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  padding: 18px;
+}
+
+#lugarActaOverlay .login-card {
+  width: min(620px, 94vw);
+  max-width: 620px;
+  border-radius: 22px;
+  padding: 30px 34px;
+  overflow: visible;
+}
+
+#lugarActaOverlay .login-header-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+#lugarActaOverlay .login-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+#lugarActaOverlay .login-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 400 !important;
+  color: var(--verde-sena-oscuro);
+}
+
+#lugarActaOverlay .login-subtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--texto-secundario);
+  text-align: center;
+}
+
+#lugarActaOverlay .login-fields {
+  margin-top: 20px;
+}
+
+#lugarActaOverlay .login-field label {
+  font-weight: 700;
+  color: #111827;
+}
+
+#lugarActaOverlay .lugar-acta-input-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 13px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-left: 5px solid rgba(40, 167, 69, 0.90);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  box-sizing: border-box;
+}
+
+#lugarActaOverlay .lugar-acta-input-wrap:focus-within {
+  border-color: rgba(40, 167, 69, 0.70);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.14);
+}
+
+#lugarActaOverlay .lugar-acta-input-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(40, 167, 69, 0.12);
+  border: 1px solid rgba(40, 167, 69, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex: 0 0 auto;
+}
+
+#lugarActaOverlay #inputLugarEnlaceActa {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #0f172a;
+  font-family: inherit;
+}
+
+#lugarActaOverlay #inputLugarEnlaceActa::placeholder {
+  color: #6b7280;
+}
+
+#lugarActaOverlay .login-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#lugarActaOverlay #btnAceptarLugarActa,
+#lugarActaOverlay #btnCancelarLugarActa {
+  min-width: 115px;
+}
+
+#lugarActaOverlay .login-error {
+  margin-top: 14px;
+  text-align: center;
+}
+
+
+
+
+/* === Modales personalizados para validación y vista previa del acta === */
+#actaPreviewOverlay,
+#actaValidacionOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.9));
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1002;
+  padding: 18px;
+}
+
+#actaPreviewOverlay .login-card,
+#actaValidacionOverlay .login-card {
+  width: min(760px, 94vw);
+  max-width: 760px;
+  border-radius: 22px;
+  padding: 28px 34px;
+  overflow: visible;
+}
+
+#actaPreviewOverlay .login-header-main,
+#actaValidacionOverlay .login-header-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+#actaPreviewOverlay .login-title,
+#actaValidacionOverlay .login-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 400 !important;
+  color: var(--verde-sena-oscuro);
+}
+
+.acta-preview-box,
+.acta-validacion-box {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  max-height: 52vh;
+  overflow: auto;
+}
+
+.acta-preview-grid {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 8px 14px;
+  font-size: 13px;
+}
+
+.acta-preview-label {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.acta-preview-value {
+  color: #334155;
+  word-break: break-word;
+}
+
+.acta-preview-reportes {
+  margin: 8px 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.acta-preview-reportes li,
+.acta-validacion-lista li {
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  font-size: 13px;
+}
+
+.acta-validacion-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#actaPreviewOverlay .login-actions,
+#actaValidacionOverlay .login-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+#actaPreviewOverlay .btnEstilo,
+#actaValidacionOverlay .btnEstilo {
+  min-width: 150px;
+}
+
 /* =========================
    Reporte 7: Tablas Cursos Complementarios (encabezado verde)
    ========================= */
@@ -5370,6 +5598,7 @@ header{
 <option value="">Seleccione un coordinador...</option>
 <option value="EDNA PAOLA OSORIO MUÑOZ">EDNA PAOLA OSORIO MUÑOZ</option>
 <option value="JORGE ARMANDO VARELA RENDÓN">JORGE ARMANDO VARELA RENDÓN</option>
+<option value="OMAR BARRAGÁN CAICEDO">OMAR BARRAGÁN CAICEDO</option>
 <option value="YOLANDA CÁRDENAS VILLAMARIN">YOLANDA CÁRDENAS VILLAMARIN</option>
 </select>
 </div>
@@ -5480,6 +5709,101 @@ header{
       </div>
 </div>
 </div>
+
+<!-- Overlay para capturar Lugar y/o Enlace del acta -->
+<div id="lugarActaOverlay" style="display:none;">
+  <div class="login-card lugar-acta-card">
+    <div class="login-header">
+      <div class="login-header-main">
+        <span class="login-icon">📍</span>
+        <div>
+          <div class="login-title"><span style="font-weight:400;">Registrar LUGAR Y/O ENLACE</span></div>
+          <div class="login-subtitle">
+            Ingrese el lugar o enlace de la reunión para incluirlo en el acta.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-fields">
+      <div class="login-field">
+        <label for="inputLugarEnlaceActa">LUGAR Y/O ENLACE</label>
+        <div class="lugar-acta-input-wrap">
+          <span class="lugar-acta-input-icon">🔎</span>
+          <input id="inputLugarEnlaceActa" type="text" placeholder="Ej.: AMBIENTE 1060B o enlace de reunión" autocomplete="off" />
+        </div>
+      </div>
+    </div>
+    <div class="login-actions">
+      <button class="btnEstilo" id="btnAceptarLugarActa" type="button">
+        <span class="login-button-icon">✔</span>
+        <span>Aceptar</span>
+      </button>
+      <button class="btnEstilo btn-negativo" id="btnCancelarLugarActa" type="button">
+        <span class="login-button-icon">✖</span>
+        <span>Cancelar</span>
+      </button>
+    </div>
+    <div class="login-error" id="lugarActaMensajeError" style="display:none;">
+      Por favor ingrese el lugar o enlace del acta.
+    </div>
+  </div>
+</div>
+
+
+<!-- Overlay de validación del acta -->
+<div id="actaValidacionOverlay" style="display:none;">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-header-main">
+        <span class="login-icon">⚠️</span>
+        <div>
+          <div class="login-title"><span style="font-weight:400;">Validación del acta</span></div>
+          <div class="login-subtitle">Revise los datos requeridos antes de generar el acta.</div>
+        </div>
+      </div>
+    </div>
+    <div class="acta-validacion-box">
+      <ul class="acta-validacion-lista" id="actaValidacionLista"></ul>
+    </div>
+    <div class="login-actions">
+      <button class="btnEstilo" id="btnCerrarValidacionActa" type="button">
+        <span class="login-button-icon">✔</span>
+        <span>Entendido</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay de vista previa del acta -->
+<div id="actaPreviewOverlay" style="display:none;">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-header-main">
+        <span class="login-icon">🧾</span>
+        <div>
+          <div class="login-title"><span style="font-weight:400;">Vista previa del acta</span></div>
+          <div class="login-subtitle">Confirme la información principal antes de generar el documento.</div>
+        </div>
+      </div>
+    </div>
+    <div class="acta-preview-box">
+      <div class="acta-preview-grid" id="actaPreviewResumen"></div>
+      <div style="margin-top:12px; font-weight:800; color:#0f172a;">Reportes que irán al acta</div>
+      <ul class="acta-preview-reportes" id="actaPreviewReportes"></ul>
+    </div>
+    <div class="login-actions">
+      <button class="btnEstilo" id="btnConfirmarPreviewActa" type="button">
+        <span class="login-button-icon">✔</span>
+        <span>Generar acta</span>
+      </button>
+      <button class="btnEstilo btn-negativo" id="btnCancelarPreviewActa" type="button">
+        <span class="login-button-icon">✖</span>
+        <span>Editar datos</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Overlay para adjuntar Anexos (Imágenes) -->
 <div id="Overlay" style="display:none;">
 <div class="login-card">
@@ -9913,6 +10237,69 @@ if (btnProcesar.disabled) {
       }
 
       // Event Listeners (para controles Gantt)
+
+        function mostrarModalLugarEnlaceActa(valorInicial) {
+          return new Promise(function(resolve) {
+            const overlay = document.getElementById("lugarActaOverlay");
+            const input = document.getElementById("inputLugarEnlaceActa");
+            const btnAceptar = document.getElementById("btnAceptarLugarActa");
+            const btnCancelar = document.getElementById("btnCancelarLugarActa");
+            const mensajeError = document.getElementById("lugarActaMensajeError");
+
+            if (!overlay || !input || !btnAceptar || !btnCancelar) {
+              alert("No se encontró el formulario para capturar LUGAR Y/O ENLACE.");
+              resolve(null);
+              return;
+            }
+
+            const cerrar = function(valor) {
+              overlay.style.display = "none";
+              btnAceptar.removeEventListener("click", aceptar);
+              btnCancelar.removeEventListener("click", cancelar);
+              input.removeEventListener("keydown", manejarTecla);
+              resolve(valor);
+            };
+
+            const aceptar = function() {
+              const valor = String(input.value || "").trim();
+              if (!valor) {
+                if (mensajeError) mensajeError.style.display = "block";
+                input.focus();
+                return;
+              }
+              if (mensajeError) mensajeError.style.display = "none";
+              cerrar(valor);
+            };
+
+            const cancelar = function() {
+              cerrar(null);
+            };
+
+            const manejarTecla = function(event) {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                aceptar();
+              }
+              if (event.key === "Escape") {
+                event.preventDefault();
+                cancelar();
+              }
+            };
+
+            input.value = valorInicial || "";
+            if (mensajeError) mensajeError.style.display = "none";
+            overlay.style.display = "flex";
+            btnAceptar.addEventListener("click", aceptar);
+            btnCancelar.addEventListener("click", cancelar);
+            input.addEventListener("keydown", manejarTecla);
+
+            setTimeout(function() {
+              input.focus();
+              input.select();
+            }, 80);
+          });
+        }
+
       document.addEventListener("DOMContentLoaded", function () {
         const inputBusquedaGantt = document.getElementById("ganttSearchInput");
         if (inputBusquedaGantt) {
@@ -14916,7 +15303,7 @@ if (nombresSoloPractica.size === 0) return null;
       // =========================
       // Exportar Acta de Comité a Word
       // =========================
-      function exportarActaComiteWord() {
+      function exportarActaComiteWord(lugarEnlaceActaInput = "") {
         // Inicializar variables para tablas nuevas
         let tablaRapsNoProgramadosHTML = "";
         let tablaDetalleAlternativaHTML = "";
@@ -15604,6 +15991,23 @@ if (nombresSoloPractica.size > 0) {
           const tbodyPendJuicio = clonePendJuicio.querySelector("#tbodyPendientesInstructorReporte8");
           if (tbodyPendJuicio) tbodyPendJuicio.removeAttribute("id");
 
+          // Acta: este listado debe mostrar únicamente competencias en estado "Visto"
+          // (filas con la columna Días marcada en rojo).
+          let consecutivoPendJuicioVisto = 1;
+          if (tbodyPendJuicio) {
+            Array.from(tbodyPendJuicio.querySelectorAll("tr")).forEach((tr) => {
+              const colorFila = (tr.querySelector("td.col-dias")?.getAttribute("data-color") || "").toLowerCase();
+              if (colorFila !== "rojo") {
+                tr.remove();
+                return;
+              }
+              const tdNum = tr.querySelector("td:first-child");
+              if (tdNum) tdNum.textContent = consecutivoPendJuicioVisto++;
+            });
+          }
+          const tieneFilasPendientesVisto = !!(tbodyPendJuicio && tbodyPendJuicio.querySelector("tr"));
+
+          if (tieneFilasPendientesVisto) {
           // Mismo estilo que las demás tablas del acta
           clonePendJuicio.classList.add("tabla-pendientes-juicio");
           clonePendJuicio.style.width = "85%";
@@ -15613,12 +16017,12 @@ if (nombresSoloPractica.size > 0) {
           clonePendJuicio.style.marginLeft = "auto";
           clonePendJuicio.style.marginRight = "auto";
 
-          // Anchos de columnas: # / Instructor / Competencia / Aprendices / Cantidad
+          // Anchos de columnas del listado: # / Instructor / Competencia / Tipo / Fechas / Días / Aprendices / Cantidad
           const oldCgPend = clonePendJuicio.querySelector("colgroup");
           if (oldCgPend) oldCgPend.remove();
 
           const colgroupPend = document.createElement("colgroup");
-          ["6%", "28%", "26%", "25%", "15%"].forEach((w) => {
+          ["4%", "18%", "22%", "8%", "9%", "9%", "6%", "18%", "6%"].forEach((w) => {
             const col = document.createElement("col");
             col.style.width = w;
             colgroupPend.appendChild(col);
@@ -15629,6 +16033,7 @@ if (nombresSoloPractica.size > 0) {
           estilizarTablaActa(clonePendJuicio);
 
           tablaPendientesJuicioHTML = clonePendJuicio.outerHTML;
+          }
             }
 
         const ciudad = municipioFicha || "Ibagué";
@@ -16814,7 +17219,30 @@ const colgroup = cloneGantt.querySelector("colgroup");
         if (incluyeActa("aprendices-listos-productiva")) {
           agendaDetalleAprendicesItems.push("<li>Aprendices listos para ir a etapa productiva.</li>");
         }
+        if (incluyeActa("alternativa-etapa-productiva")) {
+          agendaDetalleAprendicesItems.push("<li>Alternativa de etapa productiva.</li>");
+        }
+        if (incluyeActa("cursos-complementarios")) {
+          agendaDetalleAprendicesItems.push(`
+            <li>Cursos Complementarios
+              <ol type="1" style="margin: 4px 0 0 18px; padding: 0;">
+                ${isTecnologoActa ? `<li>Cursos Preparatorios para pruebas saber TYT</li>` : ""}
+                <li>Cursos Habilidades Digitales</li>
+                <li>Cursos Emprendimiento y Derechos Fundamentales</li>
+              </ol>
+            </li>
+          `);
+        }
         const agendaDetalleAprendicesHTML = agendaDetalleAprendicesItems.join("");
+        const agendaDetalleAprendicesBloqueHTML = agendaDetalleAprendicesItems.length
+          ? `
+                <li>Detalle de aprendices
+                  <ol type="i" style="margin: 4px 0 0 18px; padding: 0;">
+                    ${agendaDetalleAprendicesHTML}
+                  </ol>
+                </li>
+                `
+          : "";
 
         const agendaDetalleInstructoresHTML = incluyeActa("listado-instructores-pendientes-juicio")
           ? `
@@ -16857,6 +17285,71 @@ const colgroup = cloneGantt.querySelector("colgroup");
                 </li>
                 `
           : "";
+
+
+        // Agenda del acta sin etiquetas OL/UL/LI: evita viñetas/listas automáticas en Word.
+        const romanActa = (num) => {
+          const mapa = [
+            [1000, "m"], [900, "cm"], [500, "d"], [400, "cd"],
+            [100, "c"], [90, "xc"], [50, "l"], [40, "xl"],
+            [10, "x"], [9, "ix"], [5, "v"], [4, "iv"], [1, "i"]
+          ];
+          let n = Number(num) || 0;
+          let r = "";
+          mapa.forEach(([v, s]) => { while (n >= v) { r += s; n -= v; } });
+          return r;
+        };
+        const letraActa = (num) => String.fromCharCode(96 + Number(num));
+        const lineaAgendaActa = (marca, texto, nivel = 0, extraStyle = "") => `
+          <div style="margin:1px 0 1px ${0.6 + (nivel * 0.65)}cm; padding:0; font-size:12pt; line-height:1.5; ${extraStyle}">
+            <span style="display:inline-block; width:${nivel === 0 ? '0.55cm' : '0.45cm'}; text-align:left;">${marca}</span>
+            <span>${texto}</span>
+          </div>`;
+
+        const agendaActaLineas = [];
+        let agendaN = 1;
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Verificación del quorum", 0));
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Compromisos del acta anterior (opcional)", 0));
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Análisis de Grupo (cuantitativa: reportes de aprendices, concepto general del grupo)", 0));
+
+        let agendaSub = 1;
+        if (agendaDetalleAprendicesItems.length) {
+          agendaActaLineas.push(lineaAgendaActa(`${letraActa(agendaSub++)}.`, "Detalle de aprendices", 1));
+          let r = 1;
+          if (incluyeActa("avance-fallas")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(r++)}.`, "Porcentaje de avance de aprendices y fallas", 2));
+          if (incluyeActa("competencias-pendientes-aprendiz")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(r++)}.`, "Competencias pendientes por evaluar por cada aprendiz.", 2));
+          if (incluyeActa("aprendices-listos-productiva")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(r++)}.`, "Aprendices listos para ir a etapa productiva.", 2));
+          if (incluyeActa("alternativa-etapa-productiva")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(r++)}.`, "Alternativa de etapa productiva.", 2));
+          if (incluyeActa("cursos-complementarios")) {
+            agendaActaLineas.push(lineaAgendaActa(`${romanActa(r++)}.`, "Cursos Complementarios", 2));
+            let c = 1;
+            if (isTecnologoActa) agendaActaLineas.push(lineaAgendaActa(`${c++}.`, "Cursos Preparatorios para pruebas saber TYT", 3));
+            agendaActaLineas.push(lineaAgendaActa(`${c++}.`, "Cursos Habilidades Digitales", 3));
+            agendaActaLineas.push(lineaAgendaActa(`${c++}.`, "Cursos Emprendimiento y Derechos Fundamentales", 3));
+          }
+        }
+        if (incluyeActa("listado-instructores-pendientes-juicio")) {
+          agendaActaLineas.push(lineaAgendaActa(`${letraActa(agendaSub++)}.`, "Instructores", 1));
+          agendaActaLineas.push(lineaAgendaActa(`i.`, "Listado de instructores con aprendices pendientes por emitir juicio.", 2));
+        }
+        if (agendaDetalleCompetenciasItems.length) {
+          agendaActaLineas.push(lineaAgendaActa(`${letraActa(agendaSub++)}.`, "Análisis de competencias y resultados de aprendizaje", 1));
+          let cr = 1;
+          if (incluyeActa("competencias-avance-diseno")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Competencias y % de avance vs diseño.", 2));
+          if (incluyeActa("cronograma-gantt")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Cronograma de programación de competencias (Gantt).", 2));
+          if (incluyeActa("competencias-sobre-ejecutadas")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Competencias sobre ejecutadas.", 2));
+          if (incluyeActa("competencias-pendientes")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Competencias pendientes.", 2));
+          if (incluyeActa("competencias-evaluadas-sin-programar")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Competencias Evaluadas sin estar programadas.", 2));
+          if (incluyeActa("competencias-raps-instructor-no-programado")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Competencias y RAPs evaluados por instructor no programado.", 2));
+          if (incluyeActa("raps-por-evaluar")) agendaActaLineas.push(lineaAgendaActa(`${romanActa(cr++)}.`, "Raps por evaluar.", 2));
+        }
+
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Análisis de casos especiales", 0));
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Recomendaciones del comité", 0));
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Conclusiones", 0));
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Compromisos", 0));
+        agendaActaLineas.push(lineaAgendaActa(`${agendaN++}.`, "Anexos", 0));
+        const agendaActaHTML = agendaActaLineas.join("");
 
         // =========================
         // ANEXOS (Imágenes) - mismo tamaño del proyecto de referencia
@@ -16930,6 +17423,147 @@ const colgroup = cloneGantt.querySelector("colgroup");
           </div>
         `;
 
+        const horaFin = new Date().toLocaleTimeString("es-CO", opcionesHora);
+        const lugarEnlaceActa = escapeHtml(String(lugarEnlaceActaInput || "").trim());
+
+
+        // Desarrollo del acta 100% dinámico y sin etiquetas OL/UL/LI.
+        // La numeración queda escrita manualmente para evitar viñetas y cambios de sangría en Word.
+        const bloqueActa = (claseTitulo, titulo, cuerpo = "") => `
+          <div class="acta-bloque">
+            <div class="${claseTitulo}">${titulo}</div>
+            ${cuerpo ? `<div class="contenido-item">${cuerpo}</div>` : ""}
+          </div>`;
+
+        const bloqueReporteActa = (titulo, descripcion, contenido) => `
+          <div class="acta-reporte-bloque">
+            <div class="acta-title3">${titulo}</div>
+            <div class="contenido-item">
+              ${descripcion ? `<div style="font-size:9pt; margin-bottom:4px;">${descripcion}</div>` : ""}
+              ${contenido || ""}
+            </div>
+          </div>`;
+
+        const desarrolloDetalleReportes = [];
+        if (incluyeActa("avance-fallas")) {
+          desarrolloDetalleReportes.push(bloqueReporteActa(
+            "i. Porcentaje de avance de aprendices y fallas.",
+            'Se presenta el porcentaje total de avance por aprendiz y el consolidado de fallas del reporte "Avance por Aprendiz", complementado con la tabla del avance general.',
+            `${graficoFallasAprendicesHTML}<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaAvanceAprendicesHTML || "<em>(No se encontró información del reporte % Avance por Aprendiz al momento de generar el acta.)</em>"}</div>`
+          ));
+        }
+        if (incluyeActa("competencias-pendientes-aprendiz")) {
+          desarrolloDetalleReportes.push(bloqueReporteActa(
+            `${romanActa(desarrolloDetalleReportes.length + 1)}. Competencias pendientes por evaluar por cada aprendiz.`,
+            'De acuerdo con el reporte "Competencias Pendientes por Aprendiz e Instructor", se relacionan las competencias que los aprendices tienen pendientes por evaluar y el instructor que impartió la competencia.',
+            `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaPendientesAprendizHTML || "<em>(A la fecha no se registran competencias pendientes por evaluar para los aprendices de la ficha.)</em>"}</div>`
+          ));
+        }
+        if (incluyeActa("aprendices-listos-productiva")) {
+          desarrolloDetalleReportes.push(bloqueReporteActa(
+            `${romanActa(desarrolloDetalleReportes.length + 1)}. Aprendices listos para ir a etapa productiva.`,
+            'Se listan los aprendices que finalizaron las competencias lectivas y solo tienen pendiente la competencia "RESULTADOS DE APRENDIZAJE ETAPA PRACTICA".',
+            `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaListosProductivaHTML || "<em>Por el momento no hay ningún aprendiz.</em>"}</div>${tablaPorEvaluarMasDe1HTML ? `<div class="tabla-acta-wrap" style="margin-top:12px;"><div style="font-weight:600; margin-bottom:6px;">Aprendices con novedades para ir a etapa productiva</div>${tablaPorEvaluarMasDe1HTML}</div>` : ""}`
+          ));
+        }
+        if (incluyeActa("alternativa-etapa-productiva")) {
+          desarrolloDetalleReportes.push(bloqueReporteActa(
+            `${romanActa(desarrolloDetalleReportes.length + 1)}. Alternativa de etapa productiva.`,
+            'Relación de alternativas definidas para el desarrollo de la etapa productiva, indicando la cantidad de aprendices y sus nombres por cada alternativa.',
+            `<div class="tabla-acta-wrap" style="margin-top:4px;">
+              <table class="tabla-alternativas-productiva acta-table-fit acta-table-18cm" style="width:18cm; max-width:18cm; table-layout:fixed; border-collapse:collapse; margin:0 auto; mso-table-width-alt:18cm; mso-table-lspace:0.5cm; mso-table-rspace:0.5cm; border:1px solid #000; font-size:8pt;">
+                <colgroup><col style="width:9cm;"><col style="width:2cm;"><col style="width:7cm;"></colgroup>
+                <thead><tr><th>Alternativa</th><th>Cantidad</th><th>Nombres</th></tr></thead>
+                <tbody>
+                  <tr><td>CONTRATO DE APRENDIZAJE</td><td></td><td></td></tr>
+                  <tr><td>CONTRATO DE VINCULO FORMATIVO</td><td></td><td></td></tr>
+                  <tr><td>CONTRATO VINCULO LABORAL</td><td></td><td></td></tr>
+                  <tr><td>PROYECTO PRODUCTIVO</td><td></td><td></td></tr>
+                  <tr><td>MONITORIA</td><td></td><td></td></tr>
+                  <tr><td>PRACTICAS EN LA ECONOMIA POPULAR Y/O CAMPESINA</td><td></td><td></td></tr>
+                  <tr><td>NO_REGISTRA</td><td></td><td></td></tr>
+                </tbody>
+              </table>
+            </div>${tablaDetalleAlternativaHTML || "<em>(No se encontraron aprendices activos para detallar alternativa.)</em>"}`
+          ));
+        }
+        if (incluyeActa("cursos-complementarios")) {
+          desarrolloDetalleReportes.push(bloqueReporteActa(
+            `${romanActa(desarrolloDetalleReportes.length + 1)}. Cursos Complementarios`,
+            '',
+            `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCursosComplementariosAprendizHTML || "<em>(Sin aprendices activos para cursos complementarios.)</em>"}</div>${bloqueCursosComplementariosDetalleActaHTML}`
+          ));
+        }
+
+        const desarrolloDetalleAprendicesHTML = desarrolloDetalleReportes.length ? `
+          <div class="acta-bloque">
+            <div class="acta-title2">a. Detalle de aprendices</div>
+            <div class="contenido-item">
+              <div style="font-size:10pt; margin-top:4px;"><strong>Equipo ejecutor Actual:</strong> ${equipoFormacionTexto}</div>
+              <div style="font-size:10pt; margin-top:2px;"><strong>Equipo ejecutor con el que vieron formación:</strong> ${equipoVistoTexto}</div>
+              <div style="margin-bottom:6px;">
+                <div><strong>Etapa lectiva:</strong> ${fechaInicioLectiva} - ${fechaFinLectiva} (Tiempo restante: <span style="color:#1e8a37; font-weight:600;">${tiempoRestanteLectiva}</span>)</div>
+                <div><strong>Etapa productiva:</strong> ${fechaInicioProd} - ${fechaFinProd} (Tiempo restante: <span style="color:#1e8a37; font-weight:600;">${tiempoRestanteProductiva}</span>)</div>
+                <div><strong>Etapa en proceso:</strong> ${etapaEnProceso}</div>
+              </div>
+              Avance promedio del grupo: <span style="font-weight:bold; color:#00324D;">${avancePromedioGrupo}</span>
+              <span style="font-size:9pt;"> Este porcentaje se calcula sobre el total de competencias del programa, que son <span style="font-weight:bold; color:#00324D;">${numCompetencias}</span>, y sobre el total de Resultados de aprendizaje del Diseño Curricular, que son <span style="font-weight:bold; color:#00324D;">${numResultados}</span>.</span><br><br>
+              <span style="font-size:9pt;">Se presenta el consolidado de aprendices por estado académico de la ficha. Total aprendices Matriculados: <span style="font-weight:bold; color:#00324D;">${totalAprendicesEstado}</span>.</span>
+              ${graficoEstadoActaHTML}
+              <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaDetalleAprendicesHTML || "<em>(No se encontró información del detalle de aprendices al momento de generar el acta.)</em>"}</div>
+              ${desarrolloDetalleReportes.join("")}
+            </div>
+          </div>` : "";
+
+        const desarrolloInstructoresManualHTML = incluyeActa("listado-instructores-pendientes-juicio") ? `
+          <div class="acta-bloque">
+            <div class="acta-title2">${letraActa((desarrolloDetalleAprendicesHTML ? 2 : 1))}. Instructores</div>
+            <div class="contenido-item">
+              <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor en formación</div>
+              <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaEquipoFormacionHTML || "<em>(No se encontraron instructores en formación al momento de generar el acta.)</em>"}</div>
+              <div style="font-size:10pt; font-weight:bold;">Equipo ejecutor con el que vieron formación</div>
+              <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaEquipoVistoHTML || "<em>(No se encontraron registros de instructores que hayan impartido al momento de generar el acta.)</em>"}</div>
+              <div style="font-size:9pt;">Asimismo, se relacionan los instructores con las competencias que tienen asignadas y las horas programadas:</div>
+              <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaInstructoresCompetenciasHTML || "<em>(No se encontró información del listado de competencias por instructor al momento de generar el acta.)</em>"}</div>
+              <div class="acta-title3">i. Listado de instructores con aprendices pendientes por emitir juicio.</div>
+              <div style="font-size:9pt;">Se listan los instructores que tienen aprendices con juicios evaluativos pendientes, indicando la competencia, los aprendices asociados y la cantidad de aprendices por competencia.</div>
+              <div class="tabla-acta-wrap" style="margin-top:4px;">${tablaPendientesJuicioHTML || "<em>(No se encontraron instructores con aprendices pendientes por emitir juicio en los reportes cargados.)</em>"}</div>
+            </div>
+          </div>` : "";
+
+        const desarrolloCompetenciasReportes = [];
+        if (incluyeActa("competencias-avance-diseno")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Competencias y % de avance vs diseño.`, '', `${graficoCompetenciasActaHTML}<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCompetenciasHorasHTML || "<em>(No se encontró información del reporte % Competencias con Horas al momento de generar el acta.)</em>"}</div>`));
+        if (incluyeActa("cronograma-gantt")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Cronograma de programación de competencias (Gantt).`, 'Se presenta el cronograma de programación de competencias con los meses en que cada competencia ha sido programada.', `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCronogramaGanttHTML || "<em>(No se encontró información del cronograma Gantt al momento de generar el acta.)</em>"}</div>`));
+        if (incluyeActa("competencias-sobre-ejecutadas")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Competencias sobre ejecutadas.`, 'Se listan únicamente las competencias cuyo porcentaje de ejecución supera el 100 % frente a las horas definidas en el diseño curricular.', `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCompetenciasSobreEjecutadasHTML || "<em>(No se encontraron competencias que superen el 100% en el reporte % Competencias con Horas.)</em>"}</div>`));
+        if (incluyeActa("competencias-pendientes")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Competencias pendientes.`, 'De acuerdo con el reporte "Competencias del Programa (Programada: Sí/No)", se relacionan las competencias sin programación o parcialmente programadas.', `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaCompetenciasProgramadasPendientesHTML || "<em>(No se encontró información del reporte Competencias del Programa al momento de generar el acta.)</em>"}</div>`));
+        if (incluyeActa("competencias-evaluadas-sin-programar")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Competencias Evaluadas sin estar programadas.`, 'Se listan las competencias que presentan resultados de aprendizaje aprobados sin estar programadas en el diseño.', `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaRapsNoProgramadosHTML || "<em>(No se encontró información de competencias evaluadas sin estar programadas al momento de generar el acta.)</em>"}</div>`));
+        if (incluyeActa("competencias-raps-instructor-no-programado")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Competencias y RAPs evaluados por instructor no programado.`, 'Se relacionan los resultados de aprendizaje evaluados por un instructor diferente al programado para esa competencia.', `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaRapsOtroInstructorHTML || "<em>(No se encontraron RAPs evaluados por instructores diferentes al programado.)</em>"}</div>`));
+        if (incluyeActa("raps-por-evaluar")) desarrolloCompetenciasReportes.push(bloqueReporteActa(`${romanActa(desarrolloCompetenciasReportes.length + 1)}. Raps por evaluar.`, 'Se consignan los resultados de aprendizaje que actualmente tienen juicios pendientes y los aprendices vinculados a cada competencia.', `<div class="tabla-acta-wrap" style="margin-top:4px;">${tablaRapsPorEvaluarHTML || "<em>(No se encontró información del reporte Raps por evaluar al momento de generar el acta.)</em>"}</div>`));
+
+        const desarrolloCompetenciasManualHTML = desarrolloCompetenciasReportes.length ? `
+          <div class="acta-bloque">
+            <div class="acta-title2">${letraActa((desarrolloDetalleAprendicesHTML ? 1 : 0) + (desarrolloInstructoresManualHTML ? 1 : 0) + 1)}. Análisis de competencias y resultados de aprendizaje</div>
+            <div class="contenido-item">${desarrolloCompetenciasReportes.join("")}</div>
+          </div>` : "";
+
+        const desarrolloActaHTML = `
+          ${bloqueActa("acta-title1", "1. Verificación del quorum", `
+            Coordinador Académico: <span style="font-weight:bold; color:#00324D;">${coordinadorAcademico}</span><br>
+            Instructor Gerente de Proyecto: <span style="font-weight:bold; color:#00324D;">${instructorGerente}</span><br>
+            Aprendiz Vocero: <span style="font-weight:bold; color:#00324D;">${aprendizVocero}</span><br>
+            Psicóloga de Bienestar:
+          `)}
+          ${bloqueActa("acta-title1", "2. Compromisos del acta anterior (opcional)", `<span style="font-size:9pt; font-style:italic;">(Breve seguimiento de los compromisos previos y su estado actual para facilitar la trazabilidad.)</span>`)}
+          <div class="acta-bloque">
+            <div class="acta-title1">3. Análisis de Grupo (cuantitativa: reportes de aprendices, concepto general del grupo)</div>
+            ${desarrolloDetalleAprendicesHTML}
+            ${desarrolloInstructoresManualHTML}
+            ${desarrolloCompetenciasManualHTML}
+          </div>
+          ${bloqueActa("acta-title1", "4. Análisis de casos especiales", `<span style="font-size:9pt; font-style:italic;">(Resaltar eventos o situaciones de riesgo que requieren atención prioritaria o acompañamientos específicos.)</span>`)}
+          ${bloqueActa("acta-title1", "5. Recomendaciones del comité", `<span style="font-size:9pt; font-style:italic;">(Registrar las acciones sugeridas por el comité para fortalecer resultados, mitigar riesgos y apoyar la estrategia del programa.)</span>`)}
+        `;
+
         let contenidoHTML = `
 <!DOCTYPE html>
 <html xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -16995,17 +17629,25 @@ const colgroup = cloneGantt.querySelector("colgroup");
         page-break-inside: avoid;
         break-inside: avoid-page;
       }
-      .acta-chart-wrap, .tabla-acta-wrap{
+      .acta-chart-wrap{
         page-break-inside: avoid;
         break-inside: avoid-page;
+      }
+      .tabla-acta-wrap{
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+      .tabla-acta-wrap table{
+        page-break-inside: auto;
+        break-inside: auto;
       }
       .acta-section{
         margin-top: 10px;
-        page-break-inside: avoid;
-        break-inside: avoid-page;
+        page-break-inside: auto;
+        break-inside: auto;
       }
       body.modo-word .acta-section + .acta-section{
-        page-break-before: always;
+        page-break-before: auto;
       }
       .acta-section-title{
         text-align:center;
@@ -17013,6 +17655,31 @@ const colgroup = cloneGantt.querySelector("colgroup");
         font-style:italic;
         margin: 10px 0 6px 0;
         page-break-after: avoid;
+      }
+      .desarrollo-acta-contenido{
+        border:0;
+        padding:0;
+        margin:0;
+        page-break-inside:auto;
+        break-inside:auto;
+      }
+      .desarrollo-acta-contenido .lista-acta{
+        margin-top:0;
+      }
+      /* En DESARROLLO no se usan viñetas/listas visibles; se normaliza a títulos de texto. */
+      .desarrollo-acta-contenido ol,
+      .desarrollo-acta-contenido ul{
+        list-style-type:none !important;
+        margin-left:0 !important;
+        padding-left:0 !important;
+      }
+      .desarrollo-acta-contenido li{
+        list-style-type:none !important;
+        margin-left:0 !important;
+        padding-left:0 !important;
+      }
+      table.acta-tabla-continuacion{
+        margin-top:0;
       }
 
 /* Estilos de títulos para DESARROLLO DE LA REUNIÓN (después de normalizar listas) */
@@ -17047,6 +17714,46 @@ const colgroup = cloneGantt.querySelector("colgroup");
         margin-left: 3cm !important; /* 3 sangrías (solo título) */
       }
 
+
+      .acta-principal{
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+      .acta-principal .acta-fila-titulo,
+      .acta-principal .acta-seccion-titulo{
+        page-break-inside: avoid;
+        page-break-after: avoid;
+        break-inside: avoid-page;
+      }
+      .acta-principal .acta-seccion-cuerpo{
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+
+      .acta-agenda,
+      .acta-agenda div,
+      .acta-agenda span{
+        font-size: 12pt !important;
+        line-height: 1.5 !important;
+      }
+
+      .acta-bloque{
+        margin: 0 0 6px 0;
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+      .acta-reporte-bloque{
+        margin: 5px 0 7px 0;
+        page-break-inside: auto;
+        break-inside: auto;
+      }
+      .acta-title1,
+      .acta-title2,
+      .acta-title3,
+      .acta-title4{
+        page-break-after: avoid;
+      }
+
       /* TABLA CON TODOS LOS BORDES */
       table.acta-encabezado {
         width: 100%;
@@ -17057,10 +17764,18 @@ const colgroup = cloneGantt.querySelector("colgroup");
         mso-table-rspace: 0cm;
       }
       table.acta-encabezado,
-      table.acta-encabezado td {
-        border: 1px solid #000000;
+      table.acta-encabezado tr,
+      table.acta-encabezado td,
+      table.acta-encabezado th {
+        border: 1px solid #000000 !important;
+        mso-border-alt: solid windowtext .5pt;
       }
-      table.acta-encabezado td {
+      table.acta-encabezado {
+        border-collapse: collapse !important;
+        border-spacing: 0 !important;
+      }
+      table.acta-encabezado td,
+      table.acta-encabezado th {
         padding: 6px 8px;
         font-size: 9pt;
         vertical-align: top;
@@ -17607,16 +18322,23 @@ const colgroup = cloneGantt.querySelector("colgroup");
 
 
 
-      <!-- ÚNICA TABLA, 4 COLUMNAS, 4 FILAS -->
-      <table class="acta-encabezado">
+      <!-- ÚNICA TABLA DEL ACTA: conservar la estructura del formato Word GOR-F-084 V02 -->
+      <table class="acta-encabezado acta-principal" border="1" cellspacing="0" cellpadding="0" style="width:100%; table-layout:fixed; border-collapse:collapse; border:1px solid #000000; mso-border-alt:solid windowtext .5pt;">
+        <colgroup>
+          <col style="width:27%;">
+          <col style="width:21%;">
+          <col style="width:18%;">
+          <col style="width:17%;">
+          <col style="width:17%;">
+        </colgroup>
         <!-- Fila 1: ACTA No. -->
         <tr>
-          <td class="acta-titulo" colspan="4">ACTA No.</td>
+          <td class="acta-titulo" colspan="5">ACTA No.</td>
         </tr>
 
         <!-- Fila 2: Nombre del comité -->
         <tr>
-          <td colspan="4">
+          <td colspan="5">
             <strong>NOMBRE DEL COMITÉ O DE LA REUNIÓN:</strong>
             Comité de evaluación y seguimiento para el Programa de Formación:
             <span style="font-weight:bold; color:#00324D;">${nombrePrograma}</span>, FICHA:
@@ -17632,88 +18354,43 @@ const colgroup = cloneGantt.querySelector("colgroup");
         <!-- Fila 3: CIUDAD Y FECHA / HORA INICIO / HORA FIN -->
         <tr>
           <td><strong>CIUDAD Y FECHA:</strong></td>
-          <td>
+          <td colspan="2">
             ${ciudad},
             <span style="font-weight:bold; color:#00324D;">${fechaHoy}</span>
           </td>
-          <td><strong>HORA INICIO:</strong></td>
           <td>
+            <strong>HORA INICIO:</strong><br>
             <span style="font-weight:bold; color:#00324D;">${horaInicio}</span>
+          </td>
+          <td>
+            <strong>HORA FIN:</strong><br>
+            <span style="font-weight:bold; color:#00324D;">${horaFin}</span>
           </td>
         </tr>
 
         <!-- Fila 4: LUGAR Y/O ENLACE -->
         <tr>
           <td><strong>LUGAR Y/O ENLACE:</strong></td>
-          <td></td>
-          <td>
-            <strong>REGIONAL TOLIMA</strong><br>
-            <strong>CENTRO: COMERCIO Y SERVICIOS</strong>
+          <td colspan="2">${lugarEnlaceActa}</td>
+          <td colspan="2">
+            <strong>DIRECCIÓN / REGIONAL /<br>CENTRO:</strong><br>
+            REGIONAL TOLIMA<br>
+            CENTRO: COMERCIO Y SERVICIOS
           </td>
-          <td></td>
         </tr>
       <!-- Fila 5: AGENDA O PUNTOS PARA DESARROLLAR -->
       <tr>
-        <td colspan="4">
-                    <strong>AGENDA O PUNTOS PARA DESARROLLAR:</strong>
-          <div class="acta-agenda">
-            <ol type="1" style="margin: 6px 0 0 18px; padding: 0;">
-              <li>Verificación del quorum</li>
-              <li>Compromisos del acta anterior (opcional)</li>
-              <li>Análisis de Grupo (cuantitativa: reportes de aprendices, concepto general del grupo)
-                <ol type="a" style="margin: 4px 0 0 18px; padding: 0;">
-                  <li>Detalle de aprendices
-                    <ol type="i" style="margin: 4px 0 0 18px; padding: 0;">
-                      <li>Porcentaje de avance de aprendices y fallas</li>
-                      <li>Competencias pendientes por evaluar por cada aprendiz.</li>
-                      <li>Aprendices listos para ir a etapa productiva.</li>
-                      <li>Alternativa de etapa productiva.</li>
-                      <li>Cursos Complementarios
-                        <ol type="1" style="margin: 4px 0 0 18px; padding: 0;">
-                          ${isTecnologoActa ? `<li>Cursos Preparatorios para pruebas saber TYT</li>` : ""}
-                          <li>Cursos Habilidades Digitales</li>
-                          <li>Cursos Emprendimiento y Derechos Fundamentales</li>
-                        </ol>
-                      </li>
-                      <li>Calificación cualitativa
-                        <ol type="1" style="margin: 4px 0 0 18px; padding: 0;">
-                          <li>Aspectos comportamentales.</li>
-                          <li>Aspectos académicos.</li>
-                        </ol>
-                      </li>
-                    </ol>
-                  </li>
-                  <li>Instructores
-                    <ol type="i" style="margin: 4px 0 0 18px; padding: 0;">
-                      <li>Listado de instructores con aprendices pendientes por emitir juicio.</li>
-                    </ol>
-                  </li>
-                  <li>Análisis de competencias y resultados de aprendizaje
-                    <ol type="i" style="margin: 4px 0 0 18px; padding: 0;">
-                      <li>Competencias y % de avance vs diseño.</li>
-                      <li>Cronograma de programación de competencias (Gantt).</li>
-                      <li>Competencias sobre ejecutadas.</li>
-                      <li>Competencias pendientes.</li>
-                      <li>Competencias Evaluadas sin estar programadas.</li>
-                      <li>Competencias y RAPs evaluados por instructor no programado.</li>
-                      <li>Raps por evaluar.</li>
-                    </ol>
-                  </li>
-                </ol>
-              </li>
-              <li>Análisis de casos especiales</li>
-              <li>Recomendaciones del comité</li>
-              <li>Conclusiones</li>
-              <li>Compromisos</li>
-              <li>Anexos</li>
-            </ol>
+        <td colspan="5">
+                    <strong style="font-size:12pt; line-height:1.5;">AGENDA O PUNTOS PARA DESARROLLAR:</strong>
+          <div class="acta-agenda" style="margin-top:6px; font-size:12pt; line-height:1.5;">
+            ${agendaActaHTML}
           </div>
         </td>
       </tr>
 
       <!-- Fila 6: OBJETIVO(S) DE LA REUNIÓN -->
       <tr>
-        <td colspan="4">
+        <td colspan="5">
           <strong>OBJETIVO(S) DE LA REUNIÓN:</strong><br>
           Comité de evaluación y seguimiento para el Programa de Formación
           <span style="font-weight:bold; color:#00324D;">${codigoFicha}</span>
@@ -17722,243 +18399,68 @@ const colgroup = cloneGantt.querySelector("colgroup");
       </tr>
             <!-- Fila 7: Título DESARROLLO DE LA REUNIÓN -->
       <tr>
-        <td colspan="4" style="text-align:center; font-weight:bold;">
+        <td colspan="5" class="acta-seccion-titulo" style="text-align:center; font-weight:bold;">
           DESARROLLO DE LA REUNIÓN
         </td>
       </tr>
 
-      <!-- Fila 8: Desarrollo de la reunión -->
       <tr>
-        <td colspan="4">
-          <ol class="lista-acta nivel-1">
-            <li class="titulo-1">
-              Verificación del quorum
-              <div class="contenido-item">
-                Coordinador Académico:
-                <span style="font-weight:bold; color:#00324D;">${coordinadorAcademico}</span><br>
-                Instructor Gerente de Proyecto:
-                <span style="font-weight:bold; color:#00324D;">${instructorGerente}</span><br>
-                Aprendiz Vocero:
-                <span style="font-weight:bold; color:#00324D;">${aprendizVocero}</span><br>
-                Psicóloga de Bienestar:
-              </div>
-            </li>
-            <li class="titulo-1">
-              Compromisos del acta anterior (opcional)
-              <div class="contenido-item" style="margin-top:4px; font-size:9pt; font-style:italic;">
-                (Breve seguimiento de los compromisos previos y su estado actual para facilitar la trazabilidad.)
-              </div>
-            </li>
-            <li class="titulo-1">
-              Análisis de Grupo (cuantitativa: reportes de aprendices, concepto general del grupo)
-              <ol class="lista-acta nivel-2" type="a">
-                <li class="titulo-2">
-                  Detalle de aprendices
-                  <div class="contenido-item">
-                    <div style="font-size:10pt; margin-top:4px;">
-                      <strong>Equipo ejecutor Actual:</strong>
-                      ${equipoFormacionTexto}
-                    </div>
-                    <div style="font-size:10pt; margin-top:2px;">
-                      <strong>Equipo ejecutor con el que vieron formación:</strong>
-                      ${equipoVistoTexto}
-                    </div>
-                    <div style="margin-bottom:6px;">
-                      <div><strong>Etapa lectiva:</strong> ${fechaInicioLectiva} - ${fechaFinLectiva} (Tiempo restante: <span style="color:#1e8a37; font-weight:600;">${tiempoRestanteLectiva}</span>)</div>
-                      <div><strong>Etapa productiva:</strong> ${fechaInicioProd} - ${fechaFinProd} (Tiempo restante: <span style="color:#1e8a37; font-weight:600;">${tiempoRestanteProductiva}</span>)</div>
-                      <div><strong>Etapa en proceso:</strong> ${etapaEnProceso}</div>
-                    </div>
-                    Avance promedio del grupo:
-                    <span style="font-weight:bold; color:#00324D;">${avancePromedioGrupo}</span>
-                    <span style="font-size:9pt;">
-                      Este porcentaje se calcula sobre el total de competencias del programa,
-                      que son
-                      <span style="font-weight:bold; color:#00324D;">${numCompetencias}</span>,
-                      y sobre el total de Resultados de aprendizaje del Diseño Curricular,
-                      que son
-                      <span style="font-weight:bold; color:#00324D;">${numResultados}</span>.
-                    </span><br><br>
-                    <span style="font-size:9pt;">
-                      Se presenta el consolidado de aprendices por estado académico de la ficha.
-                      Total aprendices Matriculados:
-                      <span style="font-weight:bold; color:#00324D;">${totalAprendicesEstado}</span>.
-                    </span>
-                    ${graficoEstadoActaHTML}
-                    <div class="tabla-acta-wrap" style="margin-top:4px;">
-                      ${tablaDetalleAprendicesHTML
-            ? tablaDetalleAprendicesHTML
-            : "<em>(No se encontró información del detalle de aprendices al momento de generar el acta.)</em>"
-          }
-                    </div>
-                  </div>
-                  <ol class="lista-acta nivel-3" type="i">
-                    ${desarrolloPorcentajeHTML}
-                    ${desarrolloCompetenciasPendientesAprendizHTML}
-                    ${desarrolloAprendicesListosHTML}
-                    ${incluyeActa("alternativa-etapa-productiva") ? `
-<li class="titulo-3">
-                      Alternativa de etapa productiva.
-                      <div class="contenido-item">
-                        <p class="subtitulo-seccion">
-                          Relación de alternativas definidas para el desarrollo de la etapa productiva,
-                          indicando la cantidad de aprendices y sus nombres por cada alternativa.
-                        </p>
-                        <div class="tabla-acta-wrap" style="margin-top:4px;">
-                          <table class="tabla-alternativas-productiva acta-table-fit acta-table-18cm" style="width:18cm; max-width:18cm; table-layout:fixed; border-collapse:collapse; margin:0 auto; mso-table-width-alt:18cm; mso-table-lspace:0.5cm; mso-table-rspace:0.5cm; border:1px solid #000; font-size:8pt;">
-                            
-                            <colgroup>
-                              <col style="width:9cm;">
-                              <col style="width:2cm;">
-                              <col style="width:7cm;">
-                            </colgroup>
-<thead>
-                              <tr>
-                                <th style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:8pt;">Alternativa</th>
-                                <th style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:8pt;">Cantidad</th>
-                                <th style="border:1px solid #000; background-color:#e5e7eb; font-weight:bold; text-align:center; padding:4px; font-size:8pt;">Nombres</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">CONTRATO DE APRENDIZAJE</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">CONTRATO DE VINCULO FORMATIVO</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">CONTRATO VINCULO LABORAL</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">PROYECTO PRODUCTIVO</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">MONITORIA</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">PRACTICAS EN LA ECONOMIA POPULAR Y/O CAMPESINA</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                              <tr>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;">NO_REGISTRA</td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                                <td style="border:1px solid #000; padding:4px; font-size:8pt; vertical-align:top;"></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        ${tablaDetalleAlternativaHTML || "<em>(No se encontraron aprendices activos para detallar alternativa.)</em>"}
-                      </div>
-                    </li>
-` : ""}
-
-${incluyeActa("cursos-complementarios") ? `
-<li class="titulo-3">
-                      Cursos Complementarios
-                      <div class="contenido-item" style="padding-left:0;">
-                        ${tablaCursosComplementariosAprendizHTML || "<em>(Sin aprendices activos para cursos complementarios.)</em>"}
-                      </div>
-                      ${bloqueCursosComplementariosDetalleActaHTML}
-                    </li>
-` : ""}
-
-<li class="titulo-3">
-                      Calificación cualitativa
-                      <ol class="lista-acta nivel-4" type="1">
-                        <li class="titulo-4">
-                          Aspectos comportamentales.
-                          <div class="contenido-item" style="font-size:9pt; font-style:italic; margin-top:4px;">
-                            (Observaciones sobre convivencia, disciplina, trabajo colaborativo y liderazgo dentro del grupo.)
-                          </div>
-                        </li>
-                        <li class="titulo-4">
-                          Aspectos académicos.
-                          <div class="contenido-item" style="font-size:9pt; font-style:italic; margin-top:4px;">
-                            (Valoración de desempeño en competencias, evidencias entregadas y procesos pedagógicos de apoyo.)
-                          </div>
-                        </li>
-                      </ol>
-                    </li>
-                  </ol>
-                </li>
-                ${desarrolloInstructoresHTML}
-                ${desarrolloAnalisisCompetenciasHTML}
-
-            <li class="titulo-1">
-              Análisis de casos especiales
-              <div class="contenido-item" style="font-size:9pt; font-style:italic; margin-top:4px;">
-                (Resaltar eventos o situaciones de riesgo que requieren atención prioritaria o acompañamientos específicos.)
-              </div>
-            </li>
-            <li class="titulo-1">
-              Recomendaciones del comité
-              <div class="contenido-item" style="font-size:9pt; font-style:italic; margin-top:4px;">
-                (Registrar las acciones sugeridas por el comité para fortalecer resultados, mitigar riesgos y apoyar la estrategia del programa.)
-              </div>
-            </li>
-          </ol>
+        <td colspan="5" class="acta-seccion-cuerpo" style="vertical-align:top; padding:6px 8px; border:1px solid #000;">
+          <div class="desarrollo-acta-contenido">
+            ${desarrolloActaHTML}
+          </div>
         </td>
       </tr>
 
-<!-- Continuación dentro de la misma tabla acta-encabezado: CONCLUSIONES -->
-      <tr>
-        <td colspan="4" class="acta-titulo" style="text-align:center; font-weight:700; padding:8px; border:1px solid #000;">
+<!-- Continuación del acta dentro de la misma tabla: CONCLUSIONES -->
+      <tr class="acta-fila-titulo">
+        <td colspan="5" class="acta-titulo acta-seccion-titulo" style="text-align:center; font-weight:700; padding:8px; border:1px solid #000;">
           CONCLUSIONES
         </td>
       </tr>
 
       <tr>
-        <td colspan="4" style="height:120px; vertical-align:top; padding:8px; border:1px solid #000;"></td>
+        <td colspan="5" style="height:120px; vertical-align:top; padding:8px; border:1px solid #000;"></td>
       </tr>
 
             <tr>
-  <td colspan="4" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
+  <td colspan="5" class="acta-seccion-titulo" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
     ESTABLECIMIENTO Y ACEPTACIÓN DE COMPROMISOS
   </td>
 </tr>
 <tr>
-  <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center; width:40%;">ACTIVIDAD / DECISIÓN</td>
+  <td colspan="2" style="padding:6px; border:1px solid #000; font-weight:700; text-align:center; width:40%;">ACTIVIDAD / DECISIÓN</td>
   <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center; width:15%;">FECHA</td>
   <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center; width:25%;">RESPONSABLE</td>
   <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center; width:20%;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
 </tr>
 <tr>
-  <td style="height:28px; border:1px solid #000;"></td>
+  <td colspan="2" style="height:28px; border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
 </tr>
 <tr>
-  <td style="height:28px; border:1px solid #000;"></td>
+  <td colspan="2" style="height:28px; border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
 </tr>
 <tr>
-  <td style="height:28px; border:1px solid #000;"></td>
+  <td colspan="2" style="height:28px; border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
 </tr>
 <tr>
-  <td style="height:28px; border:1px solid #000;"></td>
+  <td colspan="2" style="height:28px; border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
 </tr>
 
 <tr>
-  <td colspan="4" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
+  <td colspan="5" style="text-align:center; font-weight:700; padding:6px; border:1px solid #000; background:#f3f4f6;">
     DE: ASISTENTES Y APROBACIÓN DECISIONES
   </td>
 </tr>
@@ -17966,10 +18468,12 @@ ${incluyeActa("cursos-complementarios") ? `
   <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">NOMBRE</td>
   <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">DEPENDENCIA/ EMPRESA</td>
   <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">APRUEBA (SI/NO)</td>
-  <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">OBSERVACIÓN / FIRMA O PARTICIPACIÓN VIRTUAL</td>
+  <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">OBSERVACIÓN</td>
+  <td style="padding:6px; border:1px solid #000; font-weight:700; text-align:center;">FIRMA O PARTICIPACIÓN VIRTUAL</td>
 </tr>
 <tr>
   <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${coordinadorAcademico}</td>
+  <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
@@ -17979,9 +18483,11 @@ ${incluyeActa("cursos-complementarios") ? `
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
+  <td style="border:1px solid #000;"></td>
 </tr>
 <tr>
   <td style="padding:8px; border:1px solid #000; color:#00324D; font-weight:700;">${aprendizVocero}</td>
+  <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
@@ -17991,26 +18497,31 @@ ${incluyeActa("cursos-complementarios") ? `
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
+  <td style="border:1px solid #000;"></td>
 </tr>
 <tr>
   <td style="height:28px; border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
   <td style="border:1px solid #000;"></td>
+  <td style="border:1px solid #000;"></td>
 </tr>
 
 <tr>
-  <td colspan="4" style="border:1px solid #000; padding:8px; text-align:justify; font-size:9pt;">
+  <td colspan="5" style="border:1px solid #000; padding:8px; text-align:justify; font-size:9pt;">
     De acuerdo con La Ley 1581 de 2012, Protección de Datos Personales, el Servicio Nacional de
     Aprendizaje SENA, se compromete a garantizar la seguridad y protección de los datos personales
     que se encuentran almacenados en este documento, y les dará el tratamiento correspondiente en
     cumplimiento de lo establecido legalmente.
   </td>
 </tr>
-<td colspan="4" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
+<tr>
+  <td colspan="5" style="border:1px solid #000; padding:8px; text-align:center; font-weight:bold; height:80px;">
     ANEXOS
     <div style="margin-top:8px;">${anexosHtml}</div>
   </td>
+</tr>
+              </table>
            <!--[if gte mso 9]>
     <div style=\"mso-element:header\" id=\"h1\">
       <p class=\"MsoHeader\" style=\"margin:0; text-align:center;\">
@@ -18021,8 +18532,6 @@ ${incluyeActa("cursos-complementarios") ? `
       <p class=\"MsoFooter\" style=\"margin:0; text-align:center;\"><span style=\"font-size:9pt;\">GOR-F-084V02</span></p>
     </div>
     <![endif]-->
-                </tr>
-              </table>
 
 
 
@@ -18181,8 +18690,77 @@ ${incluyeActa("cursos-complementarios") ? `
             return html;
           }
         }
-        // (Ajuste) Se desactiva normalizarDesarrolloActaSinListas para NO romper el HTML de Word (header/footer).
-        // contenidoHTML = normalizarDesarrolloActaSinListas(contenidoHTML);
+
+        // Refuerzo de bordes para Word: asegura que la parte superior del formato mantenga todas las líneas.
+        function forzarBordesTablaActaPrincipal(html) {
+          try {
+            const doctypeMatch = html.match(/<!DOCTYPE[^>]*>\s*/i);
+            const doctype = doctypeMatch ? doctypeMatch[0] : "";
+            const htmlSinDoctype = doctype ? html.replace(doctype, "") : html;
+            const container = document.createElement("div");
+            container.innerHTML = htmlSinDoctype;
+
+            const tabla = container.querySelector("table.acta-encabezado.acta-principal");
+            if (!tabla) return html;
+
+            const anexarEstilo = (el, reglas) => {
+              const actual = (el.getAttribute("style") || "").trim();
+              const base = actual ? actual.replace(/;\s*$/, "") + "; " : "";
+              el.setAttribute("style", base + reglas);
+            };
+
+            tabla.setAttribute("border", "1");
+            tabla.setAttribute("cellspacing", "0");
+            tabla.setAttribute("cellpadding", "0");
+            anexarEstilo(tabla, "border-collapse:collapse; border-spacing:0; border:1px solid #000000; mso-border-alt:solid windowtext .5pt;");
+
+            tabla.querySelectorAll("tr").forEach(tr => {
+              anexarEstilo(tr, "border:1px solid #000000; mso-border-alt:solid windowtext .5pt;");
+            });
+
+            tabla.querySelectorAll("td, th").forEach(celda => {
+              anexarEstilo(celda, "border:1px solid #000000; mso-border-alt:solid windowtext .5pt; vertical-align:top;");
+            });
+
+            return doctype + container.innerHTML;
+          } catch (e) {
+            console.error("forzarBordesTablaActaPrincipal:", e);
+            return html;
+          }
+        }
+        contenidoHTML = forzarBordesTablaActaPrincipal(contenidoHTML);
+
+        // Convertir el contenido de DESARROLLO a bloques de texto sin viñetas ni listas.
+        contenidoHTML = normalizarDesarrolloActaSinListas(contenidoHTML);
+
+
+        function eliminarListasResidualesActa(html) {
+          try {
+            const doctypeMatch = html.match(/<!DOCTYPE[^>]*>\s*/i);
+            const doctype = doctypeMatch ? doctypeMatch[0] : "";
+            const htmlSinDoctype = doctype ? html.replace(doctype, "") : html;
+            const container = document.createElement("div");
+            container.innerHTML = htmlSinDoctype;
+            container.querySelectorAll("ol, ul").forEach(list => {
+              const div = document.createElement("div");
+              div.className = list.className || "";
+              while (list.firstChild) div.appendChild(list.firstChild);
+              list.replaceWith(div);
+            });
+            container.querySelectorAll("li").forEach(li => {
+              const div = document.createElement("div");
+              div.className = li.className || "";
+              while (li.firstChild) div.appendChild(li.firstChild);
+              li.replaceWith(div);
+            });
+            return doctype + container.innerHTML;
+          } catch (e) {
+            console.error("eliminarListasResidualesActa:", e);
+            return html;
+          }
+        }
+        contenidoHTML = eliminarListasResidualesActa(contenidoHTML);
+        contenidoHTML = forzarBordesTablaActaPrincipal(contenidoHTML);
 
 // Crear y descargar el archivo .doc
         const blob = new Blob(['\ufeff', contenidoHTML], { type: "application/msword" });
@@ -18390,6 +18968,157 @@ ${incluyeActa("cursos-complementarios") ? `
   XLSX.writeFile(wb, `${obtenerNombreArchivoActaComite()}.xlsx`);
 }
 
+
+
+      // =========================
+      // Validación y vista previa del Acta Comité
+      // =========================
+      function obtenerTextoSeguroActa(id) {
+        return (document.getElementById(id)?.textContent || "").toString().trim();
+      }
+
+      function obtenerLabelsReportesActa(seleccionados) {
+        const lista = Array.isArray(seleccionados) ? seleccionados : [];
+        const labels = [];
+        lista.forEach(function(key) {
+          let label = "";
+          const metasActa = (typeof reportesCentroMetadatos !== "undefined" && Array.isArray(reportesCentroMetadatos))
+            ? reportesCentroMetadatos
+            : (Array.isArray(window.reportesCentroMetadatos) ? window.reportesCentroMetadatos : []);
+          if (metasActa.length) {
+            const meta = metasActa.find(function(item) { return item && item.key === key; });
+            label = (meta && (meta.label || meta.excelName || meta.title)) || "";
+          }
+          if (!label) {
+            const input = document.querySelector('[data-reporte-key="' + key + '"]') || document.querySelector('input[value="' + key + '"]');
+            const cont = input ? input.closest('label, .report-card-list, .report-option') : null;
+            label = (cont?.textContent || key).replace(/\s+/g, ' ').trim();
+          }
+          labels.push(label || key);
+        });
+        return labels;
+      }
+
+      function validarDatosBasicosActa(lugarEnlace) {
+        const errores = [];
+        const seleccionados = (typeof obtenerReportesSeleccionadosCentro === "function") ? obtenerReportesSeleccionadosCentro() : [];
+        const esTextoValido = function(valor) {
+          const v = String(valor || "").replace(/\s+/g, " ").trim();
+          return v && !/^(_+|N\/A|0 %|Nombre\s+)/i.test(v);
+        };
+
+        if (!Array.isArray(seleccionados) || seleccionados.length === 0) {
+          errores.push("Debe seleccionar al menos un reporte para incluirlo en el acta.");
+        }
+        if (!esTextoValido(obtenerTextoSeguroActa("codigoFicha"))) {
+          errores.push("No se encontró el código de la ficha. Verifique que los archivos estén cargados y procesados.");
+        }
+        if (!esTextoValido(obtenerTextoSeguroActa("nombrePrograma"))) {
+          errores.push("No se encontró el nombre del programa. Verifique la información de la ficha.");
+        }
+        if (!esTextoValido(obtenerTextoSeguroActa("coordinadorAcademicoHeader"))) {
+          errores.push("Debe seleccionar o confirmar el Coordinador Académico.");
+        }
+        if (!esTextoValido(obtenerTextoSeguroActa("instructorMasHorasHeader"))) {
+          errores.push("Debe confirmar el Instructor Gerente de Proyecto.");
+        }
+        if (!esTextoValido(obtenerTextoSeguroActa("aprendizVoceroHeader"))) {
+          errores.push("Debe seleccionar el Aprendiz Vocero.");
+        }
+        if (lugarEnlace !== undefined && !String(lugarEnlace || "").trim()) {
+          errores.push("Debe diligenciar LUGAR Y/O ENLACE.");
+        }
+        return errores;
+      }
+
+      function mostrarModalValidacionActa(errores) {
+        return new Promise(function(resolve) {
+          const overlay = document.getElementById("actaValidacionOverlay");
+          const lista = document.getElementById("actaValidacionLista");
+          const btn = document.getElementById("btnCerrarValidacionActa");
+          if (!overlay || !lista || !btn) {
+            alert((errores || []).join("\n"));
+            resolve();
+            return;
+          }
+          lista.innerHTML = (errores || []).map(function(e) { return "<li>" + escapeHtml(e) + "</li>"; }).join("");
+          const cerrar = function() {
+            overlay.style.display = "none";
+            btn.removeEventListener("click", cerrar);
+            document.removeEventListener("keydown", tecla);
+            resolve();
+          };
+          const tecla = function(event) {
+            if (event.key === "Escape" || event.key === "Enter") {
+              event.preventDefault();
+              cerrar();
+            }
+          };
+          overlay.style.display = "flex";
+          btn.addEventListener("click", cerrar);
+          document.addEventListener("keydown", tecla);
+          setTimeout(function(){ btn.focus(); }, 80);
+        });
+      }
+
+      function mostrarVistaPreviaActa(lugarEnlace) {
+        return new Promise(function(resolve) {
+          const overlay = document.getElementById("actaPreviewOverlay");
+          const resumen = document.getElementById("actaPreviewResumen");
+          const lista = document.getElementById("actaPreviewReportes");
+          const btnConfirmar = document.getElementById("btnConfirmarPreviewActa");
+          const btnCancelar = document.getElementById("btnCancelarPreviewActa");
+          if (!overlay || !resumen || !lista || !btnConfirmar || !btnCancelar) {
+            resolve(true);
+            return;
+          }
+
+          const seleccionados = (typeof obtenerReportesSeleccionadosCentro === "function") ? obtenerReportesSeleccionadosCentro() : [];
+          const labels = obtenerLabelsReportesActa(seleccionados);
+          const ahora = new Date();
+          const horaFinPreview = ahora.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit", hour12: false });
+          const campos = [
+            ["Ficha", obtenerTextoSeguroActa("codigoFicha")],
+            ["Programa", obtenerTextoSeguroActa("nombrePrograma")],
+            ["Coordinador", obtenerTextoSeguroActa("coordinadorAcademicoHeader")],
+            ["Gerente de Proyecto", obtenerTextoSeguroActa("instructorMasHorasHeader")],
+            ["Aprendiz Vocero", obtenerTextoSeguroActa("aprendizVoceroHeader")],
+            ["Lugar y/o enlace", lugarEnlace],
+            ["Hora fin estimada", horaFinPreview],
+            ["Reportes seleccionados", String(labels.length)]
+          ];
+
+          resumen.innerHTML = campos.map(function(par) {
+            return '<div class="acta-preview-label">' + escapeHtml(par[0]) + '</div>' +
+                   '<div class="acta-preview-value">' + escapeHtml(par[1] || "-") + '</div>';
+          }).join("");
+          lista.innerHTML = labels.length
+            ? labels.map(function(label) { return "<li>" + escapeHtml(label) + "</li>"; }).join("")
+            : "<li>No hay reportes seleccionados.</li>";
+
+          const cerrar = function(valor) {
+            overlay.style.display = "none";
+            btnConfirmar.removeEventListener("click", confirmar);
+            btnCancelar.removeEventListener("click", cancelar);
+            document.removeEventListener("keydown", tecla);
+            resolve(valor);
+          };
+          const confirmar = function() { cerrar(true); };
+          const cancelar = function() { cerrar(false); };
+          const tecla = function(event) {
+            if (event.key === "Escape") {
+              event.preventDefault();
+              cancelar();
+            }
+          };
+          overlay.style.display = "flex";
+          btnConfirmar.addEventListener("click", confirmar);
+          btnCancelar.addEventListener("click", cancelar);
+          document.addEventListener("keydown", tecla);
+          setTimeout(function(){ btnConfirmar.focus(); }, 80);
+        });
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const botonExcel = document.getElementById("btnExportarExcel");
         if (botonExcel) {
@@ -18400,7 +19129,30 @@ ${incluyeActa("cursos-complementarios") ? `
         // NUEVO: botón Acta Comité
         const botonActaComite = document.getElementById("btnActaComite");
         if (botonActaComite) {
-          botonActaComite.addEventListener("click", exportarActaComiteWord);
+          botonActaComite.addEventListener("click", async function () {
+            const erroresIniciales = validarDatosBasicosActa();
+            if (erroresIniciales.length) {
+              await mostrarModalValidacionActa(erroresIniciales);
+              return;
+            }
+
+            const valorAnterior = window.__lugarEnlaceActa || "";
+            const lugarEnlace = await mostrarModalLugarEnlaceActa(valorAnterior);
+            if (lugarEnlace === null) return;
+
+            const lugarLimpio = String(lugarEnlace || "").trim();
+            const erroresFinales = validarDatosBasicosActa(lugarLimpio);
+            if (erroresFinales.length) {
+              await mostrarModalValidacionActa(erroresFinales);
+              return;
+            }
+
+            const confirmado = await mostrarVistaPreviaActa(lugarLimpio);
+            if (!confirmado) return;
+
+            window.__lugarEnlaceActa = lugarLimpio;
+            exportarActaComiteWord(window.__lugarEnlaceActa);
+          });
         } else {
           console.warn("❗ No se encontró el botón con id 'btnActaComite'");
         }
